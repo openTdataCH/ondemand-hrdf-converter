@@ -37,12 +37,14 @@ To run the code you can pass 4 parameters:
 * (--from_folder) if you have the input in a folder then you can provide the folder to read from - if given we ignore
   the url
     * Default: "" (no from_folder)
-* (--to_folder) the folder to write the converted HRDF files to
+* (--to_folder) the folder to write the converted HRDF files to. We assume the folder already exists!
     * Default: "output" - will be created if it does not exist
+* (--keep_output) whether or not to keep the tmp and output folders after code execution
+    * Default: True
 * (--ftp) the parameters of the ftp to upload the data to, a quadruple (URL, User, Password, Path)
     * Default: None
     * IMPORTANT: the URL should contain the protocol (sftp or ftps) and if not default port 21 also the port, e.g., ":
-      33". 
+      33".
     * ALSO: The path is the relative directory path you want the zip to be uploaded to.
     * We do not support the insecure FTP protocol
     * If this parameter is not given the zip file will remain locally
@@ -50,13 +52,13 @@ To run the code you can pass 4 parameters:
 Example if you want to use the defaults :
 
 ```sh
-main.py 
+python main.py 
 ```
 
 Example with parameters:
 
 ```sh
-main.py --offers "Publicar Appenzell" --from_folder "C:\\somewhere\\netex" --to_folder "C:\\somehwere\\hrdf" --ftp "sftp://abc.com:33 user password path"
+python main.py --offers "Publicar Appenzell" --from_folder "C:\\somewhere\\netex" --to_folder "C:\\somehwere\\hrdf" --ftp "sftp://abc.com:33,user,password,path"
 ```
 
 # What the code does

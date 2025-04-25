@@ -74,7 +74,7 @@ def load_and_unzip_from_url(url: str, to_folder: str) -> str:
 
         # if file extension is zip, unzip it
         if file_extension == '.zip':
-            unzip_to_folder(file_path, temp_folder)
+            unzip_to_folder(file_path, to_folder)
             os.remove(file_path)
             print(f"Successfully unzipped file to {to_folder}")
     else:
@@ -142,6 +142,8 @@ def upload_to_ftp(file_path: str, ftp: dict[str, str]):
     from ftplib import FTP_TLS
     import paramiko
 
+    remote_path = ftp['path'] + os.path.basename(file_path)
+
     if ftp['protocol'].lower() == 'ftps':
         # FTPS upload
         try:
@@ -151,7 +153,6 @@ def upload_to_ftp(file_path: str, ftp: dict[str, str]):
             ftps.prot_p()  # Set the data connection to be secure
 
             with open(file_path, 'rb') as file:
-                remote_path = ftp['path']
                 ftps.storbinary(f'STOR {remote_path}', file)
                 print(f"Uploaded '{file_path}' to '{remote_path}' via FTPS.")
 
@@ -168,7 +169,7 @@ def upload_to_ftp(file_path: str, ftp: dict[str, str]):
             sftp = paramiko.SFTPClient.from_transport(transport)
 
             if sftp is not None:
-                sftp.put(file_path, ftp['path'] + os.path.basename(file_path))  # Upload the file
+                sftp.put(file_path, remote_path)  # Upload the file
                 print(f"Uploaded '{file_path}' to '{ftp['path']}' via SFTP.")
                 sftp.close()  # Close the SFTP client
             else:
@@ -614,7 +615,7 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                             polygon_element = flexible_area.find('.//gml:Polygon', namespaces=namespace)
                             polygon = []  # To store coordinates as a list of coordinate tuples
 
-                            if polygon_element:
+                            if polygon_element is not None:
                                 coordinates = polygon_element.findall('.//gml:pos', namespaces=namespace)
 
                                 write_to_hrdf(to_folder, "region",
@@ -710,7 +711,7 @@ def write_as_ac_stops(stop_places, polygon, as_or_ac, to_folder):
 
 
 ######### MAIN functions #############
-def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str], delete_to_folder: bool):
+def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str], keep_output_folder: bool):
     # Initialize HRDF files
     init_hrdf(to_folder)
 
@@ -727,7 +728,7 @@ def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str
         upload_to_ftp(zip_file_path, ftp)
 
     # Clean up
-    if delete_to_folder:
+    if not keep_output_folder:
         remove_directory(to_folder)
         print("Removed the to_folder (and its files)")
     if input_folder:
@@ -754,8 +755,11 @@ if __name__ == '__main__':
                         help='Folder containing the NeTEx data (unzipped!). If empty use URL. Default: empty.',
                         default="")
     parser.add_argument('--to_folder', type=str,
-                        help='Folder to output the HRDF files. Default is "/output"',
+                        help='Folder to output the HRDF files. We assume the folder already exists! Default is "/output"',
                         default="output")
+    parser.add_argument('--keep_output', type=str,
+                        help='Whether or not to keep the output and tmp folders and their files after the process',
+                        default="True")
     parser.add_argument('--ftp', type=str,
                         help='The FTP to upload the zipped HRDF files to, a quadruple of url,user,password,path')
 
@@ -763,7 +767,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # make sure the to_folder exists
-    temporary_to_folder = None
     if not (os.path.exists(args.to_folder) and os.path.isdir(args.to_folder)):
         print(f"to_folder {args.to_folder} does not exist, will create it")
         temporary_to_folder = os.path.join(os.getcwd(), args.to_folder)
@@ -826,12 +829,16 @@ if __name__ == '__main__':
     else:
         print("No FTP was given, will leave the result-ZIP locally.")
 
+    keep_output = True
+
+    if args.keep_output == "":
+        print('Not keeping output')
+    else:
+        keep_output = bool(args.keep_output)
+
     try:
         # Call main function with arguments
-        if temporary_to_folder:
-            main(args.offers, args.from_folder, args.to_folder, args.ftp, True)
-        else:
-            main(args.offers, args.from_folder, args.to_folder, args.ftp, False)
+        main(args.offers, args.from_folder, args.to_folder, args.ftp, keep_output)
     except Exception as e:
         # Raise any exceptions encountered during execution
         raise e
