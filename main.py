@@ -392,7 +392,7 @@ def convert_from_netex(offers: list[str], from_folder: str, to_folder: str) -> s
             flexible_line_id = flexible_line.attrib.get('id')  # Get the ID of the flexible line
             flexible_line_name = flexible_line.find('.//Name', namespaces=namespace).text  # Get the name
 
-            if offers == "" or (flexible_line_name in offers):
+            if len(offers) == 0 or (flexible_line_name in offers):
                 print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
 
                 # INFOTEXT - infotexts for the given flexible line
