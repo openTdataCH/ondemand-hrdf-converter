@@ -36,8 +36,51 @@ week_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
 namespace = {'siri': 'http://www.siri.org.uk/siri', 'gml': 'http://www.opengis.net/gml/3.2',
              '': 'http://www.netex.org.uk/netex'}
 
+INPUT_FOLDER_NAME = "input"
+
+PREVIOUS_FOLDER_NAME = "previous"
+
 
 ######### Auxiliary functions #############
+# move the given file to the given destination folder
+def move_file(file_path: str, destination_folder: str):
+    # Check if the source file exists
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"!ERROR! Source file does not exist: {file_path}")
+
+    # Check if the destination folder exists and is a directory
+    if not os.path.isdir(destination_folder):
+        raise NotADirectoryError(f"!ERROR! Destination folder does not exist: {destination_folder}")
+
+    # Extract the filename from the file path
+    filename = os.path.basename(file_path)
+
+    # Create the full path for the destination file
+    destination_path = os.path.join(destination_folder, filename)
+
+    # Move the file by renaming it
+    os.rename(file_path, destination_path)
+    print(f"File moved successfully from {file_path} to {destination_path}")
+
+
+# get the path to the "previous file" that was transformed. If the folder (and file) does not exist, create folder.
+# return path or None.
+def get_previous_file_name() -> str:
+    previous_folder = os.path.join(os.getcwd(), PREVIOUS_FOLDER_NAME)
+
+    # if previous folder exists and is folder
+    previous_netex_file_name = None
+
+    if os.path.exists(previous_folder) and os.path.isdir(previous_folder):
+        # get the single file in it
+        for filename in os.listdir(previous_folder):
+            previous_netex_file_name = filename  # Get the full file path
+    else:
+        os.makedirs(previous_folder, exist_ok=False)
+
+    return previous_netex_file_name
+
+
 # load the data from the url and put into a tmp folder, if it's a zip, then unzip to tmp folder
 # Return file path
 def load_and_unzip_from_url(url: str) -> str:
@@ -46,11 +89,11 @@ def load_and_unzip_from_url(url: str) -> str:
 
     print(f"[[[[[Loading and unzipping from url {url}")
 
-    temp_folder = os.path.join(os.getcwd(), "tmp")
+    temp_folder = os.path.join(os.getcwd(), INPUT_FOLDER_NAME)
 
     # Create a tmp folder to store and unzip the downloaded data
     os.makedirs(temp_folder, exist_ok=True)
-    print("Created 'tmp' folder (will be removed)")
+    print(f"Created {INPUT_FOLDER_NAME} folder (will be removed)")
 
     # Send a GET request to the URL
     response = requests.get(url, stream=True)
@@ -62,7 +105,7 @@ def load_and_unzip_from_url(url: str) -> str:
             file_name = response.headers['content-disposition'].split("filename=")[1]
             file_extension = os.path.splitext(file_name)[1]
         else:
-            raise ValueError("The response header did not contain the 'content-disposition'")
+            raise ValueError("!ERROR! The response header did not contain the 'content-disposition'")
 
         # Write the file to the tmp folder
         file_path = os.path.join(temp_folder, file_name)
@@ -78,7 +121,7 @@ def load_and_unzip_from_url(url: str) -> str:
             os.remove(file_path)
             print(f"Successfully unzipped file to {temp_folder}")
     else:
-        raise requests.exceptions.HTTPError(f"Failed to download file HTTP-Code: {response.status_code}")
+        raise requests.exceptions.HTTPError(f"!ERROR! Failed to download file HTTP-Code: {response.status_code}")
     print("]]]]]")
 
     return temp_folder
@@ -103,9 +146,9 @@ def remove_directory(directory_path: str):
             # Finally, remove the main directory itself
             os.rmdir(directory_path)
         else:
-            raise NotADirectoryError(f"Directory '{directory_path}' does not exist.")
+            raise NotADirectoryError(f"!ERROR! Directory '{directory_path}' does not exist.")
     except Exception as e:
-        raise NotADirectoryError(f"Error occurred while trying to delete directory: {e}")
+        raise NotADirectoryError(f"!ERROR! Error occurred while trying to delete directory: {e}")
 
 
 # unzips the given zip-file to the given folder
@@ -173,7 +216,7 @@ def upload_to_ftp(file_path: str, ftp: dict[str, str]):
                 print(f"Uploaded '{file_path}' to '{ftp['path']}' via SFTP.")
                 sftp.close()  # Close the SFTP client
             else:
-                raise ConnectionError("Failed to create SFTP client.")
+                raise ConnectionError("!ERROR! Failed to create SFTP client.")
 
             transport.close()
         except Exception as e:
@@ -248,21 +291,25 @@ def binary_to_hex(binary: str) -> str:
 
 
 # writes the content to the given HRDF file in the given folder, if it's valid
-def write_to_hrdf(to_folder: str, hrdf_file: str, content: str):
+def write_to_hrdf(to_folder: str, hrdf_file: str, content: str, append: bool):
     # Check if the hrdf_file is valid
     if hrdf_file in hrdf_files:
-        write_to_file(to_folder, hrdf_file, content)  # Write content to the specified HRDF file
+        write_to_file(to_folder, hrdf_file, content, append)  # Write content to the specified HRDF file
     else:
-        raise ValueError(f"{hrdf_file} is not a known HRDF file.")
+        raise ValueError(f"!ERROR! {hrdf_file} is not a known HRDF file.")
 
 
 # writes the content to the given file in the given folder
-def write_to_file(folder: str, file_name: str, content: str):
+def write_to_file(folder: str, file_name: str, content: str, append: bool):
     # Open the specified file in append mode with UTF-8 encoding
     file_path = folder + "/" + file_name
 
-    with open(file_path, 'a', encoding='utf-8') as file:
-        file.write(content + '\r')  # Write the content followed by a carriage return
+    if append:
+        with open(file_path, 'a', encoding='utf-8') as file:
+            file.write(content + '\r')  # Write the content followed by a carriage return
+    else:
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(content + '\r')  # Write the content followed by a carriage return
 
 
 # checks if point-tuple is in polygon (list of tuples)
@@ -305,7 +352,7 @@ def init_hrdf(to_folder: str):
 
     # Create HRDF files and write headers
     for hrdf_file in hrdf_files:
-        write_to_hrdf(to_folder, hrdf_file, hrdf_files_headers[hrdf_file])
+        write_to_hrdf(to_folder, hrdf_file, hrdf_files_headers[hrdf_file], False)
 
     print("zugart hardcoded")  # Log initialization message
     init_zugart(to_folder)  # Initialize zugart HRDF
@@ -319,205 +366,194 @@ def init_hrdf(to_folder: str):
 # init the hard-coded zugart file
 def init_zugart(to_folder: str):
     # FIXME: This is currently hard coded
-    write_to_hrdf(to_folder, "zugart", "TEL 10   1  DRT      0 T     #104")
-    write_to_hrdf(to_folder, "zugart", "<text>")
-    write_to_hrdf(to_folder, "zugart", "<Deutsch>")
-    write_to_hrdf(to_folder, "zugart", "class6 Bus")
-    write_to_hrdf(to_folder, "zugart", "category104 DRT")
-    write_to_hrdf(to_folder, "zugart", "<Englisch>")
-    write_to_hrdf(to_folder, "zugart", "class6 Bus")
-    write_to_hrdf(to_folder, "zugart", "category104 DRT")
-    write_to_hrdf(to_folder, "zugart", "<Franzoesisch>")
-    write_to_hrdf(to_folder, "zugart", "class6 Bus")
-    write_to_hrdf(to_folder, "zugart", "category104 DRT")
-    write_to_hrdf(to_folder, "zugart", "<Italienisch>")
-    write_to_hrdf(to_folder, "zugart", "class6 Bus")
-    write_to_hrdf(to_folder, "zugart", "category104 DRT")
+    write_to_hrdf(to_folder, "zugart", "TEL 10   1  DRT      0 T     #104", True)
+    write_to_hrdf(to_folder, "zugart", "<text>", True)
+    write_to_hrdf(to_folder, "zugart", "<Deutsch>", True)
+    write_to_hrdf(to_folder, "zugart", "class6 Bus", True)
+    write_to_hrdf(to_folder, "zugart", "category104 DRT", True)
+    write_to_hrdf(to_folder, "zugart", "<Englisch>", True)
+    write_to_hrdf(to_folder, "zugart", "class6 Bus", True)
+    write_to_hrdf(to_folder, "zugart", "category104 DRT", True)
+    write_to_hrdf(to_folder, "zugart", "<Franzoesisch>", True)
+    write_to_hrdf(to_folder, "zugart", "class6 Bus", True)
+    write_to_hrdf(to_folder, "zugart", "category104 DRT", True)
+    write_to_hrdf(to_folder, "zugart", "<Italienisch>", True)
+    write_to_hrdf(to_folder, "zugart", "class6 Bus", True)
+    write_to_hrdf(to_folder, "zugart", "category104 DRT", True)
 
 
 # init the hard-coded attribut file
 def init_attribut(to_folder: str):
     # FIXME: This is currently hard coded
-    write_to_hrdf(to_folder, "attribut", "ZZ 0 050 50")
-    write_to_hrdf(to_folder, "attribut", "# ZZ ZZ ZZ")
-    write_to_hrdf(to_folder, "attribut", "")
-    write_to_hrdf(to_folder, "attribut", "<text>")
-    write_to_hrdf(to_folder, "attribut", "<deu>")
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ")
-    write_to_hrdf(to_folder, "attribut", "<eng>")
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ")
-    write_to_hrdf(to_folder, "attribut", "<fra>")
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ")
-    write_to_hrdf(to_folder, "attribut", "<ita>")
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ")
+    write_to_hrdf(to_folder, "attribut", "ZZ 0 050 50", True)
+    write_to_hrdf(to_folder, "attribut", "# ZZ ZZ ZZ", True)
+    write_to_hrdf(to_folder, "attribut", "", True)
+    write_to_hrdf(to_folder, "attribut", "<text>", True)
+    write_to_hrdf(to_folder, "attribut", "<deu>", True)
+    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
+    write_to_hrdf(to_folder, "attribut", "<eng>", True)
+    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
+    write_to_hrdf(to_folder, "attribut", "<fra>", True)
+    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
+    write_to_hrdf(to_folder, "attribut", "<ita>", True)
+    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
 
 
 ######### NeTEx-handling functions #############
-def convert_from_netex(offers: list[str], from_folder: str, to_folder: str) -> str:
+def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
     global fplan_trip_iterator  # Make the trip iterator accessible globally
 
     print("Loading from NeTEx")  # Log loading message
 
-    netex_file_path = ""
+    tree = xml_etree.parse(netex_file_path)  # Parse the XML file
 
-    # Ensure only one Netex file is present in the folder
-    if len(os.listdir(from_folder)) > 1:
-        raise ValueError("More than one NeTEx file delivered.")
+    root = tree.getroot()  # Get the root element of the parsed XML
 
-    # Iterate through the files in the specified folder
-    for filename in os.listdir(from_folder):
-        netex_file_path = os.path.join(from_folder, filename)  # Get the full file path
+    print("  # Creating BITFELD")  # Log creation message
+    bitfields = create_and_return_bitfields(root, to_folder)  # Create bitfields
 
-        tree = xml_etree.parse(netex_file_path)  # Parse the XML file
+    # Find all FlexibleLine elements, which contain the name and booking info
+    flexible_lines = root.findall('.//FlexibleLine', namespaces=namespace)
 
-        root = tree.getroot()  # Get the root element of the parsed XML
+    # Find all AvailabilityCondition elements, containing time and date validity of a line/service
+    availability_conditions = root.findall('.//AvailabilityCondition', namespaces=namespace)
 
-        print("  # Creating BITFELD")  # Log creation message
-        bitfields = create_and_return_bitfields(root, to_folder)  # Create bitfields
+    # Find all ServiceJourney elements, which serve as join elements between different information
+    service_journeys = root.findall('.//ServiceJourney', namespaces=namespace)
 
-        # Find all FlexibleLine elements, which contain the name and booking info
-        flexible_lines = root.findall('.//FlexibleLine', namespaces=namespace)
+    # Find all StopPlaces
+    stop_places = root.findall('.//StopPlace', namespaces=namespace)
 
-        # Find all AvailabilityCondition elements, containing time and date validity of a line/service
-        availability_conditions = root.findall('.//AvailabilityCondition', namespaces=namespace)
+    # This loop aims at finding unique triples of FlexibleLine + ServiceJourneyPattern + AvailabilityCondition
+    for flexible_line in flexible_lines:
+        flexible_line_id = flexible_line.attrib.get('id')  # Get the ID of the flexible line
+        flexible_line_name = flexible_line.find('.//Name', namespaces=namespace).text  # Get the name
 
-        # Find all ServiceJourney elements, which serve as join elements between different information
-        service_journeys = root.findall('.//ServiceJourney', namespaces=namespace)
+        if len(offers) == 0 or (flexible_line_name in offers):
+            print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
 
-        # Find all StopPlaces
-        stop_places = root.findall('.//StopPlace', namespaces=namespace)
+            # INFOTEXT - infotexts for the given flexible line
+            print("  # Creating INFOTEXT for all services")  # Log creation message
+            infotext_ids = create_and_return_infotexts(
+                flexible_line.findall('.//BookingArrangement', namespaces=namespace), flexible_line_name, to_folder)
 
-        # This loop aims at finding unique triples of FlexibleLine + ServiceJourneyPattern + AvailabilityCondition
-        for flexible_line in flexible_lines:
-            flexible_line_id = flexible_line.attrib.get('id')  # Get the ID of the flexible line
-            flexible_line_name = flexible_line.find('.//Name', namespaces=namespace).text  # Get the name
+            # To store the triples and tuples
+            fplan_triples = []
+            fplan_tuples = []
 
-            if len(offers) == 0 or (flexible_line_name in offers):
-                print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
+            # to store the pseudo stops
+            pseudo_stops = pd.DataFrame()
 
-                # INFOTEXT - infotexts for the given flexible line
-                print("  # Creating INFOTEXT for all services")  # Log creation message
-                infotext_ids = create_and_return_infotexts(
-                    flexible_line.findall('.//BookingArrangement', namespaces=namespace), flexible_line_name, to_folder)
+            # FPLAN processing
+            for service_journey in service_journeys:
+                service_flexible_line_ref = (service_journey.find('.//FlexibleLineRef', namespaces=namespace)
+                                             .attrib.get('ref'))
+                service_availability_condition_ref = service_journey.find('.//AvailabilityConditionRef',
+                                                                          namespaces=namespace).attrib.get('ref')
+                service_journey_pattern_ref = (
+                    service_journey.find('.//ServiceJourneyPatternRef', namespaces=namespace)
+                    .attrib.get('ref'))
 
-                # To store the triples and tuples
-                fplan_triples = []
-                fplan_tuples = []
+                if service_flexible_line_ref == flexible_line_id:
+                    # Check if the fplan triple is new
+                    is_new_triple = True
 
-                # to store the pseudo stops
-                pseudo_stops = pd.DataFrame()
+                    for fplan_triple in fplan_triples:
+                        if (fplan_triple[0] == service_flexible_line_ref and fplan_triple[1] ==
+                                service_availability_condition_ref and fplan_triple[2] ==
+                                service_journey_pattern_ref):
+                            is_new_triple = False  # Mark as not new if already exists
+                            break
 
-                # FPLAN processing
-                for service_journey in service_journeys:
-                    service_flexible_line_ref = (service_journey.find('.//FlexibleLineRef', namespaces=namespace)
-                                                 .attrib.get('ref'))
-                    service_availability_condition_ref = service_journey.find('.//AvailabilityConditionRef',
-                                                                              namespaces=namespace).attrib.get('ref')
-                    service_journey_pattern_ref = (
-                        service_journey.find('.//ServiceJourneyPatternRef', namespaces=namespace)
-                        .attrib.get('ref'))
+                    if not is_new_triple:
+                        continue  # Skip to the next iteration if it's not new
+                    else:
+                        print(
+                            f"  # Creating FPLAN for {service_flexible_line_ref + ' ' + service_availability_condition_ref + ' ' + service_journey_pattern_ref}")
+                        fplan_triples.append([service_flexible_line_ref, service_availability_condition_ref,
+                                              service_journey_pattern_ref])  # Append the new triple
 
-                    if service_flexible_line_ref == flexible_line_id:
-                        # Check if the fplan triple is new
-                        is_new_triple = True
-
-                        for fplan_triple in fplan_triples:
-                            if (fplan_triple[0] == service_flexible_line_ref and fplan_triple[1] ==
-                                    service_availability_condition_ref and fplan_triple[2] ==
+                    # Check if the fplan tuple is new
+                    is_new_tuple = True
+                    if len(fplan_tuples) == 0:
+                        fplan_tuples.append([service_flexible_line_ref, service_journey_pattern_ref])
+                    else:
+                        for fplan_tuple in fplan_tuples:
+                            if (fplan_tuple[0] == service_flexible_line_ref and fplan_tuple[1] ==
                                     service_journey_pattern_ref):
-                                is_new_triple = False  # Mark as not new if already exists
+                                is_new_tuple = False  # Mark as not new if already exists
                                 break
 
-                        if not is_new_triple:
-                            continue  # Skip to the next iteration if it's not new
-                        else:
-                            print(
-                                f"  # Creating FPLAN for {service_flexible_line_ref + ' ' + service_availability_condition_ref + ' ' + service_journey_pattern_ref}")
-                            fplan_triples.append([service_flexible_line_ref, service_availability_condition_ref,
-                                                  service_journey_pattern_ref])  # Append the new triple
+                    if is_new_tuple:
+                        fplan_tuples.append(
+                            [service_flexible_line_ref, service_journey_pattern_ref])  # Append new tuple
 
-                        # Check if the fplan tuple is new
-                        is_new_tuple = True
-                        if len(fplan_tuples) == 0:
-                            fplan_tuples.append([service_flexible_line_ref, service_journey_pattern_ref])
-                        else:
-                            for fplan_tuple in fplan_tuples:
-                                if (fplan_tuple[0] == service_flexible_line_ref and fplan_tuple[1] ==
-                                        service_journey_pattern_ref):
-                                    is_new_tuple = False  # Mark as not new if already exists
-                                    break
+                        print(f"    ## Creating BAHNHOF for {service_journey_pattern_ref}")  # Log creation message
+                        pseudo_stops = create_and_return_bahnhof(flexible_line_name +
+                                                                 " " + service_journey_pattern_ref.rsplit(':', 1)[
+                                                                     -1],
+                                                                 to_folder)
+                        print("    ## Creating REGION")  # Log creation message
+                        create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_places, root,
+                                                  to_folder)
 
-                        if is_new_tuple:
-                            fplan_tuples.append(
-                                [service_flexible_line_ref, service_journey_pattern_ref])  # Append new tuple
+                    for availability_condition in availability_conditions:
+                        availability_condition_id = availability_condition.attrib.get('id')
+                        availability_condition_from = availability_condition.find('.//StartTime',
+                                                                                  namespaces=namespace).text
+                        availability_condition_to = availability_condition.find('.//EndTime',
+                                                                                namespaces=namespace).text
+                        availability_condition_bits = availability_condition.find('.//ValidDayBits',
+                                                                                  namespaces=namespace).text
 
-                            print(f"    ## Creating BAHNHOF for {service_journey_pattern_ref}")  # Log creation message
-                            pseudo_stops = create_and_return_bahnhof(flexible_line_name +
-                                                                     " " + service_journey_pattern_ref.rsplit(':', 1)[
-                                                                         -1],
-                                                                     to_folder)
-                            print("    ## Creating REGION")  # Log creation message
-                            create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_places, root,
-                                                      to_folder)
+                        if service_availability_condition_ref == availability_condition_id:
+                            for i in [0, 2, 4]:
+                                fplan_trip_iterator = (fplan_trip_iterator + 1)
 
-                        for availability_condition in availability_conditions:
-                            availability_condition_id = availability_condition.attrib.get('id')
-                            availability_condition_from = availability_condition.find('.//StartTime',
-                                                                                      namespaces=namespace).text
-                            availability_condition_to = availability_condition.find('.//EndTime',
-                                                                                    namespaces=namespace).text
-                            availability_condition_bits = availability_condition.find('.//ValidDayBits',
-                                                                                      namespaces=namespace).text
+                                ## FPLAN - comment
+                                write_to_hrdf(to_folder, "fplan", "% " + flexible_line_name + " " +
+                                              service_journey_pattern_ref.rsplit(':', 1)[-1] + " " +
+                                              hrdf_stop_types[i], True)
+                                write_to_hrdf(to_folder, "fplan", "% " + availability_condition_from[:-3] + "-"
+                                              + availability_condition_to[:-3] + " Uhr", True)
 
-                            if service_availability_condition_ref == availability_condition_id:
-                                for i in [0, 2, 4]:
-                                    fplan_trip_iterator = (fplan_trip_iterator + 1)
+                                ## FPLAN - journey
+                                prefixed_iterator = prefix_with_zeros(fplan_trip_iterator, 6)
+                                time_difference = prefix_with_zeros(
+                                    time_difference_in_minutes(availability_condition_from,
+                                                               availability_condition_to),
+                                    4)
+                                write_to_hrdf(to_folder, "fplan", "*T " + prefixed_iterator + " " + "AST___"
+                                              + " " + str(time_difference) + " " + "0060", True)
 
-                                    ## FPLAN - comment
-                                    write_to_hrdf(to_folder, "fplan", "% " + flexible_line_name + " " +
-                                                  service_journey_pattern_ref.rsplit(':', 1)[-1] + " " +
-                                                  hrdf_stop_types[i])
-                                    write_to_hrdf(to_folder, "fplan", "% " + availability_condition_from[:-3] + "-"
-                                                  + availability_condition_to[:-3] + " Uhr")
+                                ## FPLAN - bitfield/cal
+                                bitfeld_reference = bitfields["bitfield_id"][
+                                    bitfields["bitfield_bit"] == availability_condition_bits].iloc[0]
 
-                                    ## FPLAN - journey
-                                    prefixed_iterator = prefix_with_zeros(fplan_trip_iterator, 6)
-                                    time_difference = prefix_with_zeros(
-                                        time_difference_in_minutes(availability_condition_from,
-                                                                   availability_condition_to),
-                                        4)
-                                    write_to_hrdf(to_folder, "fplan", "*T " + prefixed_iterator + " " + "AST___"
-                                                  + " " + str(time_difference) + " " + "0060")
+                                write_to_hrdf(to_folder, "fplan", "*A VE                 " + str(bitfeld_reference),
+                                              True)
+                                write_to_hrdf(to_folder, "fplan", "*G TEL", True)
 
-                                    ## FPLAN - bitfield/cal
-                                    bitfeld_reference = bitfields["bitfield_id"][
-                                        bitfields["bitfield_bit"] == availability_condition_bits].iloc[0]
+                                # FPLAN/INFOTEXT - infotexts
+                                write_to_hrdf(to_folder, "fplan", "*A ZZ", True)
+                                for info_text_id in infotext_ids:
+                                    write_to_hrdf(to_folder, "fplan", "*I ZZ                        " +
+                                                  str(info_text_id), True)
 
-                                    write_to_hrdf(to_folder, "fplan", "*A VE                 " + str(bitfeld_reference))
-                                    write_to_hrdf(to_folder, "fplan", "*G TEL")
+                                # FPLAN - start/stop pseudo stop: only react to the starts and add also ends
+                                write_to_hrdf(to_folder, "fplan", pseudo_stops["pseudo_stop_id"][
+                                    pseudo_stops["pseudo_stop_type"] == hrdf_stop_types[i]].iloc[0] + " " +
+                                              hrdf_stop_types[i] + "                          " +
+                                              time_to_compact_time(availability_condition_from), True)
 
-                                    # FPLAN/INFOTEXT - infotexts
-                                    write_to_hrdf(to_folder, "fplan", "*A ZZ")
-                                    for info_text_id in infotext_ids:
-                                        write_to_hrdf(to_folder, "fplan", "*I ZZ                        " +
-                                                      str(info_text_id))
+                                write_to_hrdf(to_folder, "fplan", pseudo_stops["pseudo_stop_id"][
+                                    pseudo_stops["pseudo_stop_type"] == hrdf_stop_types[i + 1]].iloc[0] + " " +
+                                              hrdf_stop_types[i + 1] + "                   " +
+                                              time_to_compact_time(availability_condition_from), True)
 
-                                    # FPLAN - start/stop pseudo stop: only react to the starts and add also ends
-                                    write_to_hrdf(to_folder, "fplan", pseudo_stops["pseudo_stop_id"][
-                                        pseudo_stops["pseudo_stop_type"] == hrdf_stop_types[i]].iloc[0] + " " +
-                                                  hrdf_stop_types[i] + "                          " +
-                                                  time_to_compact_time(availability_condition_from))
-
-                                    write_to_hrdf(to_folder, "fplan", pseudo_stops["pseudo_stop_id"][
-                                        pseudo_stops["pseudo_stop_type"] == hrdf_stop_types[i + 1]].iloc[0] + " " +
-                                                  hrdf_stop_types[i + 1] + "                   " +
-                                                  time_to_compact_time(availability_condition_from))
-
-                                    write_to_hrdf(to_folder, "fplan", "")  # Newline
-            else:
-                print(f"Not loading: {flexible_line_name}")
-
-    return netex_file_path
+                                write_to_hrdf(to_folder, "fplan", "", True)  # Newline
+        else:
+            print(f"Not loading: {flexible_line_name}")
 
 
 def create_and_return_bitfields(root, to_folder):
@@ -532,7 +568,7 @@ def create_and_return_bitfields(root, to_folder):
 
         if len(bitfields) == 0:
             # Write the new bitfield if none exist
-            write_to_hrdf(to_folder, "bitfeld", str(bitfeld_starting_number) + " " + hex_of_bitfield)
+            write_to_hrdf(to_folder, "bitfeld", str(bitfeld_starting_number) + " " + hex_of_bitfield, True)
 
             bitfields.loc[len(bitfields)] = [bitfeld_starting_number, hex_of_bitfield, validDayBit.text]
         else:
@@ -548,7 +584,7 @@ def create_and_return_bitfields(root, to_folder):
             if not existed:
                 bitfeld_starting_number += 1  # Increment the starting number
                 bitfields.loc[len(bitfields)] = [bitfeld_starting_number, hex_of_bitfield, validDayBit.text]
-                write_to_hrdf(to_folder, "bitfeld", str(bitfeld_starting_number) + " " + hex_of_bitfield)
+                write_to_hrdf(to_folder, "bitfeld", str(bitfeld_starting_number) + " " + hex_of_bitfield, True)
 
     return bitfields  # Return the DataFrame of bitfields
 
@@ -557,18 +593,18 @@ def create_and_return_infotexts(booking_arrangements, flexible_line_name, to_fol
     global infotext_id  # Make the infotext ID accessible globally
     infotext_ids = []  # Initialize list to store infotext IDs
 
-    write_to_hrdf(to_folder, "infotext", "% " + flexible_line_name)  # Write header for infotext
+    write_to_hrdf(to_folder, "infotext", "% " + flexible_line_name, True)  # Write header for infotext
 
     for booking_arrangement in booking_arrangements:
         infotext_id += 1  # Increment infotext ID
 
         booking_note = booking_arrangement.find('.//BookingNote', namespaces=namespace)  # Get booking note
 
-        write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text)  # Write infotext
+        write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text, True)  # Write infotext
 
         infotext_ids.append(infotext_id)  # Append ID to the list
 
-    write_to_hrdf(to_folder, "infotext", "")  # Newline
+    write_to_hrdf(to_folder, "infotext", "", True)  # Newline
 
     return infotext_ids  # Return the list of infotext IDs
 
@@ -581,8 +617,8 @@ def create_and_return_bahnhof(flexible_line_name, to_folder):
 
     for hrdf_stop_type in hrdf_stop_types:
         # Write the pseudo stop information to the bahnhof file
-        write_to_hrdf(to_folder, "bahnhof",
-                      str(pseudo_stop_id) + "     " + flexible_line_name + " " + hrdf_stop_type)
+        write_to_hrdf(to_folder, "bahnhof", str(pseudo_stop_id) + "     " + flexible_line_name + " " + hrdf_stop_type,
+                      True)
 
         pseudo_stops.loc[len(pseudo_stops)] = [flexible_line_name, str(pseudo_stop_id), hrdf_stop_type]
 
@@ -623,9 +659,9 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                 coordinates = polygon_element.findall('.//gml:pos', namespaces=namespace)
 
                                 write_to_hrdf(to_folder, "region",
-                                              "*R " + prefix_with_zeros(region_id, 8) + " " + name.text)
-                                write_to_hrdf(to_folder, "region", "*C 0")
-                                write_to_hrdf(to_folder, "region", "*P +")
+                                              "*R " + prefix_with_zeros(region_id, 8) + " " + name.text, True)
+                                write_to_hrdf(to_folder, "region", "*C 0", True)
+                                write_to_hrdf(to_folder, "region", "*P +", True)
                                 region_id += 1  # Increment the region ID
 
                                 first_coordinate = True
@@ -641,48 +677,50 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                         for index, row in pseudo_stops.iterrows():
                                             write_to_hrdf(to_folder, "bfkoord", row["pseudo_stop_id"] +
                                                           "  " + coordinate.text + "  " + "% " +
-                                                          row["flexible_line_name"] + " " + row["pseudo_stop_type"])
+                                                          row["flexible_line_name"] + " " + row["pseudo_stop_type"],
+                                                          True)
 
-                                        write_to_hrdf(to_folder, "bfkoord", "")  # Newline
-                                        write_to_hrdf(to_folder, "bfkoord", "")  # Newline
+                                        write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
+                                        write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
 
                                         print("    ## Creating BHFART")  # Log creation message
                                         for index, row in pseudo_stops.iterrows():
                                             write_to_hrdf(to_folder, "bhfart", row["pseudo_stop_id"] + " " +
                                                           "B" + "  " + "7" + "  " + "0" + " " +
-                                                          row["flexible_line_name"] + " " + row["pseudo_stop_type"])
+                                                          row["flexible_line_name"] + " " + row["pseudo_stop_type"],
+                                                          True)
                                             write_to_hrdf(to_folder, "bhfart", row["pseudo_stop_id"] + " " +
                                                           "P" + " " + "% " + row["flexible_line_name"] + " " +
-                                                          row["pseudo_stop_type"])
+                                                          row["pseudo_stop_type"], True)
                                             write_to_hrdf(to_folder, "bhfart", row["pseudo_stop_id"] + " " +
                                                           "E" + " " + "T" + " " + "% " + row["flexible_line_name"] + " "
-                                                          + row["pseudo_stop_type"])
-                                        write_to_hrdf(to_folder, "bhfart", "")  # Newline
+                                                          + row["pseudo_stop_type"], True)
+                                        write_to_hrdf(to_folder, "bhfart", "", True)  # Newline
 
                                         first_coordinate = False
 
-                                    write_to_hrdf(to_folder, "region",
-                                                  coordinate.text)  # Write coordinate to region file
+                                    write_to_hrdf(to_folder, "region", coordinate.text,
+                                                  True)  # Write coordinate to region file
 
-                                write_to_hrdf(to_folder, "region", "")  # Newline
+                                write_to_hrdf(to_folder, "region", "", True)  # Newline
 
                                 for index, row in pseudo_stops.iterrows():
-                                    write_to_hrdf(to_folder, "region", "*" + row["pseudo_stop_type"])
-                                    write_to_hrdf(to_folder, "region", "*IS")
+                                    write_to_hrdf(to_folder, "region", "*" + row["pseudo_stop_type"], True)
+                                    write_to_hrdf(to_folder, "region", "*IS", True)
                                     if row["pseudo_stop_type"] != "SDS" and row["pseudo_stop_type"] != "SSD":
-                                        write_to_hrdf(to_folder, "region", "*BAS")
+                                        write_to_hrdf(to_folder, "region", "*BAS", True)
                                     write_to_hrdf(to_folder, "region",
-                                                  row["pseudo_stop_id"] + " " + "% " + row["flexible_line_name"])
+                                                  row["pseudo_stop_id"] + " " + "% " + row["flexible_line_name"], True)
 
-                                write_to_hrdf(to_folder, "region", "")  # Newline
+                                write_to_hrdf(to_folder, "region", "", True)  # Newline
 
                                 # To decide what to write in *AS and *AC, iterate the stops and do a point-in-polygon test
                                 # TODO: This is a workaround and needs to be fixed!
                                 write_as_ac_stops(stop_places, polygon, "*AS", to_folder)
-                                write_to_hrdf(to_folder, "region", "")  # Newline
+                                write_to_hrdf(to_folder, "region", "", True)  # Newline
 
                                 write_as_ac_stops(stop_places, polygon, "*AC", to_folder)
-                                write_to_hrdf(to_folder, "region", "")  # Newline
+                                write_to_hrdf(to_folder, "region", "", True)  # Newline
 
                             else:
                                 print(f"## {name.text} had no polygons")  # Log missing polygons message
@@ -706,12 +744,12 @@ def write_as_ac_stops(stop_places, polygon, as_or_ac, to_folder):
 
             if is_in_polygon:
                 if first_stop_place:
-                    write_to_hrdf(to_folder, "region", as_or_ac)  # Write the header for AS or AC
+                    write_to_hrdf(to_folder, "region", as_or_ac, True)  # Write the header for AS or AC
                     first_stop_place = False  # Mark that the first stop place has been processed
 
                 # Write stop ID and name to the region file
-                write_to_hrdf(to_folder, "region", stop_id + " " + "% " + name)
-                write_to_hrdf(to_folder, "bhfart", stop_id + " " + "P" + " " + "% " + name)  # Write to bhfart
+                write_to_hrdf(to_folder, "region", stop_id + " " + "% " + name, True)
+                write_to_hrdf(to_folder, "bhfart", stop_id + " " + "P" + " " + "% " + name, True)  # Write to bhfart
 
 
 ######### MAIN functions #############
@@ -719,34 +757,65 @@ def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str
     # Initialize HRDF files
     init_hrdf(to_folder)
 
-    # Convert based on the specified format
-    netex_file_path = convert_from_netex(offers, from_folder, to_folder)
+    # if existent get the previous netex file, otherwise only create the "previous folder"
+    previous_netex_file_name = get_previous_file_name()
 
-    # remove the netex file from the output/to_folder folder.
-    if os.path.isfile(netex_file_path):
-        os.remove(netex_file_path)
-    else:
-        print(f"Was not a file path: {netex_file_path}")
+    # extract the netex file from the given folder
+    netex_file_path = None
+    netex_file_name = None
 
-    # zip the results to a file
-    zip_file_name = str(date.today()) + "_hrdf_odv.zip"
-    zip_file_path = os.path.join(os.getcwd(), zip_file_name)
-    zip_folder(to_folder, zip_file_path)
+    # Ensure only one Netex file is present in the folder
+    if len(os.listdir(from_folder)) > 1:
+        raise ValueError("!ERROR! More than one NeTEx file delivered.")
 
-    # upload to ftp
-    if ftp:
-        upload_to_ftp(zip_file_path, ftp)
+    # Iterate through the files in the specified folder (to actually get the single netex file path
+    for netex_file_name in os.listdir(from_folder):
+        netex_file_path = os.path.join(from_folder, netex_file_name)  # Get the full file path
 
-    # Clean up
-    if not keep_output_folder:
-        remove_directory(to_folder)
-        print("Removed the to_folder (and its files)")
-    if input_folder is not None:
-        remove_directory(input_folder)
-        print("Removed the tmp folder (and its files)")
-    if ftp is not None and os.path.isfile(zip_file_path):
-        os.remove(zip_file_path)
-        print("Removed zip file")
+    if netex_file_path is not None and netex_file_name is not None:
+        if previous_netex_file_name != netex_file_name:
+            # Convert based on the specified format
+            convert_from_netex(offers, netex_file_path, to_folder)
+
+            # remove the netex file from the output/to_folder folder.
+            if os.path.isfile(netex_file_path):
+                # move the new file to the previous folder, and, if given, delete the old previous
+                if previous_netex_file_name is not None:
+                    os.remove(os.path.join(os.path.join(os.getcwd(), PREVIOUS_FOLDER_NAME), previous_netex_file_name))
+                else:
+                    move_file(netex_file_path, os.path.join(os.getcwd(), PREVIOUS_FOLDER_NAME))
+            else:
+                raise FileNotFoundError(f"!ERROR! Was not a file path: {netex_file_path}")
+
+            # zip the results to a file
+            zip_file_name = str(date.today()) + "_hrdf_odv.zip"
+            zip_file_path = os.path.join(os.getcwd(), zip_file_name)
+            zip_folder(to_folder, zip_file_path)
+
+            # upload to ftp
+            if ftp:
+                upload_to_ftp(zip_file_path, ftp)
+
+            # Clean up
+            if not keep_output_folder:
+                remove_directory(to_folder)
+                print("Removed the to_folder (and its files)")
+            if input_folder is not None:
+                remove_directory(input_folder)
+                print("Removed the tmp folder (and its files)")
+            if ftp is not None and os.path.isfile(zip_file_path):
+                os.remove(zip_file_path)
+                print("Removed zip file")
+        else:
+            print("WARNING: Already loaded the given NeTEx file")
+
+            # Clean up
+            if not keep_output_folder:
+                remove_directory(to_folder)
+                print("Removed the to_folder (and its files)")
+            if input_folder is not None:
+                remove_directory(input_folder)
+                print("Removed the tmp folder (and its files)")
 
 
 if __name__ == '__main__':
@@ -754,21 +823,24 @@ if __name__ == '__main__':
 
     # Set up the argument parser
     parser = argparse.ArgumentParser(
-        description='Convert a Swiss GTFS Flex or NeTEx file(s) with On-Demand data to HRDF for On-Demand')
+        description='Convert Swiss NeTEx file with On-Demand data to HRDF for On-Demand. If not given, creates an input, '
+                    'output, and previous folder. The previous folder contains the previously transformed file.'
+                    'Only exports if file has change. Input (if not given) folder is deleted in any case.')
     parser.add_argument('--offers', type=str,
                         help='List of offers to include separated with ",". Default: all offers.',
                         default="")
     parser.add_argument('--from_url', type=str,
-                        help='The URL to load the NeTEx data from (can handle ZIPs). Will create folder tmp!',
+                        help='The URL to load the NeTEx data from (can handle ZIPs). Will create folder input!',
                         default="https://data.opentransportdata.swiss/dataset/netex_tt_odv/permalink")
     parser.add_argument('--from_folder', type=str,
-                        help='Folder containing the NeTEx data (unzipped!). If empty use URL (with tmp folder). Default: empty.',
+                        help='Folder containing the NeTEx data (unzipped!). If empty use URL (with input folder). '
+                             'Delete folder if created automatically (file can be found in previous). Default: empty.',
                         default="")
     parser.add_argument('--to_folder', type=str,
                         help='Folder to output the HRDF files. We assume the folder already exists! Default is "/output"',
                         default="output")
     parser.add_argument('--keep_output', type=str,
-                        help='Whether or not to keep the output and tmp folders and their files after the process',
+                        help='Whether or not to keep the output folder and its files after the process. Previous is always kept',
                         default="True")
     parser.add_argument('--ftp', type=str,
                         help='The FTP to upload the zipped HRDF files to, a quadruple of url,user,password,path')
