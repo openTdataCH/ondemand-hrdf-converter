@@ -1,9 +1,14 @@
 import os  # Import the os module for interacting with the operating system
+
 import xml.etree.ElementTree as xml_etree  # Import xml.etree.ElementTree for XML parsing
+
 from datetime import timedelta, date  # Import datetime and timedelta for handling date and time
+
 from typing import List, Tuple, Union  # for functions' parameter typing
 
 import pandas as pd  # Import pandas for data manipulation and analysis
+
+import shutil # for moving files
 
 # Declare an iterator to iterate through journeys/trips in fplan
 fplan_trip_iterator = 0
@@ -59,7 +64,7 @@ def move_file(file_path: str, destination_folder: str):
     destination_path = os.path.join(destination_folder, filename)
 
     # Move the file by renaming it
-    os.rename(file_path, destination_path)
+    shutil.move(file_path, destination_path)
     print(f"File moved successfully from {file_path} to {destination_path}")
 
 
