@@ -5,6 +5,7 @@ hrdf_odv/
 netex/
 bitcoder.py
 .idea/
+output/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

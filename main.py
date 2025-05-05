@@ -38,9 +38,9 @@ namespace = {'siri': 'http://www.siri.org.uk/siri', 'gml': 'http://www.opengis.n
 
 
 ######### Auxiliary functions #############
-# load the data from the url and put into a tmp folder, if it's a zip, then unzip to_folder
+# load the data from the url and put into a tmp folder, if it's a zip, then unzip to tmp folder
 # Return file path
-def load_and_unzip_from_url(url: str, to_folder: str) -> str:
+def load_and_unzip_from_url(url: str) -> str:
     import requests
     import os
 
@@ -74,9 +74,9 @@ def load_and_unzip_from_url(url: str, to_folder: str) -> str:
 
         # if file extension is zip, unzip it
         if file_extension == '.zip':
-            unzip_to_folder(file_path, to_folder)
+            unzip_to_folder(file_path, temp_folder)
             os.remove(file_path)
-            print(f"Successfully unzipped file to {to_folder}")
+            print(f"Successfully unzipped file to {temp_folder}")
     else:
         raise requests.exceptions.HTTPError(f"Failed to download file HTTP-Code: {response.status_code}")
     print("]]]]]")
@@ -353,10 +353,12 @@ def init_attribut(to_folder: str):
 
 
 ######### NeTEx-handling functions #############
-def convert_from_netex(offers, from_folder, to_folder):
+def convert_from_netex(offers: list[str], from_folder: str, to_folder: str) -> str:
     global fplan_trip_iterator  # Make the trip iterator accessible globally
 
     print("Loading from NeTEx")  # Log loading message
+
+    netex_file_path = ""
 
     # Ensure only one Netex file is present in the folder
     if len(os.listdir(from_folder)) > 1:
@@ -390,7 +392,7 @@ def convert_from_netex(offers, from_folder, to_folder):
             flexible_line_id = flexible_line.attrib.get('id')  # Get the ID of the flexible line
             flexible_line_name = flexible_line.find('.//Name', namespaces=namespace).text  # Get the name
 
-            if offers == "" or (flexible_line_name in offers):
+            if len(offers) == 0 or (flexible_line_name in offers):
                 print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
 
                 # INFOTEXT - infotexts for the given flexible line
@@ -514,6 +516,8 @@ def convert_from_netex(offers, from_folder, to_folder):
                                     write_to_hrdf(to_folder, "fplan", "")  # Newline
             else:
                 print(f"Not loading: {flexible_line_name}")
+
+    return netex_file_path
 
 
 def create_and_return_bitfields(root, to_folder):
@@ -716,7 +720,13 @@ def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str
     init_hrdf(to_folder)
 
     # Convert based on the specified format
-    convert_from_netex(offers, from_folder, to_folder)
+    netex_file_path = convert_from_netex(offers, from_folder, to_folder)
+
+    # remove the netex file from the output/to_folder folder.
+    if os.path.isfile(netex_file_path):
+        os.remove(netex_file_path)
+    else:
+        print(f"Was not a file path: {netex_file_path}")
 
     # zip the results to a file
     zip_file_name = str(date.today()) + "_hrdf_odv.zip"
@@ -731,10 +741,10 @@ def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str
     if not keep_output_folder:
         remove_directory(to_folder)
         print("Removed the to_folder (and its files)")
-    if input_folder:
+    if input_folder is not None:
         remove_directory(input_folder)
         print("Removed the tmp folder (and its files)")
-    if ftp and zip_file_path:
+    if ftp is not None and os.path.isfile(zip_file_path):
         os.remove(zip_file_path)
         print("Removed zip file")
 
@@ -752,7 +762,7 @@ if __name__ == '__main__':
                         help='The URL to load the NeTEx data from (can handle ZIPs). Will create folder tmp!',
                         default="https://data.opentransportdata.swiss/dataset/netex_tt_odv/permalink")
     parser.add_argument('--from_folder', type=str,
-                        help='Folder containing the NeTEx data (unzipped!). If empty use URL. Default: empty.',
+                        help='Folder containing the NeTEx data (unzipped!). If empty use URL (with tmp folder). Default: empty.',
                         default="")
     parser.add_argument('--to_folder', type=str,
                         help='Folder to output the HRDF files. We assume the folder already exists! Default is "/output"',
@@ -777,11 +787,12 @@ if __name__ == '__main__':
     input_folder = None
     if args.from_folder == "":
         print(f'Downloading NeTEx file from URL: {args.from_url}')
-        input_folder = args.from_folder = load_and_unzip_from_url(args.from_url, args.to_folder)
+        input_folder = args.from_folder = load_and_unzip_from_url(args.from_url)
 
     # parse the offers into a list of strings
     if args.offers == "":
         print('Converting all offers')
+        args.offers = []
     else:
         if isinstance(args.offers, str):  # Ensure args.offers is a string
             flattened_offers = [x.strip() for x in args.offers.split(',')]
