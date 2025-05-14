@@ -787,8 +787,8 @@ def main(offers: list[str], from_folder: str, to_folder: str, ftp: dict[str, str
                 # move the new file to the previous folder, and, if given, delete the old previous
                 if previous_netex_file_name is not None:
                     os.remove(os.path.join(os.path.join(os.getcwd(), PREVIOUS_FOLDER_NAME), previous_netex_file_name))
-                else:
-                    move_file(netex_file_path, os.path.join(os.getcwd(), PREVIOUS_FOLDER_NAME))
+
+                move_file(netex_file_path, os.path.join(os.getcwd(), PREVIOUS_FOLDER_NAME))
             else:
                 raise FileNotFoundError(f"!ERROR! Was not a file path: {netex_file_path}")
 
