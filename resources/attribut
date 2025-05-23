@@ -1,0 +1,432 @@
+*F 09 1
+1  0   1  5
+2  0   1  6
+AR 0   2  2
+AW 0   4  6
+B  0   4  4
+BA 3   0  0
+BE 0   0  0
+BH 3   2  2
+BK 0   2  2
+BL 0   0  0
+BR 0   3  1
+BU 0   2  2
+BZ 0   4  7
+DS 0   1  9
+DZ 0   1  9
+FA 0   4  6
+FL 0   2  7
+FS 0   4  7
+FW 0   4  6
+FZ 0   4  6
+GK 0   4  5
+GL 0   6  2
+GN 0   6  1
+GP 0   1  1
+GR 0   6  3
+HL 0   0  0
+HN 0   6  5
+HT 0   4  6
+KB 0   0  0
+MP 0   2  7
+NF 0   0  0
+P  0   1  4
+PA 0   4  5
+PG 0   4  6
+PH 0   0  0
+PL 0   8  4
+PR 0   4  5
+R  0   8  1
+RE 0   7  1
+RR 0   2  2
+RT 0   2  5
+RZ 0   4  8
+SB 0   2  1
+SC 0   2  5
+SD 2   0  2
+SM 1   0  2
+SN 0   7  3
+SV 0   1  9
+TA 1   3  5
+TD 0   2  2
+TG 0   3  1
+TS 0   1  1
+TT 0   1  1
+TX 0   0  0
+VA 2   0  2
+VB 0   6  5
+VI 0   6  5
+VK 0   6  5
+VN 0   6  5
+VR 0   6  6
+VT 0   6  5
+WR 0   1  4
+WS 0   2  4
+WV 0   5  9
+X  3   0  1
+XR 3   0  7
+Y  0   5  5
+YB 0   5  5
+YM 0   5  5
+Z  0   2  3
+ZM 0   1  5
+# 1  1  1
+# 2  2  2
+# AR AR AR
+# AW AW AW
+# B  B  B
+# BA BA BA
+# BE BE BE
+# BH BH BH
+# BK BK BK
+# BL BL BL
+# BR BR BR
+# BU BU BU
+# BZ BZ BZ
+# DS DS DS
+# DZ DZ DZ
+# FA FA FA
+# FL FL FL
+# FS FS FS
+# FW FW FW
+# FZ FZ FZ
+# GK GK GK
+# GL GL GL
+# GN GN GN
+# GP GP GP
+# GR GR GR
+# HL HL HL
+# HN HN HN
+# HT HT HT
+# KB KB KB
+# MP MP MP
+# NF NF NF
+# P  P  P
+# PA PA PA
+# PG PG PG
+# PH PH PH
+# PL PL PL
+# PR PR PR
+# R  R  R
+# RE RE RE
+# RR RR RR
+# RT RT RT
+# RZ RZ RZ
+# SB SB SB
+# SC SC SC
+# SD SD SD
+# SM SM SM
+# SN SN SN
+# SV SV SV
+# TA TA TA
+# TD TD TD
+# TG TG TG
+# TS TS TS
+# TT TT TT
+# TX TX TX
+# VA VA VA
+# VB VB VB
+# VI VI VI
+# VK VK VK
+# VN VN VN
+# VR VR VR
+# VT VT VT
+# WR WR WR
+# WS WS WS
+# WV WV WV
+# X  X  X
+# XR XR XR
+# Y  Y  Y
+# YB YB YB
+# YM YM YM
+# Z  Z  Z
+# ZM ZM ZM
+<text>
+<deu>
+1  Nur 1. Klasse
+2  Nur 2. Klasse
+AR Abfahrtszeiten sind Richtzeiten
+AW Offene Aussichtswagen
+B  Bar
+BA Fahrplanänderung
+BE Bahnersatz
+BH Bedarfshalt nur auf telefonische Voranmeldung
+BK Billettkauf im Zug möglich (mit Zuschlag)
+BL GEPÄCK : Transport eingeschränkt
+BR BUS: Weitere Busse auf Anfrage
+BU BUSINESS 1ÈRE: Zugang nur mit Reservierung
+BZ Businesszone in 1. Klasse
+DS Dampfschiff
+DZ Dampfzug
+FA Familienwagen mit Spielplatz
+FL Zug mit mehreren Zielen: Bitte Anschriften am Zug beachten
+FS Gratis-Internet mit der App SBB FreeSurf
+FW Fotoabteil mit senkbaren Fenstern für Aussenaufnahmen
+FZ Familienzone ohne Spielplatz
+GK Zollkontrolle möglich, mehr Zeit einrechnen
+GL GRUPPEN: Beförderung eingeschränkt
+GN GRUPPEN: Beförderung nicht möglich
+GP Globalpreis
+GR GRUPPEN: Reservierung obligatorisch
+HL Integrierter Hublift ohne Voranmeldung vom Fahrer bedienbar
+HN Hunde können nicht mitgeführt werden
+HT Zug ohne Klimaanlage
+KB Kleinbus
+MP Minibar / Snack
+NF Niederflureinstieg
+P  Premium Class
+PA Panoramawagen
+PG Spielzone
+PH Kein Niederflur
+PL Beschränktes Platzangebot
+PR Führt reservierungspflichtige Panoramawagen
+R  Platzreservierung möglich
+RE Platzreservierung empfohlen
+RR Platzreservierung obligatorisch
+RT Reservierung: siehe www.öv-info.ch
+RZ Ruhezone in 1. Klasse
+SB Spezialbillette
+SC 1. Klasse Service am Platz
+SD Halt nur zum Aussteigen
+SM Halt nur zum Einsteigen
+SN Cateringzone / Automaten
+SV Schienenersatzverkehr
+TA Türen schliessen zwei Minuten vor Abfahrt
+TD Abfahrt ab dem Taxistand
+TG OHNE GEWÄHR: siehe www.öv-info.ch
+TS Zusatzzug
+TT Neigezug
+TX Taxi oder Kleinbus
+VA Bitte vorne im Zug aussteigen
+VB VELOS: Platzzahl eingeschränkt
+VI VELOS: Beförderung nur im internationalen Verkehr
+VK VELOS: Billett beim lokalen Transportunternehmen kaufen
+VN VELOS: Keine Beförderung möglich
+VR VELOS: Reservierung obligatorisch
+VT VELOS: Keine Beförderung von verpackten Velos
+WR Restaurant
+WS Bistro
+WV WLAN Hotspot verfügbar
+X  Halt auf Verlangen
+XR Obligatorische Voranmeldung via app oder Telefon
+Y  Zu Fuss
+YB Zu Fuss und Bus
+YM Zu Fuss und Metro
+Z  Zuschlagspflichtig
+ZM Möglicherweise nur 2. Klasse
+<fra>
+1  Seulement 1re classe
+2  Seulement 2e classe
+AR Les heures de départ sont à titre indicatif
+AW Voiture panoramique à ciel ouvert
+B  Bar
+BA Horaire modifié
+BE Service de substitution
+BH Arrêt uniquement sur annonce préalable téléphonique
+BK Vente des billets dans le train (avec supplément)
+BL BAGAGES : transport limité
+BR BUS: Autres bus sur demande
+BU BUSINESS 1ÈRE : Accès uniquement avec réservation
+BZ Espace affaires en 1re classe
+DS Bateau à vapeur
+DZ Train à vapeur
+FA Voiture-familles avec aire de jeux
+FL Train à destin. multiples: veuillez observer l'affichage des véhicules
+FS Connexion Internet gratuite avec l'app FreeSurf CFF
+FW Compartiment photo avec fenêtres abaissables pour les photos en ext.
+FZ Espace familles sans aire de jeux
+GK Contrôle douanier possible, prévoir davantage de temps
+GL GROUPES: transport limité
+GN GROUPES: transport non autorisé
+GP Prix global
+GR GROUPES: réservation obligatoire
+HL Lift intégré commandé par le chauffeur sans préannonce
+HN Les chiens ne sont pas admis à bord
+HT Train non climatisé
+KB Minibus
+MP Minibar / Snack
+NF Accès à plancher surbaissé
+P  Premium Class
+PA Voiture panoramique
+PG Zone avec aire de jeux
+PH Accès avec marche
+PL Nombre de places limité
+PR Voiture-panoramique: réservation obligatoire
+R  Réservation de place possible
+RE Réservation de place recommandée
+RR Réservation de place obligatoire
+RT Réservation: voir www.tp-info.ch
+RZ Espace silence en 1re classe
+SB Billets spéciaux
+SC Service à la place en 1re classe
+SD Arrêt seulement pour laisser descendre
+SM Arrêt seulement pour laisser monter
+SN Zone catering / Distributeur
+SV Service de remplacement par bus
+TA Les portes se ferment deux minutes avant le départ
+TD Départ de la station des taxis
+TG SANS AUCUNE GARANTIE: voir www.tp-info.ch
+TS Train supplémentaire
+TT Train pendulaire
+TX Taxi ou Minibus
+VA Sortir à l'avant du train s'il vous plaît
+VB VELOS: Nombre de places limité
+VI VELOS: Transport uniquement en trafic international
+VK VELOS: Billet à acheter auprès de l'entreprise de transport locale
+VN VELOS: Pas de transport possible
+VR VELOS: Réservation obligatoire
+VT VELOS: Pas de transport de vélos emballés
+WR Restaurant
+WS Bistro
+WV WiFi Hotspot disponible
+X  Arrêt sur demande
+XR Annonce obligatoire via app ou par téléphone
+Y  A pied
+YB A pied et en bus
+YM A pied et en métro
+Z  Avec supplément
+ZM Peut-être seulement de 2e classe
+<ita>
+1  Solo 1a classe
+2  Solo 2a classe
+AR Gli orari di partenza sono indicativi
+AW Carrozze panoramiche aperte
+B  Bar
+BA Modifica d'orario
+BE Servizio sostitutivo
+BH Fermata solo con prenotazione telefonica
+BK Vendita di biglietti sul treno (con supplemento)
+BL BAGAGLIO : trasporto limitato
+BR BUS: Altri bus su richiesta
+BU BUSINESS 1ÈRE: Accesso solo con prenotazione
+BZ Zona business in 1a classe
+DS Battello a vapore
+DZ Treno a vapore
+FA Carrozza famiglia con compartimento giochi
+FL Treno a più destinazioni: vedi indicazioni sulle carrozze
+FS Connessione Internet gratuita con l'app FreeSurf FFS
+FW Scompartimento fotografico con finestre abbassabili per scatti all'ap.
+FZ Zona famiglia senza compartimento giochi
+GK Possibile controllo doganale, prevedere più tempo
+GL GRUPPI: trasporto limitato
+GN GRUPPI: trasporto non autorizzato
+GP Prezzo globale
+GR GRUPPI: prenotazione obbligatoria
+HL Ascensore integrato azionabile dal conducente senza preavviso
+HN  I cani non sono ammessi a bordo
+HT Treno senza climatizzazione
+KB Minibus
+MP Minibar / Snack
+NF Accesso a pianale ribassato
+P  Premium Class
+PA Carrozza panoramica
+PG Zona con compartimento giochi
+PH Accesso con gradino
+PL Numero di posti limitato
+PR Carrozza panoramica: prenotazione obbligatoria
+R  Prenotazione del posto possibile
+RE Prenotazione del posto raccomandata
+RR Prenotazione del posto obbligatoria
+RT Prenotazione: vedere www.tp-info.ch
+RZ Zona silenzio in 1a classe
+SB Biglietti speciale
+SC Servizio al posto in 1a classe
+SD Fermata solo per scendere
+SM Fermata solo per salire
+SN Zona catering / Distributore
+SV Servizio sostitutivo
+TA Le porte si chiudono due minuti prima della partenza
+TD Partenza dal parcheggio dei taxi
+TG SENZA GARANZIA: vedere www.tp-info.ch
+TS Treno supplementare
+TT Treno pendolare
+TX Taxi oppure Minibus
+VA Si prega di scendere in testa del treno
+VB BICICLETTE: numero limitato di posti
+VI BICICLETTE: trasporto soltanto nel traffico internazionale
+VK BICICLETTE: acquistare il biglietto presso l'impresa di trasporto loc.
+VN BICICLETTE: trasporto non possibile
+VR BICICLETTE: prenotazione obbligatoria
+VT BICICLETTE: nessun trasporto di biciclette imballate
+WR Ristorante
+WS Bistro
+WV Hotspot WiFi disponibile
+X  Fermata su richiesta
+XR Annuncio obbligatorio via app o telefono
+Y  A piedi
+YB A piedi e in bus
+YM A piedi e in metropolitana
+Z  Soggetto a supplemento
+ZM Forse solo di 2a classe
+<eng>
+1  1st class only
+2  2nd class only
+AR Departure times are indicative
+AW Open panoramic cars
+B  Bar
+BA Updated timetable
+BE Rail replacement service
+BH Stopps only on previous demand (telephone)
+BK Buy your ticket on the train (with supplement)
+BL BAGGAGE : restricted transportation
+BR BUS: Other buses on request
+BU BUSINESS 1ÈRE: Access only with reservation
+BZ Business zone in 1st class
+DS Steamer
+DZ Steam train
+FA Family Coach with play area
+FL Train with multiple destinations: Pls. observe indications on coaches
+FS Free Internet with the SBB FreeSurf app
+FW Photo compartment with lowerable windows for outdoor shots
+FZ Family zone without play area
+GK Possible customs check, please allow extra time
+GL GROUPS: transport limited
+GN GROUPS: transport not admitted
+GP Overall price
+GR GROUPS: reservation compulsory
+HL Integrated lift operable by driver without advance notice
+HN Dogs are not permitted on board
+HT Train without air conditioning
+KB Minibus
+MP Minibar / Snack
+NF Low-floor access
+P  Premium Class
+PA Panorama coach
+PG Playground area
+PH Access with step
+PL Limited number of seats
+PR Panorama coach: reservation compulsory
+R  Place reservation possible
+RE Place reservation recommended
+RR Mandatory place reservation
+RT Reservation: see www.öv-info.ch
+RZ Quiet zone in 1st class
+SB Special fare
+SC Service at seat in 1st class
+SD Alighting only
+SM Boarding only
+SN Catering zone / Vending machine
+SV Rail replacement service
+TA Doors close two minutes before departure
+TD Departure from the taxi stand
+TG WITHOUT ANY GUARANTEE: see www.öv-info.ch
+TS Additional train
+TT Tilting train
+TX Taxi or Minibus
+VA Exit in front of train please
+VB BICYCLES: Limited number of places
+VI BICYCLES: Carriage on international services only
+VK BICYCLES: Buy ticket from local transport operator
+VN BICYCLES: Carriage not possible
+VR BICYCLES: Reservation required
+VT BICYCLES: No carriage of packaged bicycles
+WR Restaurant
+WS Bistro
+WV WiFi Hotspot available
+X  Stop on request
+XR Obligatory registration by app or phone
+Y  Walk
+YB Walk and bus
+YM Walk and underground
+Z  Subject to surcharge
+ZM Possibly only 2nd class compartments

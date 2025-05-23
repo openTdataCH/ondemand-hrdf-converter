@@ -1,14 +1,11 @@
 import os  # Import the os module for interacting with the operating system
-
+import shutil  # for moving files
 import xml.etree.ElementTree as xml_etree  # Import xml.etree.ElementTree for XML parsing
-
-from datetime import timedelta, date  # Import datetime and timedelta for handling date and time
-
+from datetime import timedelta, date, datetime  # Import datetime and timedelta for handling date and time
 from typing import List, Tuple, Union  # for functions' parameter typing
+from xml.etree.ElementTree import ElementTree, Element
 
 import pandas as pd  # Import pandas for data manipulation and analysis
-
-import shutil # for moving files
 
 # Declare an iterator to iterate through journeys/trips in fplan
 fplan_trip_iterator = 0
@@ -32,7 +29,8 @@ info_text_ids = [str]
 hrdf_stop_types = ['SSI', 'SDI', 'SSS', 'SDS', 'SSD', 'SDD']
 
 # List of HRDF file names
-hrdf_files = ["fplan", "zugart", "attribut", "infotext", "region", "bahnhof", "bfkoord", "bhfart", "bitfeld"]
+hrdf_files = ["fplan", "zugart", "attribut", "infotext", "region", "bahnhof", "bfkoord", "bhfart", "bitfeld",
+              "eckdaten"]
 
 # Days of the week
 week_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
@@ -41,12 +39,17 @@ week_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
 namespace = {'siri': 'http://www.siri.org.uk/siri', 'gml': 'http://www.opengis.net/gml/3.2',
              '': 'http://www.netex.org.uk/netex'}
 
+# Folder names
 INPUT_FOLDER_NAME = "input"
-
 PREVIOUS_FOLDER_NAME = "previous"
 
 
 ######### Auxiliary functions #############
+# empty check
+def is_nan_or_empty(value: str) -> bool:
+    return value is None or pd.isna(value) or value == ""
+
+
 # move the given file to the given destination folder
 def move_file(file_path: str, destination_folder: str):
     # Check if the source file exists
@@ -66,6 +69,13 @@ def move_file(file_path: str, destination_folder: str):
     # Move the file by renaming it
     shutil.move(file_path, destination_path)
     print(f"File moved successfully from {file_path} to {destination_path}")
+
+
+# copy file from to path
+def copy_file(source_path: str, destination_path: str):
+    shutil.copy(source_path, destination_path)
+
+    print(f"File copied from {source_path} to {destination_path}.")
 
 
 # get the path to the "previous file" that was transformed. If the folder (and file) does not exist, create folder.
@@ -269,6 +279,17 @@ def time_to_compact_time(time: str) -> str:
     return time  # Return the compact time string
 
 
+# transform the netex 2024-12-15T00:00:00 to hrdf 15.12.2024
+def netex_date_to_hrdf_date(date_str):
+    # Parse the date string into a datetime object
+    date_object = datetime.fromisoformat(date_str)
+
+    # Format the datetime object to the desired format
+    formatted_date = date_object.strftime("%d.%m.%Y")
+
+    return formatted_date
+
+
 # takes an int or str and prefixes its absolute value with "0" until length is reached
 def prefix_with_zeros(value_to_prefix: Union[int, str], length: int) -> str:
     # Ensure value_to_prefix is positive and convert to string
@@ -288,11 +309,17 @@ def prefix_with_zeros(value_to_prefix: Union[int, str], length: int) -> str:
 
 # converts an integer string to its hex representation
 def binary_to_hex(binary: str) -> str:
-    # Convert binary to integer
-    integer_value = int(binary, 2)
+    # Convert binary to integer - add the prefixing 11 as per requirements for HRDF
+    integer_value = int("11" + binary, 2)
+
+    # Convert integer to hexadecimal string, removing the '0x' prefix
+    hex_value = hex(integer_value)[2:]  # Get hex representation without '0x'
+
+    # Convert to uppercase
+    hex_value = hex_value.upper()
 
     # Convert integer to hex string and return it
-    return str(hex(integer_value))
+    return hex_value
 
 
 # writes the content to the given HRDF file in the given folder, if it's valid
@@ -352,17 +379,18 @@ def init_hrdf(to_folder: str):
         "bahnhof": "*F 01 1",
         "bfkoord": "*F 02 1",
         "bhfart": "*F 30 1",
-        "bitfeld": "*F 05 1"
+        "bitfeld": "*F 05 1",
+        "eckdaten": "*F 04 1"
     }
 
     # Create HRDF files and write headers
     for hrdf_file in hrdf_files:
         write_to_hrdf(to_folder, hrdf_file, hrdf_files_headers[hrdf_file], False)
 
-    print("zugart hardcoded")  # Log initialization message
+    print("zugart hardcoded")
     init_zugart(to_folder)  # Initialize zugart HRDF
 
-    print("attribut hardcoded")  # Log initialization message
+    print("attribut recycled (originally from hrdf export 23.05.2025)")
     init_attribut(to_folder)  # Initialize attribut HRDF
 
     print("HRDF files initiated")  # Log completion message
@@ -387,21 +415,10 @@ def init_zugart(to_folder: str):
     write_to_hrdf(to_folder, "zugart", "category104 DRT", True)
 
 
-# init the hard-coded attribut file
+# init the attribut by copying it to the to_folder from the resources.
+# we use the pre-loaded attribut file in the resources folder, which originates from the HRDF-export (23.05.2025)
 def init_attribut(to_folder: str):
-    # FIXME: This is currently hard coded
-    write_to_hrdf(to_folder, "attribut", "ZZ 0 050 50", True)
-    write_to_hrdf(to_folder, "attribut", "# ZZ ZZ ZZ", True)
-    write_to_hrdf(to_folder, "attribut", "", True)
-    write_to_hrdf(to_folder, "attribut", "<text>", True)
-    write_to_hrdf(to_folder, "attribut", "<deu>", True)
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
-    write_to_hrdf(to_folder, "attribut", "<eng>", True)
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
-    write_to_hrdf(to_folder, "attribut", "<fra>", True)
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
-    write_to_hrdf(to_folder, "attribut", "<ita>", True)
-    write_to_hrdf(to_folder, "attribut", "ZZ $IZZ", True)
+    copy_file("resources/attribut", to_folder + "/attribut")
 
 
 ######### NeTEx-handling functions #############
@@ -413,6 +430,9 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
     tree = xml_etree.parse(netex_file_path)  # Parse the XML file
 
     root = tree.getroot()  # Get the root element of the parsed XML
+
+    print("  # Creating ECKDATEN")  # Log creation message
+    create_eckdaten(root, to_folder)
 
     print("  # Creating BITFELD")  # Log creation message
     bitfields = create_and_return_bitfields(root, to_folder)  # Create bitfields
@@ -437,10 +457,16 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
         if len(offers) == 0 or (flexible_line_name in offers):
             print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
 
+            # the booking arrangements (CURRENTLY!) contain the attribut values
+            # -> FIXME: after changes to netex-odv. Then BookingArr. are "real" infotext and attributs are in "Notes"!
+            # ATTRIBUT - attributes for the given flexible line, these are aligned with the official "hints"
+            booking_arrangements = flexible_line.findall('.//BookingArrangement', namespaces=namespace)
+
+            attribute_codes = return_attribute_codes(booking_arrangements)
+
             # INFOTEXT - infotexts for the given flexible line
-            print("  # Creating INFOTEXT for all services")  # Log creation message
-            infotext_ids = create_and_return_infotexts(
-                flexible_line.findall('.//BookingArrangement', namespaces=namespace), flexible_line_name, to_folder)
+            print("  # Creating INFOTEXT")  # Log creation message
+            infotext_ids = create_and_return_infotexts(booking_arrangements, flexible_line_name, to_folder)
 
             # To store the triples and tuples
             fplan_triples = []
@@ -539,8 +565,11 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
                                               True)
                                 write_to_hrdf(to_folder, "fplan", "*G TEL", True)
 
+                                # FPLAN/ATTRIBUT - attributes
+                                for attribute_code in attribute_codes:
+                                    write_to_hrdf(to_folder, "fplan", "*A " + attribute_code, True)
+
                                 # FPLAN/INFOTEXT - infotexts
-                                write_to_hrdf(to_folder, "fplan", "*A ZZ", True)
                                 for info_text_id in infotext_ids:
                                     write_to_hrdf(to_folder, "fplan", "*I ZZ                        " +
                                                   str(info_text_id), True)
@@ -561,7 +590,23 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
             print(f"Not loading: {flexible_line_name}")
 
 
-def create_and_return_bitfields(root, to_folder):
+def create_eckdaten(root: ElementTree, to_folder: str):
+    validity_period = root.find('.//CompositeFrame//ValidBetween', namespaces=namespace)
+
+    from_date_netex = validity_period.find('.//FromDate', namespaces=namespace).text
+    from_date = netex_date_to_hrdf_date(from_date_netex)
+
+    to_date_netex = validity_period.find('.//ToDate', namespaces=namespace).text
+    to_date = netex_date_to_hrdf_date(to_date_netex)
+
+    year = to_date[to_date.rfind(".") + 1:]
+
+    write_to_hrdf(to_folder, "eckdaten", from_date + " Fahrplanstart", True)
+    write_to_hrdf(to_folder, "eckdaten", to_date + " Fahrplanende", True)
+    write_to_hrdf(to_folder, "eckdaten", "\"Angebotsplan " + year + "\"", True)
+
+
+def create_and_return_bitfields(root: ElementTree, to_folder: str):
     global bitfeld_starting_number  # Make the starting number accessible globally
 
     bitfields = pd.DataFrame(columns=["bitfield_id", "bitfield_hex", "bitfield_bit"])  # Initialize DataFrame
@@ -594,20 +639,56 @@ def create_and_return_bitfields(root, to_folder):
     return bitfields  # Return the DataFrame of bitfields
 
 
-def create_and_return_infotexts(booking_arrangements, flexible_line_name, to_folder):
+# We extract only the ATTRIBUT code from the id of the booking arrangements
+# (see the FIXME mentioned above, this needs fixing using NeTEx "Notes")
+def return_attribute_codes(booking_arrangements: list[Element]) -> list[str]:
+    codes = []
+
+    for booking_arrangement in booking_arrangements:
+        # extract the attribut/hint code from the id
+        booking_arrangement_id = booking_arrangement.attrib.get('id')
+
+        code = extract_attribute_code_from_id(booking_arrangement_id)
+
+        if not is_nan_or_empty(code):
+            codes.append(code)
+
+    return codes
+
+# extract the attribute code from a given id string
+def extract_attribute_code_from_id(id: str) -> str:
+    if not is_nan_or_empty(id):
+        last_part = id.split(":")[-1]
+
+        if not is_nan_or_empty(last_part):
+            code = last_part.split("_")[0]
+
+            if not is_nan_or_empty(code):
+                return code
+
+    return ""
+
+
+def create_and_return_infotexts(booking_arrangements: list[Element], flexible_line_name: str, to_folder: str) -> list[
+    str]:
     global infotext_id  # Make the infotext ID accessible globally
     infotext_ids = []  # Initialize list to store infotext IDs
 
     write_to_hrdf(to_folder, "infotext", "% " + flexible_line_name, True)  # Write header for infotext
 
     for booking_arrangement in booking_arrangements:
-        infotext_id += 1  # Increment infotext ID
+        # fixme: after the attribut codes have been moved this check may no longer be required
+        # extract the attribut/hint code from the id
+        booking_arrangement_id = booking_arrangement.attrib.get('id')
+        code = extract_attribute_code_from_id(booking_arrangement_id)
+        if is_nan_or_empty(code):
+            infotext_id += 1  # Increment infotext ID
 
-        booking_note = booking_arrangement.find('.//BookingNote', namespaces=namespace)  # Get booking note
+            booking_note = booking_arrangement.find('.//BookingNote', namespaces=namespace)  # Get booking note
 
-        write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text, True)  # Write infotext
+            write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text, True)  # Write infotext
 
-        infotext_ids.append(infotext_id)  # Append ID to the list
+            infotext_ids.append(infotext_id)  # Append ID to the list
 
     write_to_hrdf(to_folder, "infotext", "", True)  # Newline
 
