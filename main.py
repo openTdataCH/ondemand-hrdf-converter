@@ -429,14 +429,36 @@ def init_attribut(to_folder: str):
     from typing import Optional
 
     # handling for the case that the code was written to an exe using pyinstaller
+    source_file = ""
+    destination_file = os.path.join(to_folder, "attribut")
+
     if getattr(sys, 'frozen', False):
         # If the application is frozen (running as an executable)
         base_path: Optional[str] = getattr(sys, '_MEIPASS', None)  # Type hint to suppress warning
+
+        source_file = os.path.join(base_path, "resources", "attribut")
+
+        if not os.path.exists(source_file):
+            # if the resources were not within the exe, we try the relative path
+            source_file = "resources/attribut"
+
+            if not os.path.exists(source_file):
+                raise FileNotFoundError(f"!ERROR! ATTRIBUT file does not exist: {source_file}")
     else:
         # If the application is running in a normal Python environment
         base_path = os.path.dirname(__file__)
 
-    copy_file(os.path.join(base_path, "resources", "attribut"), os.path.join(to_folder, "attribut"))
+        source_file = os.path.join(base_path, "resources", "attribut")
+
+        if not os.path.exists(source_file):
+            # if the resources were not where we expected, we try the relative path
+            source_file = "resources/attribut"
+
+            if not os.path.exists(source_file):
+                raise FileNotFoundError(f"!ERROR! ATTRIBUT file does not exist: {source_file}")
+
+    # Check if the source file exists before copying
+    copy_file(source_file, destination_file)
 
     global attribut_content  # Declare the variable as global
 

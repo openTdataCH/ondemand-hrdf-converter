@@ -8,7 +8,7 @@ To learn more about:
 * Swiss NeTEX On-Demand export: https://opentransportdata.swiss/cookbook/netex-on-demand-verkehre/
 * On-Demand in Switzerland: https://www.oev-info.ch/sites/default/files/2024-07/Fachkonzept%20On-Demand_v2.1_en.pdf
 * HRDF: https://opentransportdata.swiss/cookbook/hafas-rohdaten-format-hrdf/
-* HRDF On-Demand: [TODO]
+* HRDF On-Demand: https://opentransportdata.swiss/cookbook/timetable-cookbook/hrdf-on-demand-verkehre/
 
 # Libraries
 
@@ -24,6 +24,13 @@ Simply use pyinstaller: https://pyinstaller.org/en/stable/
 
 ```sh
 pyinstaller -F main.py
+```
+
+To include the resources folder in the exe, and not require it to be in the same folder as the main.exe. 
+This also implies not being able to change tha "ATTRIBUT" file.
+
+```sh
+pyinstaller -F --add-data="resources:resources" main.py
 ```
 
 # Using the tool
