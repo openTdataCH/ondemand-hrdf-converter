@@ -26,7 +26,7 @@ Simply use pyinstaller: https://pyinstaller.org/en/stable/
 pyinstaller -F main.py
 ```
 
-To include the resources folder in the exe, and not require it to be in the same folder as the main.exe. 
+To include the resources folder in the exe, and not require it to be in the same folder as the main.exe.
 This also implies not being able to change tha "ATTRIBUT" file.
 
 ```sh
@@ -55,9 +55,9 @@ To run the code you can pass 4 parameters:
     * ALSO: The path is the relative directory path you want the zip to be uploaded to.
     * We do not support the insecure FTP protocol
     * If this parameter is not given the zip file will remain locally
+* (--output_format) either utf-8 or ansi. However, there's an issue with ansi and not all files are properly exported.
 
-Example if you want to use the defaults :
-
+Example if you want to use the defaults:
 ```sh
 python main.py 
 ```
