@@ -6,6 +6,7 @@ from typing import List, Tuple, Union  # for functions' parameter typing
 from xml.etree.ElementTree import ElementTree, Element
 
 import pandas as pd  # Import pandas for data manipulation and analysis
+from pandas import wide_to_long
 
 # Declare an iterator to iterate through journeys/trips in fplan
 fplan_trip_iterator = 0
@@ -42,6 +43,12 @@ namespace = {'siri': 'http://www.siri.org.uk/siri', 'gml': 'http://www.opengis.n
 # Folder names
 INPUT_FOLDER_NAME = "input"
 PREVIOUS_FOLDER_NAME = "previous"
+
+# To contain the content of ATTRIBUT file
+attribut_content = []
+
+# To ensure that stops to not occur multiple times in bahnhof and bfkoord
+bahnhof_bfkoord_stop_ids = []
 
 
 ######### Auxiliary functions #############
@@ -418,7 +425,24 @@ def init_zugart(to_folder: str):
 # init the attribut by copying it to the to_folder from the resources.
 # we use the pre-loaded attribut file in the resources folder, which originates from the HRDF-export (23.05.2025)
 def init_attribut(to_folder: str):
-    copy_file("resources/attribut", to_folder + "/attribut")
+    import sys
+    from typing import Optional
+
+    # handling for the case that the code was written to an exe using pyinstaller
+    if getattr(sys, 'frozen', False):
+        # If the application is frozen (running as an executable)
+        base_path: Optional[str] = getattr(sys, '_MEIPASS', None)  # Type hint to suppress warning
+    else:
+        # If the application is running in a normal Python environment
+        base_path = os.path.dirname(__file__)
+
+    copy_file(os.path.join(base_path, "resources", "attribut"), os.path.join(to_folder, "attribut"))
+
+    global attribut_content  # Declare the variable as global
+
+    # load the content into variable
+    with open(os.path.join(to_folder, "attribut"), 'r', encoding='utf-8') as file:
+        attribut_content = file.readlines()  # Read all lines into a list
 
 
 ######### NeTEx-handling functions #############
@@ -462,7 +486,7 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
             # ATTRIBUT - attributes for the given flexible line, these are aligned with the official "hints"
             booking_arrangements = flexible_line.findall('.//BookingArrangement', namespaces=namespace)
 
-            attribute_codes = return_attribute_codes(booking_arrangements)
+            attribute_codes = extract_attribute_codes(booking_arrangements)
 
             # INFOTEXT - infotexts for the given flexible line
             print("  # Creating INFOTEXT")  # Log creation message
@@ -542,50 +566,65 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
                                 fplan_trip_iterator = (fplan_trip_iterator + 1)
 
                                 ## FPLAN - comment
-                                write_to_hrdf(to_folder, "fplan", "% " + flexible_line_name + " " +
-                                              service_journey_pattern_ref.rsplit(':', 1)[-1] + " " +
-                                              hrdf_stop_types[i], True)
-                                write_to_hrdf(to_folder, "fplan", "% " + availability_condition_from[:-3] + "-"
-                                              + availability_condition_to[:-3] + " Uhr", True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line(
+                                    "% " + flexible_line_name + " " + service_journey_pattern_ref.rsplit(':', 1)[
+                                        -1] + " " + hrdf_stop_types[i]), True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line(
+                                    "% " + availability_condition_from[:-3] + "-" + availability_condition_to[
+                                                                                    :-3] + " Uhr"), True)
 
                                 ## FPLAN - journey
                                 prefixed_iterator = prefix_with_zeros(fplan_trip_iterator, 6)
                                 time_difference = prefix_with_zeros(
-                                    time_difference_in_minutes(availability_condition_from,
-                                                               availability_condition_to),
+                                    time_difference_in_minutes(availability_condition_from, availability_condition_to),
                                     4)
-                                write_to_hrdf(to_folder, "fplan", "*T " + prefixed_iterator + " " + "AST___"
-                                              + " " + str(time_difference) + " " + "0060", True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line(
+                                    "*T " + prefixed_iterator + " " + "AST___" + " " + str(
+                                        time_difference) + " " + "0060"), True)
 
                                 ## FPLAN - bitfield/cal
-                                bitfeld_reference = bitfields["bitfield_id"][
-                                    bitfields["bitfield_bit"] == availability_condition_bits].iloc[0]
+                                bitfeld_reference = \
+                                    bitfields["bitfield_id"][
+                                        bitfields["bitfield_bit"] == availability_condition_bits].iloc[
+                                        0]
 
-                                write_to_hrdf(to_folder, "fplan", "*A VE                 " + str(bitfeld_reference),
-                                              True)
-                                write_to_hrdf(to_folder, "fplan", "*G TEL", True)
+                                write_to_hrdf(to_folder, "fplan",
+                                              close_fplan_line("*A VE                 " + str(bitfeld_reference)), True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line("*G TEL"), True)
 
                                 # FPLAN/ATTRIBUT - attributes
                                 for attribute_code in attribute_codes:
-                                    write_to_hrdf(to_folder, "fplan", "*A " + attribute_code, True)
+                                    write_to_hrdf(to_folder, "fplan", close_fplan_line("*A " + attribute_code), True)
 
                                 # FPLAN/INFOTEXT - infotexts
                                 for info_text_id in infotext_ids:
-                                    write_to_hrdf(to_folder, "fplan", "*I ZZ                        " +
-                                                  str(info_text_id), True)
+                                    write_to_hrdf(to_folder, "fplan", close_fplan_line("*I ZZ                        " +
+                                                                                       str(info_text_id)), True)
 
                                 # FPLAN - start/stop pseudo stop: only react to the starts and add also ends
-                                write_to_hrdf(to_folder, "fplan", pseudo_stops["pseudo_stop_id"][
-                                    pseudo_stops["pseudo_stop_type"] == hrdf_stop_types[i]].iloc[0] + " " +
-                                              hrdf_stop_types[i] + "                          " +
-                                              time_to_compact_time(availability_condition_from), True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line(pseudo_stops["pseudo_stop_id"][
+                                                                                       pseudo_stops[
+                                                                                           "pseudo_stop_type"] ==
+                                                                                       hrdf_stop_types[i]].iloc[
+                                                                                       0] + " " +
+                                                                                   hrdf_stop_types[
+                                                                                       i] + "                          " +
+                                                                                   time_to_compact_time(
+                                                                                       availability_condition_from)),
+                                              True)
 
-                                write_to_hrdf(to_folder, "fplan", pseudo_stops["pseudo_stop_id"][
-                                    pseudo_stops["pseudo_stop_type"] == hrdf_stop_types[i + 1]].iloc[0] + " " +
-                                              hrdf_stop_types[i + 1] + "                   " +
-                                              time_to_compact_time(availability_condition_from), True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line(pseudo_stops["pseudo_stop_id"][
+                                                                                       pseudo_stops[
+                                                                                           "pseudo_stop_type"] ==
+                                                                                       hrdf_stop_types[i + 1]].iloc[
+                                                                                       0] + " " +
+                                                                                   hrdf_stop_types[
+                                                                                       i + 1] + "                   " +
+                                                                                   time_to_compact_time(
+                                                                                       availability_condition_from)),
+                                              True)
 
-                                write_to_hrdf(to_folder, "fplan", "", True)  # Newline
+                                write_to_hrdf(to_folder, "fplan", "%", True)  # Newline
         else:
             print(f"Not loading: {flexible_line_name}")
 
@@ -641,7 +680,7 @@ def create_and_return_bitfields(root: ElementTree, to_folder: str):
 
 # We extract only the ATTRIBUT code from the id of the booking arrangements
 # (see the FIXME mentioned above, this needs fixing using NeTEx "Notes")
-def return_attribute_codes(booking_arrangements: list[Element]) -> list[str]:
+def extract_attribute_codes(booking_arrangements: list[Element]) -> list[str]:
     codes = []
 
     for booking_arrangement in booking_arrangements:
@@ -654,6 +693,7 @@ def return_attribute_codes(booking_arrangements: list[Element]) -> list[str]:
             codes.append(code)
 
     return codes
+
 
 # extract the attribute code from a given id string
 def extract_attribute_code_from_id(id: str) -> str:
@@ -680,15 +720,32 @@ def create_and_return_infotexts(booking_arrangements: list[Element], flexible_li
         # fixme: after the attribut codes have been moved this check may no longer be required
         # extract the attribut/hint code from the id
         booking_arrangement_id = booking_arrangement.attrib.get('id')
+
         code = extract_attribute_code_from_id(booking_arrangement_id)
-        if is_nan_or_empty(code):
+
+        if not is_nan_or_empty(code):
             infotext_id += 1  # Increment infotext ID
 
-            booking_note = booking_arrangement.find('.//BookingNote', namespaces=namespace)  # Get booking note
+            # check if the attribute code exists in the known list of attributes.
+            code_exists = False
 
-            write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text, True)  # Write infotext
+            for attribut_line in attribut_content:
+                if attribut_line.startswith("*"):
+                    continue
+                elif attribut_line.startswith("#"):
+                    break
+                elif attribut_line.startswith(code):
+                    code_exists = True
+                    break
 
-            infotext_ids.append(infotext_id)  # Append ID to the list
+            # if code is new we add it to the attribut file
+            if not code_exists:
+                # get the booking note, i.e., description
+                booking_note = booking_arrangement.find('.//BookingNote', namespaces=namespace)
+
+                write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text, True)  # Write infotext
+
+                infotext_ids.append(infotext_id)  # Append ID to the list
 
     write_to_hrdf(to_folder, "infotext", "", True)  # Newline
 
@@ -767,7 +824,6 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                                           True)
 
                                         write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
-                                        write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
 
                                         print("    ## Creating BHFART")  # Log creation message
                                         for index, row in pseudo_stops.iterrows():
@@ -785,8 +841,11 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
 
                                         first_coordinate = False
 
-                                    write_to_hrdf(to_folder, "region", coordinate.text,
+                                    write_to_hrdf(to_folder, "region",
+                                                  ensure_width(coordinate_parts[0], 10, "0", True) + " " +
+                                                  ensure_width(coordinate_parts[1], 10, "0", True),
                                                   True)  # Write coordinate to region file
+                                    # fixme continue HERE! <- need to ensure that we have the correct width for coord.
 
                                 write_to_hrdf(to_folder, "region", "", True)  # Newline
 
@@ -801,18 +860,28 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                 write_to_hrdf(to_folder, "region", "", True)  # Newline
 
                                 # To decide what to write in *AS and *AC, iterate the stops and do a point-in-polygon test
-                                # TODO: This is a workaround and needs to be fixed!
-                                write_as_ac_stops(stop_places, polygon, "*AS", to_folder)
+                                # todo this may need improvement, as we call the same method with as and ac
+                                # fixme also we write the exact same stops and do not differentiate yet between as, i.e.,
+                                # fixme stops that are regular stops and where the on-demand can hold, and ac, i.e.,
+                                # fixme stops that are intended to work as transfers between regular stops and the on-demand network
+                                write_as_ac_stops(stop_places, polygon, "*AS", to_folder, True)
                                 write_to_hrdf(to_folder, "region", "", True)  # Newline
 
-                                write_as_ac_stops(stop_places, polygon, "*AC", to_folder)
+                                write_as_ac_stops(stop_places, polygon, "*AC", to_folder, False)
                                 write_to_hrdf(to_folder, "region", "", True)  # Newline
+
+                                # BFKOORD and BHFART spacing
+                                write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
+                                write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
+
+                                write_to_hrdf(to_folder, "bhfart", "", True)  # Newline
 
                             else:
                                 print(f"## {name.text} had no polygons")  # Log missing polygons message
 
 
-def write_as_ac_stops(stop_places, polygon, as_or_ac, to_folder):
+def write_as_ac_stops(stop_places: list[Element], polygon: list[(float, float)], as_or_ac: str, to_folder: str,
+                      amend_others: bool):
     first_stop_place = True  # Flag to check if it's the first stop place
     for stop_place in stop_places:
         # Get the reference type of the stop place
@@ -833,9 +902,40 @@ def write_as_ac_stops(stop_places, polygon, as_or_ac, to_folder):
                     write_to_hrdf(to_folder, "region", as_or_ac, True)  # Write the header for AS or AC
                     first_stop_place = False  # Mark that the first stop place has been processed
 
-                # Write stop ID and name to the region file
-                write_to_hrdf(to_folder, "region", stop_id + " " + "% " + name, True)
-                write_to_hrdf(to_folder, "bhfart", stop_id + " " + "P" + " " + "% " + name, True)  # Write to bhfart
+                # Write stop ID and name to the region, bhfart, bfkoord, and bahnhof file
+                write_to_hrdf(to_folder, "region", stop_id, True)
+
+                if amend_others:
+                    write_to_hrdf(to_folder, "bhfart", stop_id + " " + "P" + " " + "% " + name, True)
+
+                    global bahnhof_bfkoord_stop_ids
+
+                    if not stop_id in bahnhof_bfkoord_stop_ids:
+                        write_to_hrdf(to_folder, "bahnhof", stop_id + "     " + name, True)
+
+                        write_to_hrdf(to_folder, "bfkoord", stop_id + "  " + longitude + " " + latitude + "  % " + name,
+                                      True)
+
+                        bahnhof_bfkoord_stop_ids.append(stop_id)
+
+
+def close_fplan_line(line_to_close: str) -> str:
+    # If the line is shorter than 60 characters, pad it with spaces
+    if len(line_to_close) < 60:
+        line_to_close = line_to_close.ljust(60)  # Pad with spaces on the right
+
+    # Insert '%' at position 60
+    return line_to_close[:59] + '%' + line_to_close[59:]
+
+
+def ensure_width(value: str, length: int, amend: str, at_end: bool) -> str:
+    while len(value) < length:
+        if at_end:
+            value = (value + amend)
+        else:
+            value = (amend + value)
+
+    return value
 
 
 ######### MAIN functions #############
