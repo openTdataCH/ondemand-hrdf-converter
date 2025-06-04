@@ -1,6 +1,7 @@
 import os  # Import the os module for interacting with the operating system
 import shutil  # for moving files
 import xml.etree.ElementTree as xml_etree  # Import xml.etree.ElementTree for XML parsing
+from argparse import ArgumentError
 from datetime import timedelta, date, datetime  # Import datetime and timedelta for handling date and time
 from typing import List, Tuple, Union  # for functions' parameter typing
 from xml.etree.ElementTree import ElementTree, Element
@@ -340,15 +341,15 @@ def write_to_hrdf(to_folder: str, hrdf_file: str, content: str, append: bool):
 
 # writes the content to the given file in the given folder
 def write_to_file(folder: str, file_name: str, content: str, append: bool):
-    # Open the specified file in append mode with UTF-8 encoding
+    # Open the specified file in append mode with given encoding
     file_path = folder + "/" + file_name
 
     if append:
-        with open(file_path, 'a', encoding='utf-8') as file:
-            file.write(content + '\r')  # Write the content followed by a carriage return
+        with open(file_path, 'a', encoding=output_format, newline='') as file:
+            file.write(content + '\r\n')  # Write the content followed by a carriage return and line feed
     else:
-        with open(file_path, 'w', encoding='utf-8') as file:
-            file.write(content + '\r')  # Write the content followed by a carriage return
+        with open(file_path, 'w', encoding=output_format, newline='') as file:
+            file.write(content + '\r\n')  # Write the content followed by a carriage return and line feed
 
 
 # checks if point-tuple is in polygon (list of tuples)
@@ -463,7 +464,7 @@ def init_attribut(to_folder: str):
     global attribut_content  # Declare the variable as global
 
     # load the content into variable
-    with open(os.path.join(to_folder, "attribut"), 'r', encoding='utf-8') as file:
+    with open(os.path.join(to_folder, "attribut"), 'r', encoding=output_format) as file:
         attribut_content = file.readlines()  # Read all lines into a list
 
 
@@ -712,7 +713,21 @@ def extract_attribute_codes(booking_arrangements: list[Element]) -> list[str]:
         code = extract_attribute_code_from_id(booking_arrangement_id)
 
         if not is_nan_or_empty(code):
-            codes.append(code)
+            # check if the attribute code exists in the known list of attributes.
+            code_exists = False
+
+            for attribut_line in attribut_content:
+                if attribut_line.startswith("*"):
+                    continue
+                elif attribut_line.startswith("#"):
+                    break
+                elif attribut_line.startswith(code):
+                    code_exists = True
+                    break
+
+            # if code is new we add it to the attribut file
+            if code_exists:
+                codes.append(code)
 
     return codes
 
@@ -840,9 +855,12 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                         print("    ## Creating BFKOORD")  # Log creation message
 
                                         for index, row in pseudo_stops.iterrows():
-                                            write_to_hrdf(to_folder, "bfkoord", row["pseudo_stop_id"] +
-                                                          "  " + coordinate.text + "  " + "% " +
-                                                          row["flexible_line_name"] + " " + row["pseudo_stop_type"],
+                                            write_to_hrdf(to_folder, "bfkoord", row["pseudo_stop_id"] + " " +
+                                                          ensure_width(coordinate_parts[0], 11, "0", True) + " " +
+                                                          ensure_width(coordinate_parts[1], 11, "0",
+                                                                       True) + "        " +
+                                                          "% " + row["flexible_line_name"] + " " + row[
+                                                              "pseudo_stop_type"],
                                                           True)
 
                                         write_to_hrdf(to_folder, "bfkoord", "", True)  # Newline
@@ -935,7 +953,9 @@ def write_as_ac_stops(stop_places: list[Element], polygon: list[(float, float)],
                     if not stop_id in bahnhof_bfkoord_stop_ids:
                         write_to_hrdf(to_folder, "bahnhof", stop_id + "     " + name, True)
 
-                        write_to_hrdf(to_folder, "bfkoord", stop_id + "  " + longitude + " " + latitude + "  % " + name,
+                        write_to_hrdf(to_folder, "bfkoord", stop_id + " " +
+                                      ensure_width(longitude, 11, "0", True) + " " +
+                                      ensure_width(latitude, 11, "0", True) + "        % " + name,
                                       True)
 
                         bahnhof_bfkoord_stop_ids.append(stop_id)
@@ -1052,6 +1072,8 @@ if __name__ == '__main__':
                         default="True")
     parser.add_argument('--ftp', type=str,
                         help='The FTP to upload the zipped HRDF files to, a quadruple of url,user,password,path')
+    parser.add_argument('--output_format', type=str,
+                        help='The output format of the files (ansi=cp1252): "utf-8" or "ansi"')
 
     print('Parsing arguments')
     args = parser.parse_args()
@@ -1126,6 +1148,21 @@ if __name__ == '__main__':
         print('Not keeping output')
     else:
         keep_output = bool(args.keep_output)
+
+    # get the output format
+    if args.output_format is None or args.output_format == "":
+        print("No output_format given, using utf-8")
+        output_format = 'utf-8'
+    else:
+        output_format = args.output_format
+
+        # Determine encoding based on output_format
+        if output_format.lower() == 'ansi':
+            output_format = 'cp1252'
+        elif output_format.lower() == 'utf-8':
+            output_format = 'utf-8'
+        else:
+            raise ValueError("Unsupported encoding format")
 
     try:
         # Call main function with arguments
