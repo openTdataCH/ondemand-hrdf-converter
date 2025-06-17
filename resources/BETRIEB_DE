@@ -1,0 +1,1773 @@
+00001 K "AFA" L "AFA" V "AFA Bus AG"
+00001 N "ch:1:sboid:100612"
+00001 : 000813
+00002 K "ASM" L "ASM-bti" V "Aare Seeland mobil (bti)"
+00002 N "ch:1:sboid:100020"
+00002 : 000038
+00003 K "ASM" L "ASM-ltb" V "Aare Seeland mobil (ltb)"
+00003 N "ch:1:sboid:100101"
+00003 : 000128
+00004 K "ASM" L "ASM-rvo" V "Aare Seeland mobil (rvo)"
+00004 N "ch:1:sboid:100037"
+00004 : 000056
+00005 K "ASM" L "ASM-snb" V "Aare Seeland mobil (snb)"
+00005 N "ch:1:sboid:100060"
+00005 : 000081
+00006 K "ASM" L "ASM-EV" V "Aare Seeland mobil Ersatzverkehr"
+00006 N "ch:1:sboid:1100053"
+00006 : 007136
+00007 K "AVA" L "AVA-bd" V "Aargau Verkehr AG"
+00007 N "ch:1:sboid:100013"
+00007 : 000031
+00008 K "AVA" L "AVA-ltb" V "Aargau Verkehr AG"
+00008 N "ch:1:sboid:101815"
+00008 : 000041
+00009 K "AVA" L "AVA-wsb" V "Aargau Verkehr AG"
+00009 N "ch:1:sboid:100073"
+00009 : 000096
+00010 K "AVA" L "AVA/Autw" V "Aargau Verkehr AG"
+00010 N "ch:1:sboid:100698"
+00010 : 000899
+00011 K "AVA" L "AVA/rbz" V "Aargau Verkehr AG"
+00011 N "ch:1:sboid:100525"
+00011 : 000723
+00012 K "AVA" L "AVA-EV" V "Aargau Verkehr AG Ersatzverkehr"
+00012 N "ch:1:sboid:1100054"
+00012 : 007244
+00013 K "SZU" L "SZU-laf" V "Adliswil-Felsenegg"
+00013 N "ch:1:sboid:100162"
+00013 : 000204
+00014 K "AMG" L "AMG" V "Aelplibahn Malans Genossenschaft"
+00014 N "ch:1:sboid:101080"
+00014 : 003140
+00015 K "ABA" L "ABAG" V "Aletsch Bahnen AG"
+00015 N "ch:1:sboid:100220"
+00015 : 000262
+00016 K "ABA" L "ABAG/FE" V "Aletsch Bahnen AG"
+00016 N "ch:1:sboid:100224"
+00016 : 000266
+00017 K "ARB" L "ARBAG" V "Aletsch Riederalp Bahnen AG"
+00017 N "ch:1:sboid:100167"
+00017 : 000209
+00018 K "ALE" L "ALEX" V "Aletsch-Express Riederalp-Bettmeralp"
+00018 N "ch:1:sboid:100943"
+00018 : 003002
+00019 K "AFO" L "AFO" V "Alpbus Fournier"
+00019 N "ch:1:sboid:101816"
+00019 : 000611
+00020 K "ALT" L "ALTRA" V "Alpintrans GmbH"
+00020 N "ch:1:sboid:101834"
+00020 : 000617
+00021 K "ABG" L "ABG" V "Alsa Bustours Gex S.A.S"
+00021 N "ch:1:sboid:101767"
+00021 : 000700
+00022 K "ASS" L "ASS" V "Andermatt-Sedrun Sport AG"
+00022 N "ch:1:sboid:100209"
+00022 : 000251
+00023 K "AUT" L "AUT" V "Andermatt-Urserntal Tourismus GmbH"
+00023 N "ch:1:sboid:101202"
+00023 : 007069
+00024 K "AST" L "ASTA" V "Anrufsammeltaxi Amriswil"
+00024 N "ch:1:sboid:101145"
+00024 : 007012
+00025 K "ASA" L "ASA" V "Anrufsammeltaxi Arbon"
+00025 N "ch:1:sboid:101139"
+00025 : 007006
+00026 K "AST" L "ASTB" V "Anrufsammeltaxi Bischofszell"
+00026 N "ch:1:sboid:101144"
+00026 : 007011
+00027 K "AB-" L "AB-ab" V "Appenzeller Bahnen (ab)"
+00027 N "ch:1:sboid:100007"
+00027 : 000022
+00028 K "AB-" L "AB-fw" V "Appenzeller Bahnen (fw)"
+00028 N "ch:1:sboid:100032"
+00028 : 000051
+00029 K "AB-" L "AB-rhb" V "Appenzeller Bahnen (rhb)"
+00029 N "ch:1:sboid:100052"
+00029 : 000071
+00030 K "AB-" L "AB-rhw" V "Appenzeller Bahnen (rhw)"
+00030 N "ch:1:sboid:100112"
+00030 : 000139
+00031 K "AB-" L "AB-tb" V "Appenzeller Bahnen (tb)"
+00031 N "ch:1:sboid:100067"
+00031 : 000089
+00032 K "AB-" L "AB-EV" V "Appenzeller Bahnen Ersatzverkehr"
+00032 N "ch:1:sboid:1100058"
+00032 : 007252
+00033 K "AFN" L "AFN" V "Armin Fischli GmbH, 8752 Näfels"
+00033 N "ch:1:sboid:101162"
+00033 : 007029
+00034 K "ABB" L "ABB" V "Arosa Bergbahnen"
+00034 N "ch:1:sboid:100177"
+00034 : 000219
+00035 K "AVB" L "AVB" V "Aroser Verkehrsbetriebe"
+00035 N "ch:1:sboid:101164"
+00035 : 007031
+00036 K "ANA" L "ANAT" V "Association neuchâteloise des Amis du Tramway ANAT"
+00036 N "ch:1:sboid:101811"
+00036 : 003271
+00037 K "AMP" L "AMP" V "Aufzug Matte-Plattform (Bern)"
+00037 N "ch:1:sboid:100092"
+00037 : 000118
+00038 K "ANV" L "ANV" V "Ausländische Nahverkehrsbetriebe"
+00038 N "ch:1:sboid:100805"
+00038 : 001011
+00039 K "AAG" L "AAGR" V "Auto AG Rothenburg"
+00039 N "ch:1:sboid:100611"
+00039 : 000812
+00040 K "AAG" L "AAGS" V "Auto AG Schwyz"
+00040 N "ch:1:sboid:100640"
+00040 : 000841
+00041 K "AAG" L "AAGU" V "Auto AG Uri"
+00041 N "ch:1:sboid:100615"
+00041 : 000816
+00042 K "BLT" L "BLT Auto" V "Auto BLT"
+00042 N "ch:1:sboid:100678"
+00042 : 000879
+00043 K "LLB" L "LLB" V "Auto Leuk-Leukerbad"
+00043 N "ch:1:sboid:100654"
+00043 : 000855
+00044 K "AS" L "AS" V "Autobetrieb Sernftal"
+00044 N "ch:1:sboid:100655"
+00044 : 000856
+00045 K "AWA" L "AWA" V "Autobetrieb Weesen-Amden"
+00045 N "ch:1:sboid:100631"
+00045 : 000832
+00046 K "AAG" L "AAGL" V "Autobus AG Liestal"
+00046 N "ch:1:sboid:100610"
+00046 : 000811
+00047 K "PAG" L "PAG/RA" V "Autobus Monthey-Collombey-Vouvry"
+00047 N "ch:1:sboid:100589"
+00047 : 000787
+00048 K "ABF" L "ABF" V "Autobusbetrieb Freienbach"
+00048 N "ch:1:sboid:100557"
+00048 : 000755
+00049 K "LEE" L "LEE Bus " V "Autobusbetrieb LEE"
+00049 N "ch:1:sboid:101171"
+00049 : 007038
+00050 K "RBS" L "RBS Auto" V "Autobusbetrieb RBS"
+00050 N "ch:1:sboid:100649"
+00050 : 000850
+00051 K "AMS" L "AMSA" V "Autolinea Mendrisiense SA"
+00051 N "ch:1:sboid:100538"
+00051 : 000736
+00052 K "ABl" L "ABl" V "Autolinee Bleniesi"
+00052 N "ch:1:sboid:100661"
+00052 : 000862
+00053 K "FAR" L "FART Aut" V "Autolinee FART"
+00053 N "ch:1:sboid:100616"
+00053 : 000817
+00054 K "ARL" L "ARL" V "Autolinee Regionali Luganesi"
+00054 N "ch:1:sboid:100657"
+00054 : 000858
+00055 K "ARA" L "ARAG" V "Automobil Rottal AG"
+00055 N "ch:1:sboid:100618"
+00055 : 000819
+00056 K "AB " L "AB Auto" V "Automobildienst Appenzeller Bahnen"
+00056 N "ch:1:sboid:100546"
+00056 : 000744
+00057 K "MGB" L "MGB/Autb" V "Automobildienst Matterhorn Gotthard Bahn"
+00057 N "ch:1:sboid:101209"
+00057 : 007076
+00058 K "MGB" L "MGB/asng" V "Automobildienst Matterhorn Gotthard Bahn (asng)"
+00058 N "ch:1:sboid:100544"
+00058 : 000742
+00059 K "MGB" L "MGB/Auto" V "Automobildienst Matterhorn Gotthard Bahn (fo auto)"
+00059 N "ch:1:sboid:100650"
+00059 : 000851
+00060 K "SBB" L "SBB Bus" V "Automobildienst SBB"
+00060 N "ch:1:sboid:100506"
+00060 : 000702
+00061 K "SZU" L "SZU Auto" V "Automobildienst SZU"
+00061 N "ch:1:sboid:100606"
+00061 : 000807
+00062 K "ASM" L "ASM Auto" V "Automobildienste Aare Seeland mobil"
+00062 N "ch:1:sboid:100669"
+00062 : 000870
+00063 K "CJ " L "CJ Auto" V "Automobiles CJ"
+00063 N "ch:1:sboid:100632"
+00063 : 000833
+00064 K "MBC" L "MBC Auto" V "Automobiles MBC"
+00064 N "ch:1:sboid:100566"
+00064 : 000764
+00065 K "ACO" L "ACO" V "Autoservizi Comazzi S.R.L."
+00065 N "ch:1:sboid:101223"
+00065 : 007090
+00066 K "ASL" L "ASL" V "Autoservizi Silvestri Livigno"
+00066 N "ch:1:sboid:100514"
+00066 : 000712
+00067 K "ASG" L "ASGS" V "Autotransports Sion-Grône-Sierre"
+00067 N "ch:1:sboid:100687"
+00067 : 000888
+00068 K "AVJ" L "AVJ" V "Autotransports de la Vallée de Joux"
+00068 N "ch:1:sboid:100533"
+00068 : 000731
+00069 K "RhB" L "RhB Auto" V "Autoverkehr RhB"
+00069 N "ch:1:sboid:100664"
+00069 : 000865
+00070 K "BLS" L "BLS-bls" V "BLS AG (bls)"
+00070 N "ch:1:sboid:100015"
+00070 : 000033
+00071 K "BLS" L "BLS-bn" V "BLS AG (bn)"
+00071 N "ch:1:sboid:100016"
+00071 : 000034
+00072 K "BLS" L "BLS-ebt" V "BLS AG (ebt)"
+00072 N "ch:1:sboid:100026"
+00072 : 000045
+00073 K "BLS" L "BLS-gbs" V "BLS AG (gbs)"
+00073 N "ch:1:sboid:100033"
+00073 : 000052
+00074 K "BLS" L "BLS-sez" V "BLS AG (sez)"
+00074 N "ch:1:sboid:100056"
+00074 : 000076
+00075 K "BLS" L "BLS-smb" V "BLS AG (smb)"
+00075 N "ch:1:sboid:100059"
+00075 : 000079
+00076 K "BLS" L "BLS-vhb" V "BLS AG (vhb)"
+00076 N "ch:1:sboid:100069"
+00076 : 000092
+00077 K "BLS" L "BLS BusF" V "BLS Bus Fahrplanbedürfnisse"
+00077 N "ch:1:sboid:101175"
+00077 : 007042
+00078 K "BLS" L "BLS-EV" V "BLS Netz AG Ersatzverkehr"
+00078 N "ch:1:sboid:101836"
+00078 : 007230
+00079 K "BLS" L "BLS-brs" V "BLS Schifffahrt AG (brs)"
+00079 N "ch:1:sboid:100142"
+00079 : 000183
+00080 K "BLS" L "BLS-ths" V "BLS Schifffahrt AG (ths)"
+00080 N "ch:1:sboid:100151"
+00080 : 000192
+00081 K "BOT" L "BOTG" V "BUS Oberthurgau AG"
+00081 N "ch:1:sboid:100642"
+00081 : 000843
+00082 K "Bah" L "Bahnersa" V "Bahnersatz Jahresfahrplan"
+00082 N "ch:1:sboid:101170"
+00082 : 007037
+00083 K "Bam" L "Bamert" V "Bamert Bus"
+00083 N "ch:1:sboid:100579"
+00083 : 000777
+00084 K "BLT" L "BLT" V "Baselland Transport"
+00084 N "ch:1:sboid:100019"
+00084 : 000037
+00085 K "BPG" L "BPG" V "Basler Personenschifffahrt AG"
+00085 N "ch:1:sboid:100150"
+00085 : 000191
+00086 K "BVB" L "BVB" V "Basler Verkehrsbetriebe"
+00086 N "ch:1:sboid:100622"
+00086 : 000823
+00087 K "SBR" L "SBR" V "Bellwald Sportbahnen AG"
+00087 N "ch:1:sboid:101004"
+00087 : 003063
+00088 K "BA " L "BA Auto" V "Bergbahnen Adelboden AG"
+00088 N "ch:1:sboid:101777"
+00088 : 000602
+00089 K "BA " L "BA Auto-" V "Bergbahnen Adelboden AG"
+00089 N "ch:1:sboid:101778"
+00089 : 000603
+00090 K "BA-" L "BA-SB" V "Bergbahnen Adelboden AG"
+00090 N "ch:1:sboid:101014"
+00090 : 003073
+00091 K "BAL" L "BAL AG" V "Bergbahnen Adelboden-Lenk AG"
+00091 N "ch:1:sboid:101830"
+00091 : 000800
+00092 K "BBE" L "BBE" V "Bergbahnen Beckenried-Emmetten"
+00092 N "ch:1:sboid:100163"
+00092 : 000205
+00093 K "BWA" L "BWA" V "Bergbahnen Brigels Waltensburg Andiast"
+00093 N "ch:1:sboid:100985"
+00093 : 003044
+00094 K "BBB" L "BBBWA" V "Bergbahnen Brigels Waltensburg Andiast AG"
+00094 N "ch:1:sboid:100766"
+00094 : 000967
+00095 K "BDG" L "BDGAG" V "Bergbahnen Destination Gstaad AG"
+00095 N "ch:1:sboid:100183"
+00095 : 000225
+00096 K "BBD" L "BBD" V "Bergbahnen Disentis"
+00096 N "ch:1:sboid:100286"
+00096 : 000329
+00097 K "ESM" L "ESMM-smb" V "Bergbahnen Engadin St. Moritz AG"
+00097 N "ch:1:sboid:100119"
+00097 : 000147
+00098 K "DIA" L "DIALA-lb" V "Bergbahnen Engadin St. Moritz, Bernina-Diavolezza (lbd)"
+00098 N "ch:1:sboid:100176"
+00098 : 000218
+00099 K "BEA" L "BEAG" V "Bergbahnen Engstligenalp AG"
+00099 N "ch:1:sboid:100240"
+00099 : 000282
+00100 K "BBF" L "BBF-mbf" V "Bergbahnen Flumserberg AG"
+00100 N "ch:1:sboid:100223"
+00100 : 000265
+00101 K "BBF" L "BBF-pbf" V "Bergbahnen Flumserberg AG"
+00101 N "ch:1:sboid:100246"
+00101 : 000288
+00102 K "BHY" L "BHY-lws" V "Bergbahnen Hoch-Ybrig AG"
+00102 N "ch:1:sboid:100260"
+00102 : 000303
+00103 K "BHY" L "BHY-sost" V "Bergbahnen Hoch-Ybrig AG"
+00103 N "ch:1:sboid:100291"
+00103 : 000334
+00104 K "BHY" L "BHY-ssks" V "Bergbahnen Hoch-Ybrig AG"
+00104 N "ch:1:sboid:101046"
+00104 : 003106
+00105 K "BHY" L "BHY-sssp" V "Bergbahnen Hoch-Ybrig AG"
+00105 N "ch:1:sboid:101047"
+00105 : 003107
+00106 K "BHA" L "BHAG" V "Bergbahnen Hohsaas AG"
+00106 N "ch:1:sboid:100272"
+00106 : 000315
+00107 K "BBM" L "BBMAG" V "Bergbahnen Malbun AG"
+00107 N "ch:1:sboid:101073"
+00107 : 003133
+00108 K "BMH" L "BMH" V "Bergbahnen Meiringen-Hasliberg"
+00108 N "ch:1:sboid:100264"
+00108 : 000307
+00109 K "BO" L "BO" V "Bergbahnen Obersaxen AG"
+00109 N "ch:1:sboid:101085"
+00109 : 003146
+00110 K "BPM" L "BPM-svcs" V "Bergbahnen Piz Mundaun AG"
+00110 N "ch:1:sboid:101087"
+00110 : 003148
+00111 K "BPM" L "BPM-svh" V "Bergbahnen Piz Mundaun AG"
+00111 N "ch:1:sboid:101091"
+00111 : 003152
+00112 K "LS" L "LS" V "Bergbahnen Samnaun AG"
+00112 N "ch:1:sboid:101098"
+00112 : 003161
+00113 K "BSA" L "BSAG" V "Bergbahnen Sörenberg AG"
+00113 N "ch:1:sboid:100241"
+00113 : 000283
+00114 K "BBW" L "BBWAG" V "Bergbahnen Wildhaus AG"
+00114 N "ch:1:sboid:100215"
+00114 : 000257
+00115 K "BGS" L "BGST" V "Berggasthaus Staubern AG"
+00115 N "ch:1:sboid:101071"
+00115 : 003131
+00116 K "SBA" L "SBAD" V "Bergün Filisur Tourismus AG"
+00116 N "ch:1:sboid:100293"
+00116 : 000336
+00117 K "BOB" L "BOB" V "Berner Oberland-Bahnen"
+00117 N "ch:1:sboid:100017"
+00117 : 000035
+00118 K "BOB" L "BOB-spb" V "Berner Oberland-Bahnen"
+00118 N "ch:1:sboid:100113"
+00118 : 000140
+00119 K "BOB" L "BOB-EV" V "Berner Oberland-Bahnen Ersatzverkehr"
+00119 N "ch:1:sboid:1100055"
+00119 : 007245
+00120 K "BKA" L "BKAG" V "Biel-Kinzig AG"
+00120 N "ch:1:sboid:101050"
+00120 : 003110
+00121 K "BSG" L "BSG" V "Bielersee"
+00121 N "ch:1:sboid:100141"
+00121 : 000182
+00122 K "LBB" L "LBB" V "Blatten-Belalp"
+00122 N "ch:1:sboid:100232"
+00122 : 000274
+00123 K "cmB" L "cmBC" V "Blonay-Chamby"
+00123 N "ch:1:sboid:100948"
+00123 : 003007
+00124 K "BSB" L "BSB" V "Bodensee-Schiffsbetriebe GmbH"
+00124 N "ch:1:sboid:100317"
+00124 : 000360
+00125 K "BRS" L "BRSB" V "Braunwald-Standseilbahn"
+00125 N "ch:1:sboid:100080"
+00125 : 000105
+00126 K "BRB" L "BRB" V "Brienz Rothorn Bahn AG"
+00126 N "ch:1:sboid:100079"
+00126 : 000104
+00127 K "EB" L "EB" V "Brunni-Bahnen Engelberg AG"
+00127 N "ch:1:sboid:100161"
+00127 : 000203
+00128 K "FBS" L "FBS" V "Brusino-Arsizio-Serpiano"
+00128 N "ch:1:sboid:100253"
+00128 : 000296
+00129 K "BBB" L "BBB" V "Bus Buchserberg"
+00129 N "ch:1:sboid:1100082"
+00129 : 000697
+00130 K "BNP" L "BNP" V "Bus Nyon-Prangins"
+00130 N "ch:1:sboid:100543"
+00130 : 000741
+00131 K "BOS" L "BOS" V "Bus Ostschweiz"
+00131 N "ch:1:sboid:100111"
+00131 : 000138
+00132 K "BOS" L "BOS/wimo" V "Bus Ostschweiz (Wil)"
+00132 N "ch:1:sboid:100625"
+00132 : 000826
+00133 K "BS" L "BS" V "Bus Sierrois"
+00133 N "ch:1:sboid:100516"
+00133 : 000714
+00134 K "BAL" L "BALA" V "Bus alpin Lombachalp"
+00134 N "ch:1:sboid:101213"
+00134 : 007080
+00135 K "BCS" L "BCS" V "Bus commune Sion"
+00135 N "ch:1:sboid:100567"
+00135 : 000765
+00136 K "BCR" L "BCR" V "Bus de la commune de Riddes"
+00136 N "ch:1:sboid:101198"
+00136 : 007065
+00137 K "BuS" L "BuS/cb" V "Bus und Service AG (Chur)"
+00137 N "ch:1:sboid:100568"
+00137 : 000766
+00138 K "BuS" L "BuS/eb" V "Bus und Service AG (Engadin)"
+00138 N "ch:1:sboid:101712"
+00138 : 000815
+00139 K "BUM" L "BUM" V "Bus urbain de Martigny"
+00139 N "ch:1:sboid:100515"
+00139 : 000713
+00140 K "BBA" L "BBA" V "Busbetrieb Aarau"
+00140 N "ch:1:sboid:100639"
+00140 : 000840
+00141 K "BOB" L "BOB Auto" V "Busbetrieb BOB"
+00141 N "ch:1:sboid:100621"
+00141 : 000822
+00142 K "BGB" L "BGB" V "Busbetrieb Gemeinde Bergün"
+00142 N "ch:1:sboid:101211"
+00142 : 007078
+00143 K "BGU" L "BGU" V "Busbetrieb Grenchen und Umgebung"
+00143 N "ch:1:sboid:100693"
+00143 : 000894
+00144 K "BKG" L "BKG" V "Busbetrieb Kandersteg - Gasterntal"
+00144 N "ch:1:sboid:101158"
+00144 : 007025
+00145 K "BLW" L "BLWE" V "Busbetrieb Lichtensteig-Wattwil-Ebnat-Kappel"
+00145 N "ch:1:sboid:100609"
+00145 : 000810
+00146 K "BOG" L "BOG" V "Busbetrieb Oberems-Gruben"
+00146 N "ch:1:sboid:101200"
+00146 : 007067
+00147 K "BOG" L "BOGG" V "Busbetrieb Olten-Gösgen-Gäu"
+00147 N "ch:1:sboid:100595"
+00147 : 000793
+00148 K "BRE" L "BRER" V "Busbetrieb Rapperswil-Eschenbach-Rüti ZH"
+00148 N "ch:1:sboid:100574"
+00148 : 000772
+00149 K "BSU" L "BSU" V "Busbetrieb Solothurn und Umgebung"
+00149 N "ch:1:sboid:100682"
+00149 : 000883
+00150 K "BLA" L "BLAG" V "Busland AG"
+00150 N "ch:1:sboid:100670"
+00150 : 000871
+00151 K "BLA" L "BLAG Ber" V "Busland AG Berg"
+00151 N "ch:1:sboid:100671"
+00151 : 000872
+00152 K "But" L "But" V "But"
+00152 N "ch:2:sboid:FR87_BUT"
+00152 : 87_BUT
+00153 K "BB" L "BB" V "Bürgenstock Bahn AG"
+00153 N "ch:1:sboid:100082"
+00153 : 000107
+00154 K "BB-" L "BB-EV" V "Bürgenstock Bahn Ersatzverkehr"
+00154 N "ch:1:sboid:1100085"
+00154 : 007225
+00155 K "GHU" L "GHU" V "Bürgerbus Gondiswil-Huttwil-Ufhusen"
+00155 N "ch:1:sboid:101178"
+00155 : 007045
+00156 K "BüB" L "BüBu" V "Bürgerbus Hellsau-Höchstetten-Willadingen-Koppigen"
+00156 N "ch:1:sboid:101774"
+00156 : 000711
+00157 K "OUW" L "OUW" V "Bürgerbus Kleindietwil-Oeschenbach-Walterswil"
+00157 N "ch:1:sboid:101179"
+00157 : 007046
+00158 K "RSZ" L "RSZ" V "Bürgerbus Rüderswil"
+00158 N "ch:1:sboid:101220"
+00158 : 007087
+00159 K "WET" L "WETA" V "Bürgerbus Walperswil-Epsach-Täuffelen-Aarberg"
+00159 N "ch:1:sboid:101751"
+00159 : 000710
+00160 K "CGN" L "CGN" V "CGN SA"
+00160 N "ch:1:sboid:100143"
+00160 : 000184
+00161 K "GR-" L "GR-fab" V "Cantone di Grigioni"
+00161 N "ch:1:sboid:101059"
+00161 : 003119
+00162 K "CIT" L "CIT" V "Cardada Impianti Turistici"
+00162 N "ch:1:sboid:100244"
+00162 : 000286
+00163 K "Car" L "Car" V "Cars Rhône-Alpes"
+00163 N "ch:2:sboid:FR87_CAR"
+00163 : 87_CAR
+00164 K "CAS" L "CAS" V "Cassons AG"
+00164 N "ch:1:sboid:1100044"
+00164 : 003201
+00165 K "ESM" L "ESMM-mmb" V "Celeriner Bergbahnen - Punt Muragl-Muottas Muragl"
+00165 N "ch:1:sboid:100106"
+00165 : 000133
+00166 K "TTM" L "TTM" V "Centre Touristique Moléson"
+00166 N "ch:1:sboid:100950"
+00166 : 003009
+00167 K "CBV" L "CBV" V "Chalais-Briey-Vercorin"
+00167 N "ch:1:sboid:100170"
+00167 : 000212
+00168 K "CJ" L "CJ" V "Chemins de fer du Jura"
+00168 N "ch:1:sboid:100024"
+00168 : 000043
+00169 K "CJ-" L "CJ-EV" V "Chemins de fer du Jura Ersatzverkehr"
+00169 N "ch:1:sboid:1100074"
+00169 : 007259
+00170 K "BCD" L "BCD" V "Chur-Dreibündenstein"
+00170 N "ch:1:sboid:100194"
+00170 : 000236
+00171 K "TCL" L "TCLB" V "Château-d'Oex-La Braye"
+00171 N "ch:1:sboid:100189"
+00171 : 000231
+00172 K "CdA" L "CdA" V "Commune d'Anniviers Vissoie"
+00172 N "ch:1:sboid:101137"
+00172 : 007004
+00173 K "BPB" L "BPB" V "Comune di Personico"
+00173 N "ch:1:sboid:101812"
+00173 : 000609
+00174 K "DIA" L "DIALA-lc" V "Curtinatsch-Piz Lagalb"
+00174 N "ch:1:sboid:100205"
+00174 : 000247
+00175 K "DB " L "DB Regio" V "DB Regio AG"
+00175 N "ch:2:sboid:DE06____"
+00175 : 06____
+00176 K "DB " L "DB Regio" V "DB Regio AG Baden-Württemberg"
+00176 N "ch:2:sboid:DE800631"
+00176 : 800631
+00177 K "DB " L "DB Regio" V "DB Regio AG Baden-Württemberg"
+00177 N "ch:2:sboid:DE800693"
+00177 : 800693
+00178 K "DB " L "DB Regio" V "DB Regio AG Baden-Württemberg"
+00178 N "ch:2:sboid:DE8006C4"
+00178 : 8006C4
+00179 K "DB " L "DB Regio" V "DB Regio AG Baden-Württemberg"
+00179 N "ch:2:sboid:DE8006C5"
+00179 : 8006C5
+00180 K "LDN" L "LDN" V "Dallenwil-Niederrickenbach"
+00180 N "ch:1:sboid:100208"
+00180 : 000250
+00181 K "LDW" L "LDW" V "Dallenwil-Wirzweli"
+00181 N "ch:1:sboid:100212"
+00181 : 000254
+00182 K "DFB" L "DFB" V "Dampfbahn Furka-Bergstrecke"
+00182 N "ch:1:sboid:100131"
+00182 : 000160
+00183 K "DVZ" L "DVZO" V "Dampfbahn-Verein Zürcher Oberland"
+00183 N "ch:1:sboid:100707"
+00183 : 000908
+00184 K "DKB" L "DKB-bbbj" V "Davos Klosters Bergbahnen (bbbj)"
+00184 N "ch:1:sboid:100165"
+00184 : 000207
+00185 K "DKB" L "DKB-dpb" V "Davos Klosters Bergbahnen (dpb)"
+00185 N "ch:1:sboid:100083"
+00185 : 000109
+00186 K "DKB" L "DKB-lkp" V "Davos Klosters Bergbahnen (lkp)"
+00186 N "ch:1:sboid:100166"
+00186 : 000208
+00187 K "DB/" L "DB/SH" V "Deutsche Bahnhöfe im Kt. Schaffhausen"
+00187 N "ch:1:sboid:100310"
+00187 : 000353
+00188 K "DIB" L "DIB" V "DistriBus"
+00188 N "ch:2:sboid:FR87_DIB"
+00188 : 87_DIB
+00189 K "Dis" L "DistriBu" V "DistriBus Saint-Louis Agglo"
+00189 N "ch:1:sboid:101782"
+00189 : 000606
+00190 K "DIV" L "DIVINFO" V "Diverse INFO"
+00190 N "ch:1:sboid:101260"
+00190 : 009999
+00191 K "DBZ" L "DBZ" V "Dolderbahn Betriebs AG"
+00191 N "ch:1:sboid:100134"
+00191 : 000164
+00192 K "DMB" L "DMB" V "Drahtseilbahn Marzili-Stadt Bern AG"
+00192 N "ch:1:sboid:100093"
+00192 : 000119
+00193 K "EWZ" L "EWZ-pa" V "EWZ Bergeller Kraftwerke"
+00193 N "ch:1:sboid:101097"
+00193 : 003160
+00194 K "FNM" L "FNM" V "Eisenbahnen der Region Nord Milano"
+00194 N "ch:1:sboid:100856"
+00194 : 001064
+00195 K "EBZ" L "EBZ" V "Elektrobus Zermatt"
+00195 N "ch:1:sboid:100512"
+00195 : 000708
+00196 K "LEE" L "LEE" V "Elsigenalpbahnen AG Frutigen, Luftseilbahn und Skilifte"
+00196 N "ch:1:sboid:101819"
+00196 : 000614
+00197 K "ESM" L "ESMM" V "Engadin St. Moritz Mountains AG"
+00197 N "ch:1:sboid:100196"
+00197 : 000238
+00198 K "BET" L "BET" V "Engelberg-Trübsee-Titlis"
+00198 N "ch:1:sboid:100088"
+00198 : 000114
+00199 K "EAB" L "EAB" V "Engelberger Auto-Betriebe"
+00199 N "ch:1:sboid:101191"
+00199 : 007058
+00200 K "LES" L "LESt" V "Erlenbach-Stockhorn"
+00200 N "ch:1:sboid:100222"
+00200 : 000264
+00201 K "EMA" L "EMAG" V "Ernst Mändli AG Nohl"
+00201 N "ch:1:sboid:101111"
+00201 : 003185
+00202 K "ESE" L "ESE" V "Eurobus swiss-express AG"
+00202 N "ch:1:sboid:100569"
+00202 : 000767
+00203 K "Ext" L "Extrabus" V "Events / Manifestations / Eventi"
+00203 N "ch:1:sboid:101134"
+00203 : 007001
+00204 K "Evi" L "Evian" V "Evian"
+00204 N "ch:2:sboid:FR87_EVA"
+00204 : 87_EVA
+00205 K "BOD" L "BOD" V "FPLAN BOD RAB OMP"
+00205 N "ch:2:sboid:DE80_BOD"
+00205 : 80_BOD
+00206 K "RVL" L "RVL" V "FPLAN RBG SWG"
+00206 N "ch:2:sboid:DE80_RVL"
+00206 : 80_RVL
+00207 K "VHB" L "VHB" V "FPLAN VHB SBP"
+00207 N "ch:2:sboid:DE80_VHB"
+00207 : 80_VHB
+00208 K "MG" L "MG" V "Ferrovia Monte Generoso"
+00208 N "ch:1:sboid:100102"
+00208 : 000129
+00209 K "FAR" L "FART" V "Ferrovie Autolinee Regionali Ticinesi"
+00209 N "ch:1:sboid:100030"
+00209 : 000049
+00210 K "FAR" L "FART-EV" V "Ferrovie Autolinee Regionali Ticinesi Ersatzverkehr"
+00210 N "ch:1:sboid:1100059"
+00210 : 007240
+00211 K "FE" L "FE" V "Fiesch-Eggishorn"
+00211 N "ch:1:sboid:100227"
+00211 : 000269
+00212 K "INF" L "INFOPLUS" V "Fiktive GO für Infoplus"
+00212 N "ch:1:sboid:101257"
+00212 : 009988
+00213 K "FB" L "FB" V "Forchbahn"
+00213 N "ch:1:sboid:100027"
+00213 : 000046
+00214 K "FB-" L "FB-EV" V "Forchbahn Ersatzverkehr"
+00214 N "ch:1:sboid:1100056"
+00214 : 007248
+00215 K "FWS" L "FWS" V "Franz Weiss Sarnen (Sarnersee)"
+00215 N "ch:1:sboid:101120"
+00215 : 003194
+00216 K "FCA" L "FCA" V "Funicar AG"
+00216 N "ch:1:sboid:101188"
+00216 : 007055
+00217 K "FPR" L "FPR" V "Funicolare Ritom SA"
+00217 N "ch:1:sboid:100091"
+00217 : 000117
+00218 K "FUN" L "FUN" V "Funiculaire Neuchâtel-Université - Neuchâtel-Gare"
+00218 N "ch:1:sboid:100136"
+00218 : 000166
+00219 K "SMt" L "SMtS" V "Funiculaire Saint-Imier-Mont-Soleil SA"
+00219 N "ch:1:sboid:100116"
+00219 : 000143
+00220 K "FLC" L "FLC" V "Funiculaire St-Luc-Chandolin"
+00220 N "ch:1:sboid:100216"
+00220 : 000258
+00221 K "FSC" L "FSCR" V "Funiva San Carlo-Robiei"
+00221 N "ch:1:sboid:101063"
+00221 : 003123
+00222 K "FML" L "FML" V "Funivia Monte Lema SA"
+00222 N "ch:1:sboid:100168"
+00222 : 000210
+00223 K "GR-" L "GR-fsl" V "Funivia Selma-Landarenca"
+00223 N "ch:1:sboid:101060"
+00223 : 003120
+00224 K "FBG" L "FBG" V "Fähre Beckenried-Gersau"
+00224 N "ch:1:sboid:101116"
+00224 : 003190
+00225 K "FRG" L "FRG" V "Förderverein Region Gantrisch"
+00225 N "ch:1:sboid:101182"
+00225 : 007049
+00226 K "LFü" L "LFüB" V "Fürgangen-Bellwald"
+00226 N "ch:1:sboid:100221"
+00226 : 000263
+00227 K "LGJ" L "LGJ" V "Gampel-Jeizinen"
+00227 N "ch:1:sboid:100202"
+00227 : 000244
+00228 K "GCS" L "GCS" V "Gemeinde Celerina/Schlarigna"
+00228 N "ch:1:sboid:1100007"
+00228 : 009028
+00229 K "SFE" L "SFE" V "Gemeinde Grüsch"
+00229 N "ch:1:sboid:101082"
+00229 : 003142
+00230 K "GDL" L "GDLZ" V "Gemeinde Luzein"
+00230 N "ch:1:sboid:101706"
+00230 : 007094
+00231 K "BBO" L "BBO" V "Gemeinde St. Gallenkappel"
+00231 N "ch:1:sboid:101150"
+00231 : 007017
+00232 K "GSU" L "GSUR" V "Gemeinde Surses - Cumegn Surses"
+00232 N "ch:1:sboid:101185"
+00232 : 007052
+00233 K "LB-" L "LB-blb" V "Genossenschaft Lenk Bergbahnen"
+00233 N "ch:1:sboid:100243"
+00233 : 000285
+00234 K "GLN" L "GLNM" V "Genossenschaft Luftseilbahn Morgenholz"
+00234 N "ch:1:sboid:101076"
+00234 : 003136
+00235 K "GLI" L "GLIS" V "Genossenschaft Luftseilbahn Sulwald"
+00235 N "ch:1:sboid:101026"
+00235 : 003085
+00236 K "GSJ" L "GSJ" V "Genossenschaft Seilbahn Jungen"
+00236 N "ch:1:sboid:100247"
+00236 : 000289
+00237 K "GTB" L "GTBE" V "Genossenschaft Tschinglenbahn Elm"
+00237 N "ch:1:sboid:101041"
+00237 : 003101
+00238 K "GFR" L "GFR" V "Giovanni Frapolli Bellinzona"
+00238 N "ch:1:sboid:101016"
+00238 : 003075
+00239 K "BGR" L "BGR" V "Glaris-Rinerhorn"
+00239 N "ch:1:sboid:100250"
+00239 : 000293
+00240 K "GGM" L "GGM" V "Gondelbahn Grindelwald-Männlichen AG"
+00240 N "ch:1:sboid:100269"
+00240 : 000312
+00241 K "GKO" L "GKO" V "Gondelbahn Kandersteg-Oeschinensee"
+00241 N "ch:1:sboid:100280"
+00241 : 000323
+00242 K "GGB" L "GGB" V "Gornergratbahn"
+00242 N "ch:1:sboid:100095"
+00242 : 000121
+00243 K "GOB" L "GOBA-Poo" V "Gotthard Oberalp Arena"
+00243 N "ch:1:sboid:100302"
+00243 : 000345
+00244 K "BGF" L "BGF" V "Grindelwald-First"
+00244 N "ch:1:sboid:100159"
+00244 : 000201
+00245 K "LGP" L "LGP" V "Grindelwald-Pfingstegg"
+00245 N "ch:1:sboid:100230"
+00245 : 000272
+00246 K "G3A" L "G3AG" V "Gstaad 3000 AG"
+00246 N "ch:1:sboid:100219"
+00246 : 000261
+00247 K "GB" L "GB" V "Gurtenbahn"
+00247 N "ch:1:sboid:100096"
+00247 : 000122
+00248 K "SGH" L "SGH" V "Hallwilersee"
+00248 N "ch:1:sboid:100140"
+00248 : 000181
+00249 K "HB" L "HB" V "Harderbahn"
+00249 N "ch:1:sboid:100097"
+00249 : 000123
+00250 K "HAG" L "HAG" V "Heuberge AG"
+00250 N "ch:1:sboid:100758"
+00250 : 000959
+00251 K "HKD" L "HKDS" V "Hoher Kasten Drehrestaurant und Seilbahn AG"
+00251 N "ch:1:sboid:100211"
+00251 : 000253
+00252 K "HLA" L "HLAG" V "Holzegg Liegenschaften AG"
+00252 N "ch:1:sboid:101045"
+00252 : 003105
+00253 K "ITR" L "ITRT" V "Impianti turistici Rivera-Monte Tamaro"
+00253 N "ch:1:sboid:100305"
+00253 : 000348
+00254 K "Ext" L "Extrabus" V "Interimsfahrplan / Horaire interimaire / Orario ad interim"
+00254 N "ch:1:sboid:101133"
+00254 : 007000
+00255 K "DIH" L "DIH" V "Interlaken-Heimwehfluh"
+00255 N "ch:1:sboid:100130"
+00255 : 000159
+00256 K "INT" L "INTT" V "Intertours ME Sàrl"
+00256 N "ch:1:sboid:1100033"
+00256 : 009045
+00257 K "Cen" L "Cent-kli" V "Intragna-Pila Costa"
+00257 N "ch:1:sboid:100236"
+00257 : 000278
+00258 K "FS " L "FS Domo" V "Iselle transito-Domodossola"
+00258 N "ch:1:sboid:100343"
+00258 : 000422
+00259 K "LJK" L "LJK" V "Jakobsbad-Kronberg"
+00259 N "ch:1:sboid:100213"
+00259 : 000255
+00260 K "JVT" L "JVTT" V "José Vogel Transport Taxi"
+00260 N "ch:1:sboid:101215"
+00260 : 007082
+00261 K "JB" L "JB" V "Jungfraubahn"
+00261 N "ch:1:sboid:100098"
+00261 : 000124
+00262 K "KBS" L "KBS" V "Kaisereggbahnen Schwarzsee AG"
+00262 N "ch:1:sboid:100946"
+00262 : 003005
+00263 K "KMB" L "KMB-bkm" V "Klosters-Madrisa Bergbahn"
+00263 N "ch:1:sboid:100266"
+00263 : 000309
+00264 K "KWS" L "KWS" V "Kraftwerk Sanetsch AG"
+00264 N "ch:1:sboid:101061"
+00264 : 003121
+00265 K "PB " L "PB Fpl" V "Kriens-Fräkmüntegg"
+00265 N "ch:1:sboid:101262"
+00265 : 013600
+00266 K "KSB" L "KSB" V "Kriens-Sonnenberg-Bahn"
+00266 N "ch:1:sboid:101031"
+00266 : 003090
+00267 K "Krö" L "Kröbu" V "Kröschenbrunnen Bus"
+00267 N "ch:1:sboid:101184"
+00267 : 007051
+00268 K "LKü" L "LKüS" V "Küssnacht am Rigi-Seebodenalp"
+00268 N "ch:1:sboid:100239"
+00268 : 000281
+00269 K "LTB" L "LTBAG" V "LTB Lungern-Turren-Bahn AG"
+00269 N "ch:1:sboid:100306"
+00269 : 000349
+00270 K "LPF" L "LPF" V "La Punt Ferien"
+00270 N "ch:1:sboid:101769"
+00270 : 003257
+00271 K "LNM" L "LNM" V "Lacs de Neuchâtel et Morat"
+00271 N "ch:1:sboid:100148"
+00271 : 000189
+00272 K "NLM" L "NLM" V "Lago Maggiore"
+00272 N "ch:1:sboid:100146"
+00272 : 000187
+00273 K "SNL" L "SNL" V "Lago di Lugano"
+00273 N "ch:1:sboid:100147"
+00273 : 000188
+00274 K "LAB" L "LABB" V "Lauchernalp Bergbahnen AG"
+00274 N "ch:1:sboid:100263"
+00274 : 000306
+00275 K "LEB" L "LEB" V "Lausanne-Echallens-Bercher"
+00275 N "ch:1:sboid:100036"
+00275 : 000055
+00276 K "LEB" L "LEB-EV" V "Lausanne-Echallens-Bercher Ersatzverkehr"
+00276 N "ch:1:sboid:1100079"
+00276 : 007263
+00277 K "BLM" L "BLM" V "Lauterbrunnen-Mürren"
+00277 N "ch:1:sboid:100014"
+00277 : 000032
+00278 K "LB" L "LB" V "Lenk Bergbahnen"
+00278 N "ch:1:sboid:100255"
+00278 : 000298
+00279 K "LHB" L "LHB" V "Lenzerheide Bergbahnen"
+00279 N "ch:1:sboid:100210"
+00279 : 000252
+00280 K "LLG" L "LLG" V "Leukerbad-Gemmipass"
+00280 N "ch:1:sboid:100187"
+00280 : 000229
+00281 K "BDW" L "BDWM" V "Limmatbus AG Dietikon"
+00281 N "ch:1:sboid:100431"
+00281 : 000518
+00282 K "LAA" L "LAA" V "Luftseilbahn Amsteg-Arni"
+00282 N "ch:1:sboid:101114"
+00282 : 003188
+00283 K "LAB" L "LABAG" V "Luftseilbahn Attinghausen-Brüsti AG"
+00283 N "ch:1:sboid:101048"
+00283 : 003108
+00284 K "LEE" L "LEE fpl" V "Luftseilbahn Elsigbach-Elsigenalp"
+00284 N "ch:1:sboid:101013"
+00284 : 003072
+00285 K "LEF" L "LEF" V "Luftseilbahn Engelberg-Fürenalp"
+00285 N "ch:1:sboid:101033"
+00285 : 003092
+00286 K "LFC" L "LFCh" V "Luftseilbahn Fell-Chrüzhütte"
+00286 N "ch:1:sboid:101034"
+00286 : 003093
+00287 K "LFB" L "LFB" V "Luftseilbahn Fellboden-Bannalpsee"
+00287 N "ch:1:sboid:101035"
+00287 : 003094
+00288 K "LFE" L "LFE" V "Luftseilbahn Flüelen-Eggbergen"
+00288 N "ch:1:sboid:101049"
+00288 : 003109
+00289 K "LIV" L "LIV" V "Luftseilbahn Illgau - Vorder Oberberg"
+00289 N "ch:1:sboid:101102"
+00289 : 003165
+00290 K "LKE" L "LKE" V "Luftseilbahn Kalpetran-Embd"
+00290 N "ch:1:sboid:100267"
+00290 : 000310
+00291 K "LSK" L "LSKA" V "Luftseilbahn Kandersteg-Allmenalp"
+00291 N "ch:1:sboid:100303"
+00291 : 000346
+00292 K "LKS" L "LKS" V "Luftseilbahn Kandersteg-Sunnbüel (Gemmi) AG"
+00292 N "ch:1:sboid:100186"
+00292 : 000228
+00293 K "LKM" L "LKM" V "Luftseilbahn Kies-Mettmen"
+00293 N "ch:1:sboid:101077"
+00293 : 003137
+00294 K "LKR" L "LKRS" V "Luftseilbahn Kräbel-Rigi Scheidegg AG"
+00294 N "ch:1:sboid:100270"
+00294 : 000313
+00295 K "LMW" L "LMW" V "Luftseilbahn Matt-Weissenberg"
+00295 N "ch:1:sboid:101078"
+00295 : 003138
+00296 K "LSM" L "LSMS/MS" V "Luftseilbahn Mürren-Schilthorn"
+00296 N "ch:1:sboid:100226"
+00296 : 000268
+00297 K "LNE" L "LNE" V "Luftseilbahn Niederbauen"
+00297 N "ch:1:sboid:101039"
+00297 : 003099
+00298 K "LOR" L "LORB" V "Luftseilbahn Obergschwend-Rigi-Burggeist AG"
+00298 N "ch:1:sboid:100184"
+00298 : 000226
+00299 K "LHA" L "LHA" V "Luftseilbahn Oberschan-Hotel Alvier"
+00299 N "ch:1:sboid:101072"
+00299 : 003132
+00300 K "LSH" L "LSH" V "Luftseilbahn Schattdorf-Haldi"
+00300 N "ch:1:sboid:100228"
+00300 : 000270
+00301 K "LUF" L "LUFAG" V "Luftseilbahn Unterterzen-Flumserberg AG"
+00301 N "ch:1:sboid:100172"
+00301 : 000214
+00302 K "LGI" L "LGIA" V "Luftseilbahngenossenschaft Arnisee"
+00302 N "ch:1:sboid:101055"
+00302 : 003115
+00303 K "LBE" L "LBER" V "Luftseilbahngenossenschaft Brügg-Eierschwand-Ruogig"
+00303 N "ch:1:sboid:100977"
+00303 : 003036
+00304 K "LGG" L "LGGI" V "Luftseilbahngenossenschaft Gitschenen"
+00304 N "ch:1:sboid:100953"
+00304 : 003012
+00305 K "MS" L "MS" V "Lugano-Monte San Salvatore"
+00305 N "ch:1:sboid:100107"
+00305 : 000134
+00306 K "FLP" L "FLP" V "Lugano-Ponte Tresa"
+00306 N "ch:1:sboid:100028"
+00306 : 000047
+00307 K "FLP" L "FLP-EV" V "Lugano-Ponte Tresa Ersatzverkehr"
+00307 N "ch:1:sboid:1100078"
+00307 : 007274
+00308 K "MSS" L "MSSG" V "MS Seestern + Gastro AG"
+00308 N "ch:1:sboid:101832"
+00308 : 003199
+00309 K "LMM" L "LMM" V "Marbach-Marbachegg"
+00309 N "ch:1:sboid:100231"
+00309 : 000273
+00310 K "MGB" L "MGB-bvz" V "Matterhorn Gotthard Bahn (bvz)"
+00310 N "ch:1:sboid:100070"
+00310 : 000093
+00311 K "MGB" L "MGB-fo" V "Matterhorn Gotthard Bahn (fo)"
+00311 N "ch:1:sboid:100029"
+00311 : 000048
+00312 K "MGB" L "MGB-EV" V "Matterhorn Gotthard Bahn Ersatzverkehr"
+00312 N "ch:1:sboid:1100060"
+00312 : 007249
+00313 K "ZB-" L "ZB-mib" V "Meiringen-Innertkirchen-Bahn"
+00313 N "ch:1:sboid:100105"
+00313 : 000132
+00314 K "MOB" L "MOB" V "Montreux-Oberland Bernois"
+00314 N "ch:1:sboid:100045"
+00314 : 000064
+00315 K "MOB" L "MOB-EV" V "Montreux-Oberland Bernois Ersatzverkehr"
+00315 N "ch:1:sboid:1100057"
+00315 : 007040
+00316 K "MVR" L "MVR-cev" V "Montreux-Vevey-Riviera (cev)"
+00316 N "ch:1:sboid:100023"
+00316 : 000042
+00317 K "MVR" L "MVR-las" V "Montreux-Vevey-Riviera (las)"
+00317 N "ch:1:sboid:100099"
+00317 : 000125
+00318 K "MVR" L "MVR-mtgn" V "Montreux-Vevey-Riviera (mtgn)"
+00318 N "ch:1:sboid:100104"
+00318 : 000131
+00319 K "MVR" L "MVR-vcp" V "Montreux-Vevey-Riviera (vcp)"
+00319 N "ch:1:sboid:100126"
+00319 : 000155
+00320 K "MNL" L "MNL" V "Moonliner"
+00320 N "ch:1:sboid:101222"
+00320 : 007089
+00321 K "MGs" L "MGsa" V "Mouettes genevoises SA"
+00321 N "ch:1:sboid:100158"
+00321 : 000199
+00322 K "MTB" L "MTB" V "Mountain Tour Bergün GmbH"
+00322 N "ch:1:sboid:101210"
+00322 : 007077
+00323 K "MSG" L "MSG" V "Mühleggbahn AG"
+00323 N "ch:1:sboid:100513"
+00323 : 000709
+00324 K "NA_" L "NA_85000" V "NA_85000"
+00324 N "ch:1:sboid:CH85000"
+00324 : 085000
+00325 K "NLJ" L "NLJ" V "Navigation Lac de Joux"
+00325 N "ch:1:sboid:101107"
+00325 : 003181
+00326 K "NLB" L "NLB" V "Navigation Lac des Brenets"
+00326 N "ch:1:sboid:100157"
+00326 : 000198
+00327 K "NeT" L "NeTS-DB" V "NeTS Planung DB"
+00327 N "ch:2:sboid:DE807000"
+00327 : 807000
+00328 K "NeT" L "NeTS-ÖBB" V "NeTS Planung ÖBB"
+00328 N "ch:2:sboid:AT817000"
+00328 : 817000
+00329 K "NHB" L "NHB-bbb" V "Niederhornbahn AG"
+00329 N "ch:1:sboid:100120"
+00329 : 000149
+00330 K "NHB" L "NHB-nhb" V "Niederhornbahn AG"
+00330 N "ch:1:sboid:100197"
+00330 : 000239
+00331 K "NB" L "NB" V "Niesenbahn"
+00331 N "ch:1:sboid:100108"
+00331 : 000135
+00332 K "NSt" L "NStCM" V "Nyon-St-Cergue-Morez"
+00332 N "ch:1:sboid:100047"
+00332 : 000066
+00333 K "NSt" L "NStCM-EV" V "Nyon-St-Cergue-Morez Ersatzverkehr"
+00333 N "ch:1:sboid:1100073"
+00333 : 007258
+00334 K "OeB" L "OeBB" V "Oensingen-Balsthal-Bahn"
+00334 N "ch:1:sboid:100049"
+00334 : 000068
+00335 K "OTL" L "OTL" V "Office du tourisme de Leysin"
+00335 N "ch:1:sboid:101195"
+00335 : 007062
+00336 K "OKS" L "OKS" V "Ortsbus Klosters-Serneus"
+00336 N "ch:1:sboid:100520"
+00336 : 000718
+00337 K "OSF" L "OSF" V "Ortsbus Saas-Fee"
+00337 N "ch:1:sboid:101194"
+00337 : 007061
+00338 K "OBS" L "OBSM" V "Ortsbus St. Moritz"
+00338 N "ch:1:sboid:100518"
+00338 : 000716
+00339 K "OGS" L "OGS" V "Ortsbus der Gemeinde Silvaplana / Gemeinde Silvaplana"
+00339 N "ch:1:sboid:101218"
+00339 : 007085
+00340 K "PRH" L "PRH" V "PRO REGIO HUTTWIL Verkehrsverein"
+00340 N "ch:1:sboid:101212"
+00340 : 007079
+00341 K "PAC" L "PAC" V "Parc d'Attractions du Châtelard"
+00341 N "ch:1:sboid:100089"
+00341 : 000115
+00342 K "GbB" L "GbB" V "Parkhotel Giessbach AG"
+00342 N "ch:1:sboid:100094"
+00342 : 000120
+00343 K "PSS" L "PSSA" V "Pendicularas Scuol SA"
+00343 N "ch:1:sboid:100181"
+00343 : 000223
+00344 K "PB" L "PB" V "Pilatusbahnen"
+00344 N "ch:1:sboid:100109"
+00344 : 000136
+00345 K "PIZ" L "PIZAG" V "Pizolbahnen AG"
+00345 N "ch:1:sboid:100245"
+00345 : 000287
+00346 K "GSB" L "GSB" V "Politische Gemeinde Steckborn"
+00346 N "ch:1:sboid:101121"
+00346 : 003195
+00347 K "PBZ" L "PBZ" V "Poly-Bahn Zürich"
+00347 N "ch:1:sboid:100135"
+00347 : 000165
+00348 K "SPL" L "SPL" V "Pontresina-Alp Languard"
+00348 N "ch:1:sboid:100225"
+00348 : 000267
+00349 K "TCP" L "TCP" V "Portes du Soleil Suisse SA"
+00349 N "ch:1:sboid:100175"
+00349 : 000217
+00350 K "PAG" L "PAG" V "PostAuto AG"
+00350 N "ch:1:sboid:100602"
+00350 : 000801
+00351 K "PAG" L "PAGT" V "Pradaschier AG Top"
+00351 N "ch:1:sboid:100299"
+00351 : 000342
+00352 K "APR" L "APRO" V "Prontobus"
+00352 N "ch:1:sboid:101700"
+00352 : 007092
+00353 K "Pro" L "Pro" V "Proxim iTi"
+00353 N "ch:2:sboid:FR87_PRO"
+00353 : 87_PRO
+00354 K "KUB" L "KUBUS" V "Publikation nur Kursbuch/Plakat"
+00354 N "ch:1:sboid:100941"
+00354 : 003000
+00355 K "RDT" L "RDT" V "RDTAin"
+00355 N "ch:2:sboid:FR87_RDT"
+00355 : 87_RDT
+00356 K "GYS" L "GYSEV" V "Raab-Ödenburg-Ebenfurter Eisenbahn"
+00356 N "ch:1:sboid:100835"
+00356 : 001043
+00357 K "LRE" L "LRE" V "Raron-Eischoll"
+00357 N "ch:1:sboid:100289"
+00357 : 000332
+00358 K "LRU" L "LRU" V "Raron-Unterbäch"
+00358 N "ch:1:sboid:100169"
+00358 : 000211
+00359 K "REG" L "REGO" V "Regiobus Gossau SG"
+00359 N "ch:1:sboid:100695"
+00359 : 000896
+00360 K "RA/" L "RA/bus" V "RegionAlps Bus"
+00360 N "ch:1:sboid:101711"
+00360 : 000814
+00361 K "RBL" L "RBL" V "Regionalbus Lenzburg"
+00361 N "ch:1:sboid:100672"
+00361 : 000873
+00362 K "RVB" L "RVBW" V "Regionale Verkehrsbetriebe Baden-Wettingen"
+00362 N "ch:1:sboid:100685"
+00362 : 000886
+00363 K "RA" L "RA" V "Regionalps"
+00363 N "ch:1:sboid:100055"
+00363 : 000074
+00364 K "RA-" L "RA-EV" V "Regionalps Ersatzverkehr"
+00364 N "ch:1:sboid:1100061"
+00364 : 007247
+00365 K "RBS" L "RBS" V "Regionalverkehr Bern-Solothurn"
+00365 N "ch:1:sboid:100066"
+00365 : 000088
+00366 K "RBS" L "RBS-EV" V "Regionalverkehr Bern-Solothurn Ersatzverkehr"
+00366 N "ch:1:sboid:1100062"
+00366 : 007246
+00367 K "RFB" L "RFB" V "Reichenbachfall-Bahn"
+00367 N "ch:1:sboid:101028"
+00367 : 003087
+00368 K "LRW" L "LRW" V "Reigoldswil-Wasserfallen"
+00368 N "ch:1:sboid:100195"
+00368 : 000237
+00369 K "RMA" L "RMA" V "Remontées Méc. du Wildhorn Anzère"
+00369 N "ch:1:sboid:100251"
+00369 : 000294
+00370 K "CMA" L "CMA" V "Remontées Mécaniques Crans-Montana-Aminona"
+00370 N "ch:1:sboid:100203"
+00370 : 000245
+00371 K "RMG" L "RMGZ" V "Remontées Mécaniques Grimentz-Zinal SA"
+00371 N "ch:1:sboid:100294"
+00371 : 000337
+00372 K "NVR" L "NVRM" V "Remontées mécaniques SA"
+00372 N "ch:1:sboid:100969"
+00372 : 003028
+00373 K "RhB" L "RhB" V "Rhätische Bahn"
+00373 N "ch:1:sboid:100053"
+00373 : 000072
+00374 K "RhB" L "RhB-EV" V "Rhätische Bahn Ersatzverkehr"
+00374 N "ch:1:sboid:1100063"
+00374 : 007250
+00375 K "LRF" L "LRF" V "Rhäzüns-Feldis/Veulden"
+00375 N "ch:1:sboid:100190"
+00375 : 000232
+00376 K "RiT" L "RiT" V "Riffelalp Resort AG Zermatt"
+00376 N "ch:1:sboid:101138"
+00376 : 007005
+00377 K "RB" L "RB" V "Rigi Bahnen AG"
+00377 N "ch:1:sboid:100110"
+00377 : 000137
+00378 K "LRR" L "LRR" V "Rosswald Bahnen AG"
+00378 N "ch:1:sboid:100234"
+00378 : 000276
+00379 K "RMA" L "RMAG" V "Rotenfluebahn Mythenregion AG"
+00379 N "ch:1:sboid:100193"
+00379 : 000235
+00380 K "RRB" L "RRB" V "Ruftaxi Rorschacherberg"
+00380 N "ch:1:sboid:101141"
+00380 : 007008
+00381 K "Rse" L "Rse" V "Réseau Lihsa"
+00381 N "ch:2:sboid:FR87_LSA"
+00381 : 87_LSA
+00382 K "SAF" L "SAFSRL" V "S.A.F. Societa' Autoservizi Fontaneto SRL"
+00382 N "ch:1:sboid:101705"
+00382 : 007093
+00383 K "SBB" L "SBB Ausl" V "SBB AG Auslandsverbindungen (KUBUS)"
+00383 N "ch:1:sboid:101104"
+00383 : 003167
+00384 K "SBB" L "SBB" V "SBB GmbH"
+00384 N "ch:2:sboid:DEL7____"
+00384 : L7____
+00385 K "SBB" L "SBB GmbH" V "SBB GmbH (Grenzverkehr)"
+00385 N "ch:1:sboid:100308"
+00385 : 000351
+00386 K "SBB" L "SBB-EV" V "SBB Infrastruktur AG Bahnersatz"
+00386 N "ch:1:sboid:1100021"
+00386 : 007231
+00387 K "SIB" L "SIB" V "SIBRA"
+00387 N "ch:2:sboid:FR87_SIB"
+00387 : 87_SIB
+00388 K "SOB" L "SOB BusF" V "SOB Bus Fahrplanbedürfnisse"
+00388 N "ch:1:sboid:101181"
+00388 : 007048
+00389 K "STI" L "STI" V "STI Bus AG"
+00389 N "ch:1:sboid:100118"
+00389 : 000146
+00390 K "STI" L "STI Berg" V "STI Bus AG"
+00390 N "ch:1:sboid:101781"
+00390 : 000605
+00391 K "STI" L "STI-gwb" V "STI Bus AG"
+00391 N "ch:1:sboid:100658"
+00391 : 000859
+00392 K "STB" L "STBAG" V "Saastal Bergbahnen AG"
+00392 N "ch:1:sboid:100192"
+00392 : 000234
+00393 K "SHA" L "SHAG" V "Sattel-Hochstuckli AG"
+00393 N "ch:1:sboid:100198"
+00393 : 000240
+00394 K "SB" L "SB" V "Savognin-Bergbahnen AG"
+00394 N "ch:1:sboid:100188"
+00394 : 000230
+00395 K "SZR" L "SZR-ET" V "Schiff Eglisau-Tössegg"
+00395 N "ch:1:sboid:101112"
+00395 : 003186
+00396 K "SS" L "SS" V "Schiffahrtsunternehmung Silsersee"
+00396 N "ch:1:sboid:101109"
+00396 : 003183
+00397 K "SGG" L "SGG" V "Schifffahrts-Genossenschaft Greifensee"
+00397 N "ch:1:sboid:100139"
+00397 : 000180
+00398 K "SGZ" L "SGZ" V "Schifffahrtsgesellschaft für den Zugersee AG"
+00398 N "ch:1:sboid:100145"
+00398 : 000186
+00399 K "SW" L "SW" V "Schiffsbetrieb Walensee"
+00399 N "ch:1:sboid:100156"
+00399 : 000197
+00400 K "LSM" L "LSMS-sbm" V "Schilthornbahn (sbm)"
+00400 N "ch:1:sboid:100114"
+00400 : 000141
+00401 K "SSA" L "SSA" V "Schutt Atzmännig"
+00401 N "ch:1:sboid:100258"
+00401 : 000301
+00402 K "URh" L "URh" V "Schweiz. Schifffahrtsgesellschaft Untersee und Rhein AG"
+00402 N "ch:1:sboid:100152"
+00402 : 000193
+00403 K "SBS" L "SBS" V "Schweizerische Bodensee-Schifffahrt AG"
+00403 N "ch:1:sboid:100154"
+00403 : 000195
+00404 K "SBB" L "SBB" V "Schweizerische Bundesbahnen SBB"
+00404 N "ch:1:sboid:100001"
+00404 : 000011
+00405 K "SOB" L "SOB-bt" V "Schweizerische Südostbahn (bt)"
+00405 N "ch:1:sboid:100018"
+00405 : 000036
+00406 K "SOB" L "SOB-sob" V "Schweizerische Südostbahn (sob)"
+00406 N "ch:1:sboid:100061"
+00406 : 000082
+00407 K "SOB" L "SOB-EV" V "Schweizerische Südostbahn AG Ersatzverkehr"
+00407 N "ch:1:sboid:1100023"
+00407 : 007232
+00408 K "LSS" L "LSS" V "Schwägalp-Säntis"
+00408 N "ch:1:sboid:100171"
+00408 : 000213
+00409 K "SRI" L "SRI" V "Seilbahn Ried Illgau"
+00409 N "ch:1:sboid:100304"
+00409 : 000347
+00410 K "SWA" L "SWAG" V "Seilbahn Weissenstein AG"
+00410 N "ch:1:sboid:100160"
+00410 : 000202
+00411 K "SGE" L "SGES" V "Seilbahngenossenschaft Embd-Schalb"
+00411 N "ch:1:sboid:100995"
+00411 : 003054
+00412 K "SBG" L "SBGG" V "Seilbahngenossenschaft Golzern"
+00412 N "ch:1:sboid:101052"
+00412 : 003112
+00413 K "STB" L "STB" V "Sensetalbahn"
+00413 N "ch:1:sboid:100063"
+00413 : 000085
+00414 K "TMR" L "TMR Auto" V "Service d'automobiles TMR"
+00414 N "ch:1:sboid:100634"
+00414 : 000835
+00415 K "TPC" L "TPC/Auto" V "Service d'automobiles TPC (Aigle-Villeneuve)"
+00415 N "ch:1:sboid:100524"
+00415 : 000722
+00416 K "TPC" L "TPC/Autb" V "Service d'automobiles TPC (bvb auto)"
+00416 N "ch:1:sboid:100651"
+00416 : 000852
+00417 K "TPF" L "TPF Auto" V "Service d'automobiles TPF"
+00417 N "ch:1:sboid:100633"
+00417 : 000834
+00418 K "TPF" L "TPF/tf" V "Service d'automobiles TPF (tf)"
+00418 N "ch:1:sboid:100593"
+00418 : 000791
+00419 K "TRN" L "TRN/Autr" V "Service d'automobiles TRN (rvt Auto)"
+00419 N "ch:1:sboid:100598"
+00419 : 000796
+00420 K "TRN" L "TRN/Auto" V "Service d'automobiles TRN (vr)"
+00420 N "ch:1:sboid:100127"
+00420 : 000156
+00421 K "SNL" L "SNL Auto" V "Servizio d'automobili"
+00421 N "ch:1:sboid:100539"
+00421 : 000737
+00422 K "SFT" L "SFT" V "Sesselbahn Fatschel - Triemel"
+00422 N "ch:1:sboid:100983"
+00422 : 003042
+00423 K "SFM" L "SFM" V "Sesselbahn Feldis-Mutta"
+00423 N "ch:1:sboid:101095"
+00423 : 003158
+00424 K "SKR" L "SKRa" V "Sesselbahn Kiental-Ramslauenen"
+00424 N "ch:1:sboid:101011"
+00424 : 003070
+00425 K "SKR" L "SKR" V "Sesselbahn Krümmenschwil-Rietbach"
+00425 N "ch:1:sboid:101068"
+00425 : 003128
+00426 K "ESM" L "ESMM-sms" V "Sesselbahn St. Moritz Suvretta-Randolins"
+00426 N "ch:1:sboid:100992"
+00426 : 003051
+00427 K "SVG" L "SVGa" V "Sesselbahn Vals-Gadenstatt"
+00427 N "ch:1:sboid:101090"
+00427 : 003151
+00428 K "SVG" L "SVG" V "Sesselbahn Visperterminen-Giw"
+00428 N "ch:1:sboid:100993"
+00428 : 003052
+00429 K "SWG" L "SWG" V "Sesselbahn Wildhaus-Gamplüt"
+00429 N "ch:1:sboid:101069"
+00429 : 003129
+00430 K "SMC" L "SMC" V "Sierre-Montana-Crans"
+00430 N "ch:1:sboid:100115"
+00430 : 000142
+00431 K "SZU" L "SZU" V "Sihltal-Zürich-Uetliberg-Bahn"
+00431 N "ch:1:sboid:100058"
+00431 : 000078
+00432 K "SZU" L "SZU-EV" V "Sihltal-Zürich-Uetliberg-Bahn Ersatzverkehr"
+00432 N "ch:1:sboid:1100064"
+00432 : 007251
+00433 K "SSM" L "SSM" V "Skilift Schilt AG 8753 Mollis"
+00433 N "ch:1:sboid:101163"
+00433 : 007030
+00434 K "FMB" L "FMB" V "Società Funicolare Cassarate-Monte Brè"
+00434 N "ch:1:sboid:100090"
+00434 : 000116
+00435 K "SNL" L "SNL-magg" V "Società Navigazione del Lago di Lugano SA"
+00435 N "ch:1:sboid:101707"
+00435 : 000190
+00436 K "SSI" L "SSIF" V "Società Subalpina di Imprese Ferroviare (Centovalli)"
+00436 N "ch:1:sboid:100345"
+00436 : 000424
+00437 K "FLM" L "FLMS" V "Società della Funicolare Locarno-Madonna del Sasso SA"
+00437 N "ch:1:sboid:100133"
+00437 : 000163
+00438 K "SNC" L "SNCF" V "Société Nationale des Chemins de fer Français"
+00438 N "ch:2:sboid:FR87_LEX"
+00438 : 87_LEX
+00439 K "BC-" L "BC-cmBC" V "Société coopérative du Chemin de fer - Musée Blonay-Chamby"
+00439 N "ch:1:sboid:100327"
+00439 : 000371
+00440 K "SAP" L "SAPJV" V "Société des Auto-transports du Pied du Jura Vaudois"
+00440 N "ch:1:sboid:100521"
+00440 : 000719
+00441 K "STG" L "STGR" V "Solarfährbetrieb Thomas Geiger Reichenau"
+00441 N "ch:1:sboid:101108"
+00441 : 003182
+00442 K "SBA" L "SBA" V "Sportbahnen Amden"
+00442 N "ch:1:sboid:101070"
+00442 : 003130
+00443 K "SPB" L "SPBR" V "Sportbahnen Braunwald AG"
+00443 N "ch:1:sboid:101105"
+00443 : 003168
+00444 K "SDS" L "SDS" V "Sportbahnen Davos"
+00444 N "ch:1:sboid:100085"
+00444 : 000111
+00445 K "SBE" L "SBE" V "Sportbahnen Elm"
+00445 N "ch:1:sboid:101079"
+00445 : 003139
+00446 K "SK" L "SK" V "Sportbahnen Kerenzerberg GmbH"
+00446 N "ch:1:sboid:101075"
+00446 : 003135
+00447 K "SMF" L "SMF-ldb" V "Sportbahnen Melchsee-Frutt (ldb)"
+00447 N "ch:1:sboid:101032"
+00447 : 003091
+00448 K "SMF" L "SMF-lsm" V "Sportbahnen Melchsee-Frutt (lsm)"
+00448 N "ch:1:sboid:100180"
+00448 : 000222
+00449 K "SMF" L "SMF-lsmF" V "Sportbahnen Melchsee-Frutt (lsm)"
+00449 N "ch:1:sboid:101125"
+00449 : 003222
+00450 K "SMF" L "SMF-ssmb" V "Sportbahnen Melchsee-Frutt (ssmb)"
+00450 N "ch:1:sboid:100281"
+00450 : 000324
+00451 K "SBP" L "SBP" V "Sportbahnen Pischa"
+00451 N "ch:1:sboid:100182"
+00451 : 000224
+00452 K "SBU" L "SBU" V "Sportbahnen Unterbäch AG"
+00452 N "ch:1:sboid:100991"
+00452 : 003050
+00453 K "SBF" L "SBF" V "Stadtbus Frauenfeld"
+00453 N "ch:1:sboid:100599"
+00453 : 000797
+00454 K "SBT" L "SBT" V "Stadtbus Tuttlingen Klink GmbH"
+00454 N "ch:1:sboid:101775"
+00454 : 000369
+00455 K "SBW" L "SBW" V "Stadtbus Winterthur"
+00455 N "ch:1:sboid:100681"
+00455 : 000882
+00456 K "LSG" L "LSG" V "Stalden-Gspon"
+00456 N "ch:1:sboid:100238"
+00456 : 000280
+00457 K "LSG" L "LSG-EV" V "Stalden-Gspon Ersatzverkehr"
+00457 N "ch:1:sboid:1100084"
+00457 : 007280
+00458 K "LSG" L "LSG/LSG" V "Staldenried-Gspon"
+00458 N "ch:1:sboid:101750"
+00458 : 000291
+00459 K "StS" L "StSS" V "Standseilbahn Schwyz-Stoos AG"
+00459 N "ch:1:sboid:100086"
+00459 : 000112
+00460 K "Sth" L "SthB" V "Stanserhornbahn"
+00460 N "ch:1:sboid:100117"
+00460 : 000145
+00461 K "LSM" L "LSMS-lsm" V "Stechelberg-Mürren-Schilthorn (lsms)"
+00461 N "ch:1:sboid:100214"
+00461 : 000256
+00462 K "STP" L "STP" V "Stiftung Paradies"
+00462 N "ch:1:sboid:1100036"
+00462 : 003200
+00463 K "Sto" L "StoB-lms" V "Stoosbahnen AG"
+00463 N "ch:1:sboid:100276"
+00463 : 000319
+00464 K "Sto" L "StoB-sb" V "Stoosbahnen AG"
+00464 N "ch:1:sboid:101042"
+00464 : 003102
+00465 K "SVB" L "SVB/kmb" V "Städt. Verkehrsbetriebe Bern Konolfingen-Münsingen-Belp"
+00465 N "ch:1:sboid:100523"
+00465 : 000721
+00466 K "SVB" L "SVB" V "Städtische Verkehrsbetriebe Bern"
+00466 N "ch:1:sboid:100081"
+00466 : 000106
+00467 K "SVB" L "SVB Auto" V "Städtische Verkehrsbetriebe Bern"
+00467 N "ch:1:sboid:100626"
+00467 : 000827
+00468 K "LSC" L "LSC" V "Surlej-Silvaplana-Corvatsch"
+00468 N "ch:1:sboid:100207"
+00468 : 000249
+00469 K "ST" L "ST" V "Sursee-Triengen-Bahn"
+00469 N "ch:1:sboid:100062"
+00469 : 000084
+00470 K "SBG" L "SBG" V "Südbadenbus"
+00470 N "ch:2:sboid:DEsbg034"
+00470 : sbg034
+00471 K "SBG" L "SBG" V "Südbadenbus GmbH"
+00471 N "ch:1:sboid:100311"
+00471 : 000354
+00472 K "STA" L "STA Auto" V "Südtiroler Transportstrukturen AG"
+00472 N "ch:1:sboid:100508"
+00472 : 000704
+00473 K "SWE" L "SWEG" V "Südwestdeutsche Verkehrs-Aktiengesellschaft"
+00473 N "ch:1:sboid:101156"
+00473 : 007023
+00474 K "THU" L "THURBO" V "THURBO"
+00474 N "ch:1:sboid:100046"
+00474 : 000065
+00475 K "TWS" L "TWS" V "Taxi, Bau- und Traxarbeiten Willi Schaad"
+00475 N "ch:1:sboid:101203"
+00475 : 007070
+00476 K "TSD" L "TSD-asdt" V "Theytaz Excursions Sion"
+00476 N "ch:1:sboid:100652"
+00476 : 000853
+00477 K "TSD" L "TSD-tcld" V "Theytaz Excursions Sion"
+00477 N "ch:1:sboid:100973"
+00477 : 003032
+00478 K "THB" L "THB-EV" V "Thurbo AG Ersatzverkehr"
+00478 N "ch:1:sboid:1100024"
+00478 : 007233
+00479 K "TBB" L "TBBU" V "Toggenburg Bergbahnen Unterwasser"
+00479 N "ch:1:sboid:100087"
+00479 : 000113
+00480 K "LLA" L "LLAT" V "Torrent-Bahnen Leukerbad-Albinen AG"
+00480 N "ch:1:sboid:100254"
+00480 : 000297
+00481 K "TUG" L "TUG" V "Touristische Unternehmung Grächen AG"
+00481 N "ch:1:sboid:100178"
+00481 : 000220
+00482 K "TDE" L "TDEV74" V "Transdev Haute Savoie, SARL"
+00482 N "ch:1:sboid:101813"
+00482 : 000610
+00483 K "TRN" L "TRN-tn f" V "Transport Publics Neuchâtelois SA"
+00483 N "ch:1:sboid:101265"
+00483 : 015301
+00484 K "TRN" L "TRN-EV" V "Transport Publics Neuchâtelois SA Ersatzverkehr"
+00484 N "ch:1:sboid:1100067"
+00484 : 007255
+00485 K "TPG" L "TPG" V "Transports Publics Genevois"
+00485 N "ch:1:sboid:100680"
+00485 : 000881
+00486 K "TRN" L "TRN-tn F" V "Transports Publics Neuchâtelois SA"
+00486 N "ch:1:sboid:101264"
+00486 : 015300
+00487 K "TRN" L "TRN-cmn" V "Transports Publics Neuchâtelois SA (cmn)"
+00487 N "ch:1:sboid:100025"
+00487 : 000044
+00488 K "TRN" L "TRN-rvt" V "Transports Publics Neuchâtelois SA (rvt)"
+00488 N "ch:1:sboid:100054"
+00488 : 000073
+00489 K "TRN" L "TRN/tc" V "Transports Publics Neuchâtelois SA (tc)"
+00489 N "ch:1:sboid:100594"
+00489 : 000792
+00490 K "TRN" L "TRN-tn" V "Transports Publics Neuchâtelois SA (tn)"
+00490 N "ch:1:sboid:100124"
+00490 : 000153
+00491 K "TAC" L "TAC" V "Transports Publics de l'agglomération d'Annemasse"
+00491 N "ch:2:sboid:FR87_TAC"
+00491 : 87_TAC
+00492 K "TL" L "TL" V "Transports Publics de la Région Lausannoise sa"
+00492 N "ch:1:sboid:100122"
+00492 : 000151
+00493 K "TL-" L "TL-lo" V "Transports Publics de la Région Lausannoise sa"
+00493 N "ch:1:sboid:100100"
+00493 : 000127
+00494 K "TPN" L "TPN" V "Transports Publics de la Région Nyonnaise"
+00494 N "ch:1:sboid:100540"
+00494 : 000738
+00495 K "TPC" L "TPC" V "Transports Publics du Chablais"
+00495 N "ch:1:sboid:100008"
+00495 : 000023
+00496 K "TPC" L "TPC Auto" V "Transports Publics du Chablais (Bus)"
+00496 N "ch:1:sboid:100617"
+00496 : 000818
+00497 K "TPC" L "TPC-aomc" V "Transports Publics du Chablais (aomc)"
+00497 N "ch:1:sboid:100009"
+00497 : 000024
+00498 K "TPC" L "TPC-asd" V "Transports Publics du Chablais (asd)"
+00498 N "ch:1:sboid:100011"
+00498 : 000027
+00499 K "TPC" L "TPC-bvb" V "Transports Publics du Chablais (bvb)"
+00499 N "ch:1:sboid:100021"
+00499 : 000039
+00500 K "TPC" L "TPC-EV" V "Transports Publics du Chablais Ersatzverkehr"
+00500 N "ch:1:sboid:1100065"
+00500 : 007253
+00501 K "TUB" L "TUB" V "Transports Urbains Bruntrutains"
+00501 N "ch:1:sboid:100511"
+00501 : 000707
+00502 K "TUD" L "TUD" V "Transports Urbains Delémontains"
+00502 N "ch:1:sboid:100527"
+00502 : 000725
+00503 K "TRA" L "TRAVYS" V "Transports Vallée de Joux-Yverdon-Ste-Croix"
+00503 N "ch:1:sboid:100074"
+00503 : 000097
+00504 K "TRA" L "TRAVYSAu" V "Transports Vallée de Joux-Yverdon-Ste-Croix"
+00504 N "ch:1:sboid:100694"
+00504 : 000895
+00505 K "TRA" L "TRAVYS/a" V "Transports Vallée de Joux-Yverdon-Ste-Croix (auto ystec)"
+00505 N "ch:1:sboid:100667"
+00505 : 000868
+00506 K "TRA" L "TRAVYS-o" V "Transports Vallée de Joux-Yverdon-Ste-Croix (oc)"
+00506 N "ch:1:sboid:100048"
+00506 : 000067
+00507 K "TRA" L "TRAVYS/o" V "Transports Vallée de Joux-Yverdon-Ste-Croix (oc/bus)"
+00507 N "ch:1:sboid:101756"
+00507 : 009020
+00508 K "TRA" L "TRAVYS-p" V "Transports Vallée de Joux-Yverdon-Ste-Croix (pbr)"
+00508 N "ch:1:sboid:100050"
+00508 : 000069
+00509 K "TRA" L "TRAVYS-E" V "Transports Vallée de Joux-Yverdon-Ste-Croix Ersatzverkehr"
+00509 N "ch:1:sboid:1100066"
+00509 : 007254
+00510 K "TMR" L "TMR-mc" V "Transports de Martigny et Régions (mc)"
+00510 N "ch:1:sboid:100042"
+00510 : 000061
+00511 K "TMR" L "TMR-mo" V "Transports de Martigny et Régions (mo)"
+00511 N "ch:1:sboid:100044"
+00511 : 000063
+00512 K "TMR" L "TMR-EV" V "Transports de Martigny et Régions Ersatzverkehr"
+00512 N "ch:1:sboid:1100072"
+00512 : 007257
+00513 K "MBC" L "MBC-cg" V "Transports de la Région Morges-Bière-Cossonay"
+00513 N "ch:1:sboid:100301"
+00513 : 000344
+00514 K "MBC" L "MBC" V "Transports de la région Morges-Bière-Cossonay"
+00514 N "ch:1:sboid:100012"
+00514 : 000029
+00515 K "MBC" L "MBC-EV" V "Transports de la région Morges-Bière-Cossonay Ersatzverkehr"
+00515 N "ch:1:sboid:1100071"
+00515 : 007256
+00516 K "VMC" L "VMCV" V "Transports publics Vevey-Montreux-Chillon-Villeneuve"
+00516 N "ch:1:sboid:100675"
+00516 : 000876
+00517 K "TPF" L "TPF" V "Transports publics fribourgeois"
+00517 N "ch:1:sboid:100034"
+00517 : 000053
+00518 K "TPF" L "TPF-nstp" V "Transports publics fribourgeois"
+00518 N "ch:1:sboid:100945"
+00518 : 003004
+00519 K "TPF" L "TPF-EV" V "Transports publics fribourgeois Ersatzverkehr"
+00519 N "ch:1:sboid:101810"
+00519 : 007223
+00520 K "TPL" L "TPL" V "Trasporti Pubblici Luganesi SA"
+00520 N "ch:1:sboid:100754"
+00520 : 000955
+00521 K "TPL" L "TPL    F" V "Trasporti Pubblici Luganesi SA"
+00521 N "ch:1:sboid:101132"
+00521 : 003955
+00522 K "TN" L "TN" V "TreNord"
+00522 N "ch:2:sboid:IT327000"
+00522 : 327000
+00523 K "TSB" L "TSB" V "Treib-Seelisberg-Bahn"
+00523 N "ch:1:sboid:100125"
+00523 : 000154
+00524 K "TIL" L "TILO" V "Treni Regionali Ticino Lombardia"
+00524 N "ch:1:sboid:100342"
+00524 : 000420
+00525 K "THP" L "THP" V "Trägerverein Historische Postautolinie"
+00525 N "ch:1:sboid:101221"
+00525 : 007088
+00526 K "TBA" L "TBA" V "Tschentenbahnen AG"
+00526 N "ch:1:sboid:101818"
+00526 : 000613
+00527 K "LTU" L "LTUO" V "Turtmann-Unterems-Oberems"
+00527 N "ch:1:sboid:100248"
+00527 : 000290
+00528 K "TLM" L "TLML" V "Télé-Leysin-Col des Mosses - La Lécherette SA"
+00528 N "ch:1:sboid:100191"
+00528 : 000233
+00529 K "TTY" L "TTY-tce" V "Télé-Thyon SA"
+00529 N "ch:1:sboid:100972"
+00529 : 003031
+00530 K "TTG" L "TTG" V "Télé-Torgon SA"
+00530 N "ch:1:sboid:100961"
+00530 : 003020
+00531 K "TVG" L "TVGD" V "Télé-Villars-Gryon"
+00531 N "ch:1:sboid:100954"
+00531 : 003013
+00532 K "TCS" L "TCSA" V "TéléCharmey SA"
+00532 N "ch:1:sboid:101768"
+00532 : 003258
+00533 K "TLF" L "TLFC" V "TéléLaFouly-ChampexLac SA"
+00533 N "ch:1:sboid:100965"
+00533 : 003024
+00534 K "TMS" L "TMSA" V "TéléMarécottes"
+00534 N "ch:1:sboid:100262"
+00534 : 000305
+00535 K "TVC" L "TVCM" V "Télécabine Vercorin-Crêt-du-Midi"
+00535 N "ch:1:sboid:100271"
+00535 : 000314
+00536 K "TOJ" L "TOJ" V "Téléovronnaz SA"
+00536 N "ch:1:sboid:100981"
+00536 : 003040
+00537 K "TDC" L "TDCA" V "Téléphérique Dorénaz-Champex d'Alesse/Commune de Dorénaz"
+00537 N "ch:1:sboid:100235"
+00537 : 000277
+00538 K "TRI" L "TRI" V "Téléphérique Riddes-Isérables"
+00538 N "ch:1:sboid:100185"
+00538 : 000227
+00539 K "TBR" L "TBR" V "Télésiège Buttes-La Robella"
+00539 N "ch:1:sboid:100944"
+00539 : 003003
+00540 K "TLL" L "TLLM" V "Télésiège Lana-La Meina"
+00540 N "ch:1:sboid:100974"
+00540 : 003033
+00541 K "TV" L "TV" V "Téléverbier"
+00541 N "ch:1:sboid:100268"
+00541 : 000311
+00542 K "VBL" L "VBLT" V "VBL Transport AG Luzern"
+00542 N "ch:1:sboid:101208"
+00542 : 007075
+00543 K "LHB" L "LHB-ssps" V "Val Sporz-Piz Scalottas"
+00543 N "ch:1:sboid:100967"
+00543 : 003026
+00544 K "VBS" L "VBSA" V "Valbianca SA Airolo"
+00544 N "ch:1:sboid:100273"
+00544 : 000316
+00545 K "Cen" L "Cent-klv" V "Verdasio-Rasa"
+00545 N "ch:1:sboid:100237"
+00545 : 000279
+00546 K "VBA" L "VBA" V "Verein Bus alpin"
+00546 N "ch:1:sboid:1100048"
+00546 : 003205
+00547 K "VDB" L "VDBB" V "Verein Dampfbahn Bern"
+00547 N "ch:1:sboid:101240"
+00547 : 009014
+00548 K "VNB" L "VNB" V "Verein Naturpark Beverin"
+00548 N "ch:1:sboid:101214"
+00548 : 007081
+00549 K "VLM" L "VLM" V "Verkehrsbetrieb LIECHTENSTEINmobil"
+00549 N "ch:1:sboid:100604"
+00549 : 000805
+00550 K "VBD" L "VBD" V "Verkehrsbetrieb der Landschaft Davos"
+00550 N "ch:1:sboid:100542"
+00550 : 000740
+00551 K "VB" L "VB" V "Verkehrsbetriebe Biel"
+00551 N "ch:1:sboid:100688"
+00551 : 000889
+00552 K "VB-" L "VB-be" V "Verkehrsbetriebe Biel"
+00552 N "ch:1:sboid:100077"
+00552 : 000101
+00553 K "VB-" L "VB-bm" V "Verkehrsbetriebe Biel"
+00553 N "ch:1:sboid:100078"
+00553 : 000103
+00554 K "VBG" L "VBG" V "Verkehrsbetriebe Glattal"
+00554 N "ch:1:sboid:100575"
+00554 : 000773
+00555 K "VBH" L "VBH" V "Verkehrsbetriebe Herisau"
+00555 N "ch:1:sboid:100601"
+00555 : 000799
+00556 K "VSK" L "VSK-bkk" V "Verkehrsbetriebe Kreuzlingen"
+00556 N "ch:1:sboid:100529"
+00556 : 000727
+00557 K "VBL" L "VBL" V "Verkehrsbetriebe Luzern AG"
+00557 N "ch:1:sboid:100619"
+00557 : 000820
+00558 K "VBS" L "VBSH" V "Verkehrsbetriebe Schaffhausen"
+00558 N "ch:1:sboid:100635"
+00558 : 000836
+00559 K "VBS" L "VBSH-rv" V "Verkehrsbetriebe Schaffhausen"
+00559 N "ch:1:sboid:100645"
+00559 : 000846
+00560 K "VBZ" L "VBZ" V "Verkehrsbetriebe Zürich"
+00560 N "ch:1:sboid:100648"
+00560 : 000849
+00561 K "VBZ" L "VBZ    F" V "Verkehrsbetriebe Zürich INFO+"
+00561 N "ch:1:sboid:101130"
+00561 : 003849
+00562 K "VZO" L "VZO" V "Verkehrsbetriebe Zürichsee und Oberland"
+00562 N "ch:1:sboid:100637"
+00562 : 000838
+00563 K "VBS" L "VBSG" V "Verkehrsbetriebe der Stadt St.Gallen"
+00563 N "ch:1:sboid:100684"
+00563 : 000885
+00564 K "VVT" L "VVTIROL" V "Verkehrsverbund Tirol GesmbH"
+00564 N "ch:1:sboid:100550"
+00564 : 000748
+00565 K "VVV" L "VVV" V "Verkehrsverbund Vorarlberg GmbH"
+00565 N "ch:1:sboid:101758"
+00565 : 000478
+00566 K "Ver" L "VerAlp" V "VerticAlp Vallée du Trient SA"
+00566 N "ch:1:sboid:1100070"
+00566 : 000803
+00567 K "SGV" L "SGV" V "Vierwaldstättersee"
+00567 N "ch:1:sboid:100144"
+00567 : 000185
+00568 K "SUT" L "SUTU" V "Vischnaunca Sumvitg"
+00568 N "ch:1:sboid:101180"
+00568 : 007047
+00569 K "BLT" L "BLT-wb" V "Waldenburgerbahn"
+00569 N "ch:1:sboid:100071"
+00569 : 000094
+00570 K "WSU" L "WSU" V "Walker's Söhne Urnerboden"
+00570 N "ch:1:sboid:101160"
+00570 : 007027
+00571 K "WTZ" L "WTZ" V "Walter Tschannen Zofingen"
+00571 N "ch:1:sboid:101196"
+00571 : 007063
+00572 K "LWE" L "LWE" V "Wasserauen-Ebenalp"
+00572 N "ch:1:sboid:100173"
+00572 : 000215
+00573 K "WG-" L "WG-wg" V "Wasserngrat 2000 AG"
+00573 N "ch:1:sboid:101117"
+00573 : 003191
+00574 K "RB " L "RB Fpl" V "Weggis-Rigi Kaltbad"
+00574 N "ch:1:sboid:101263"
+00574 : 013700
+00575 K "BFL" L "BFL" V "Weisse Arena Bergbahnen AG"
+00575 N "ch:1:sboid:100233"
+00575 : 000275
+00576 K "LWM" L "LWM" V "Wengen-Männlichen"
+00576 N "ch:1:sboid:100174"
+00576 : 000216
+00577 K "WAB" L "WAB" V "Wengernalpbahn"
+00577 N "ch:1:sboid:100128"
+00577 : 000157
+00578 K "WAB" L "WAB-sbge" V "Wengernalpbahn Grindelwald Grund - Eigergletscher"
+00578 N "ch:1:sboid:101770"
+00578 : 000200
+00579 K "WAB" L "WAB/LW" V "Wengernalpbahn Lauterbrunnen-Wengen"
+00579 N "ch:1:sboid:100121"
+00579 : 000150
+00580 K "ZB " L "ZB Bus F" V "ZB Bus Fahrplanbedürfnisse"
+00580 N "ch:1:sboid:101183"
+00580 : 007050
+00581 K "ZB" L "ZB" V "Zentralbahn"
+00581 N "ch:1:sboid:100064"
+00581 : 000086
+00582 K "ZB-" L "ZB-EV" V "Zentralbahn AG Ersatzverkehr"
+00582 N "ch:1:sboid:1100025"
+00582 : 007234
+00583 K "ZBA" L "ZBAG" V "Zermatt Bergbahnen AG"
+00583 N "ch:1:sboid:100256"
+00583 : 000299
+00584 K "ZBB" L "ZBB" V "Zugerbergbahn"
+00584 N "ch:1:sboid:100129"
+00584 : 000158
+00585 K "ZVB" L "ZVB" V "Zugerland Verkehrsbetriebe"
+00585 N "ch:1:sboid:100638"
+00585 : 000839
+00586 K "FHM" L "FHM" V "Zürichsee-Fähre Horgen-Meilen AG"
+00586 N "ch:1:sboid:100155"
+00586 : 000196
+00587 K "ZSG" L "ZSG" V "Zürichsee-Schifffahrtsgesellschaft AG (ZSG)"
+00587 N "ch:1:sboid:100153"
+00587 : 000194
+00588 K "EBS" L "EBS" V "ebs Energie AG"
+00588 N "ch:1:sboid:101099"
+00588 : 003162
+00589 K "SBB" L "SBB-EFZ" V "fiktive Fahrten für EFZ"
+00589 N "ch:1:sboid:101783"
+00589 : 007200
+00590 K "AeS" L "AeS" V "Ägerisee Schifffahrt AG"
+00590 N "ch:1:sboid:100138"
+00590 : 000179
+00591 K "ÖBB" L "ÖBB" V "Österreichische Bundesbahnen"
+00591 N "ch:2:sboid:AT81____"
+00591 : 81____

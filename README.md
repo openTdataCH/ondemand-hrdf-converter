@@ -27,7 +27,7 @@ pyinstaller -F main.py
 ```
 
 To include the resources folder in the exe, and not require it to be in the same folder as the main.exe.
-This also implies not being able to change tha "ATTRIBUT" file.
+This also implies not being able to change those file(s).
 
 ```sh
 pyinstaller -F --add-data="resources:resources" main.py
@@ -58,6 +58,7 @@ To run the code you can pass 4 parameters:
 * (--output_format) either utf-8 or ansi. However, there's an issue with ansi and not all files are properly exported.
 
 Example if you want to use the defaults:
+
 ```sh
 python main.py 
 ```
@@ -83,6 +84,6 @@ python main.py --offers "Publicar Appenzell" --from_folder "C:\\somewhere\\netex
 
 Caveats:
 
-* The files attribut and zugart are hard-coded
+* The file zugart are hard-coded
 * Certain information required for a proper HRDF are momentarily not part of the Swiss NeTEx data. We are working on
   changing that.

@@ -1,13 +1,11 @@
 import os  # Import the os module for interacting with the operating system
 import shutil  # for moving files
 import xml.etree.ElementTree as xml_etree  # Import xml.etree.ElementTree for XML parsing
-from argparse import ArgumentError
 from datetime import timedelta, date, datetime  # Import datetime and timedelta for handling date and time
 from typing import List, Tuple, Union  # for functions' parameter typing
 from xml.etree.ElementTree import ElementTree, Element
 
 import pandas as pd  # Import pandas for data manipulation and analysis
-from pandas import wide_to_long
 
 # Declare an iterator to iterate through journeys/trips in fplan
 fplan_trip_iterator = 0
@@ -31,8 +29,8 @@ info_text_ids = [str]
 hrdf_stop_types = ['SSI', 'SDI', 'SSS', 'SDS', 'SSD', 'SDD']
 
 # List of HRDF file names
-hrdf_files = ["fplan", "zugart", "attribut", "infotext", "region", "bahnhof", "bfkoord", "bhfart", "bitfeld",
-              "eckdaten"]
+hrdf_files = ["attribut", "bahnhof", "betrieb", "bfkoord", "bhfart", "bitfeld", "eckdaten", "fplan", "infotext",
+              "region", "zugart"]
 
 # Days of the week
 week_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
@@ -48,16 +46,17 @@ PREVIOUS_FOLDER_NAME = "previous"
 # To contain the content of ATTRIBUT file
 attribut_content = []
 
+# To contain the content of BETRIEB file
+betrieb_content = []
+
 # To ensure that stops to not occur multiple times in bahnhof and bfkoord
 bahnhof_bfkoord_stop_ids = []
 
-
-######### Auxiliary functions #############
-# empty check
-def is_nan_or_empty(value: str) -> bool:
-    return value is None or pd.isna(value) or value == ""
+# to keep track which operators were taken into the export "betrieb"
+operators_added = []
 
 
+######### FILE I/O Operations #############
 # move the given file to the given destination folder
 def move_file(file_path: str, destination_folder: str):
     # Check if the source file exists
@@ -86,6 +85,149 @@ def copy_file(source_path: str, destination_path: str):
     print(f"File copied from {source_path} to {destination_path}.")
 
 
+# delete a directory and all of its contents
+def remove_directory(directory_path: str):
+    try:
+        # Check if the directory exists
+        if os.path.exists(directory_path):
+            # Iterate over all items in the directory
+            for root, dirs, files in os.walk(directory_path, topdown=False):
+                # Remove all files
+                for name in files:
+                    file_path = os.path.join(root, name)
+                    os.remove(file_path)
+                # Remove all subdirectories
+                for name in dirs:
+                    dir_path = os.path.join(root, name)
+                    os.rmdir(dir_path)
+
+            # Finally, remove the main directory itself
+            os.rmdir(directory_path)
+        else:
+            raise NotADirectoryError(f"!ERROR! Directory '{directory_path}' does not exist.")
+    except Exception as e:
+        raise NotADirectoryError(f"!ERROR! Error occurred while trying to delete directory: {e}")
+
+
+# unzips the given zip-file to the given folder
+def unzip_to_folder(file_path: str, output_folder: str):
+    import zipfile
+
+    # Create the output folder if it doesn't exist
+    os.makedirs(output_folder, exist_ok=True)
+
+    # Open the zip file
+    with zipfile.ZipFile(file_path, 'r') as zip_ref:
+        # Extract all the contents into the output folder
+        zip_ref.extractall(output_folder)
+
+
+# zip a given folder to the given path
+def zip_folder(folder_path: str, output_zip_path: str):
+    import zipfile
+
+    # Create a zip file
+    with zipfile.ZipFile(output_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        # Walk through the folder and add files to the zip
+        for root, dirs, files in os.walk(folder_path):
+            for file in files:
+                # Create the complete file path
+                file_path = os.path.join(root, file)
+                # Add file to the zip file, using relative path from the folder_path
+                zipf.write(file_path, os.path.relpath(file_path, folder_path))
+    print(f"Folder '{folder_path}' has been zipped into '{output_zip_path}'.")
+
+
+# writes the content to the given file in the given folder
+def write_to_file(folder: str, file_name: str, content: str, append: bool):
+    # Open the specified file in append mode with given encoding
+    file_path = folder + "/" + file_name
+
+    if append:
+        with open(file_path, 'a', encoding=output_format, newline='') as file:
+            file.write(content + '\r\n')  # Write the content followed by a carriage return and line feed
+    else:
+        with open(file_path, 'w', encoding=output_format, newline='') as file:
+            file.write(content + '\r\n')  # Write the content followed by a carriage return and line feed
+
+
+# writes the content to the given HRDF file in the given folder, if it's valid
+def write_to_hrdf(to_folder: str, hrdf_file: str, content: str, append: bool):
+    # Check if the hrdf_file is valid
+    if hrdf_file in hrdf_files:
+        write_to_file(to_folder, hrdf_file, content, append)  # Write content to the specified HRDF file
+    else:
+        raise ValueError(f"!ERROR! {hrdf_file} is not a known HRDF file.")
+
+
+######### DATE/TIME Operations #############
+# returns difference in minutes between timestamps formatted as hh:mm:ss
+def time_difference_in_minutes(from_time: str, to_time: str) -> int:
+    # Function to normalize time strings
+    def normalize_time(time_str: str):
+        # Split the time string into hours, minutes, and seconds
+        hours, minutes, seconds = map(int, time_str.split(':'))
+        # Normalize the time to a timedelta object
+        return timedelta(hours=hours, minutes=minutes, seconds=seconds)
+
+    # Normalize the time strings into timedelta objects
+    time1 = normalize_time(from_time)
+    time2 = normalize_time(to_time)
+
+    # Calculate the total minutes for each time
+    total_minutes1 = time1.total_seconds() / 60
+    total_minutes2 = time2.total_seconds() / 60
+
+    # Calculate the difference in minutes
+    difference = total_minutes2 - total_minutes1
+
+    # If the difference is negative, it means crossing over to the next day
+    if difference < 0:
+        difference += 24 * 60  # Add 24 hours in minutes
+
+    return int(difference)  # Return the difference as an integer
+
+
+# changes timestamps from hh:mm:ss to 0hhmm
+def time_to_compact_time(time: str) -> str:
+    # Remove seconds and replace ':' with ''
+    time = time[:-3].replace(':', '')
+
+    # Ensure the string has the right number of digits (5 digits)
+    time = prefix_with_zeros(time, 5)
+
+    return time  # Return the compact time string
+
+
+# transform the netex 2024-12-15T00:00:00 to hrdf 15.12.2024
+def netex_date_to_hrdf_date(date_str):
+    # Parse the date string into a datetime object
+    date_object = datetime.fromisoformat(date_str)
+
+    # Format the datetime object to the desired format
+    formatted_date = date_object.strftime("%d.%m.%Y")
+
+    return formatted_date
+
+
+######### STRING Operations #############
+# empty check
+def is_nan_or_empty(value: str) -> bool:
+    return value is None or pd.isna(value) or value == ""
+
+
+# ensure the given value has the given length and amends it at the beginning or end with the given string if not
+def ensure_width(value: str, length: int, amend: str, at_end: bool) -> str:
+    while len(value) < length:
+        if at_end:
+            value = (value + amend)
+        else:
+            value = (amend + value)
+
+    return value
+
+
+######### Auxiliary functions #############
 # get the path to the "previous file" that was transformed. If the folder (and file) does not exist, create folder.
 # return path or None.
 def get_previous_file_name() -> str:
@@ -150,59 +292,6 @@ def load_and_unzip_from_url(url: str) -> str:
     return temp_folder
 
 
-# delete a directory and all of its contents
-def remove_directory(directory_path: str):
-    try:
-        # Check if the directory exists
-        if os.path.exists(directory_path):
-            # Iterate over all items in the directory
-            for root, dirs, files in os.walk(directory_path, topdown=False):
-                # Remove all files
-                for name in files:
-                    file_path = os.path.join(root, name)
-                    os.remove(file_path)
-                # Remove all subdirectories
-                for name in dirs:
-                    dir_path = os.path.join(root, name)
-                    os.rmdir(dir_path)
-
-            # Finally, remove the main directory itself
-            os.rmdir(directory_path)
-        else:
-            raise NotADirectoryError(f"!ERROR! Directory '{directory_path}' does not exist.")
-    except Exception as e:
-        raise NotADirectoryError(f"!ERROR! Error occurred while trying to delete directory: {e}")
-
-
-# unzips the given zip-file to the given folder
-def unzip_to_folder(file_path: str, output_folder: str):
-    import zipfile
-
-    # Create the output folder if it doesn't exist
-    os.makedirs(output_folder, exist_ok=True)
-
-    # Open the zip file
-    with zipfile.ZipFile(file_path, 'r') as zip_ref:
-        # Extract all the contents into the output folder
-        zip_ref.extractall(output_folder)
-
-
-# zip a given folder to the given path
-def zip_folder(folder_path: str, output_zip_path: str):
-    import zipfile
-
-    # Create a zip file
-    with zipfile.ZipFile(output_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        # Walk through the folder and add files to the zip
-        for root, dirs, files in os.walk(folder_path):
-            for file in files:
-                # Create the complete file path
-                file_path = os.path.join(root, file)
-                # Add file to the zip file, using relative path from the folder_path
-                zipf.write(file_path, os.path.relpath(file_path, folder_path))
-    print(f"Folder '{folder_path}' has been zipped into '{output_zip_path}'.")
-
-
 # upload a given file to the given ftp
 def upload_to_ftp(file_path: str, ftp: dict[str, str]):
     from ftplib import FTP_TLS
@@ -249,55 +338,6 @@ def upload_to_ftp(file_path: str, ftp: dict[str, str]):
         print("Unsupported protocol. Please use 'ftps' or 'sftp'.")
 
 
-# returns difference in minutes between timestamps formatted as hh:mm:ss
-def time_difference_in_minutes(from_time: str, to_time: str) -> int:
-    # Function to normalize time strings
-    def normalize_time(time_str: str):
-        # Split the time string into hours, minutes, and seconds
-        hours, minutes, seconds = map(int, time_str.split(':'))
-        # Normalize the time to a timedelta object
-        return timedelta(hours=hours, minutes=minutes, seconds=seconds)
-
-    # Normalize the time strings into timedelta objects
-    time1 = normalize_time(from_time)
-    time2 = normalize_time(to_time)
-
-    # Calculate the total minutes for each time
-    total_minutes1 = time1.total_seconds() / 60
-    total_minutes2 = time2.total_seconds() / 60
-
-    # Calculate the difference in minutes
-    difference = total_minutes2 - total_minutes1
-
-    # If the difference is negative, it means crossing over to the next day
-    if difference < 0:
-        difference += 24 * 60  # Add 24 hours in minutes
-
-    return int(difference)  # Return the difference as an integer
-
-
-# changes timestamps from hh:mm:ss to 0hhmm
-def time_to_compact_time(time: str) -> str:
-    # Remove seconds and replace ':' with ''
-    time = time[:-3].replace(':', '')
-
-    # Ensure the string has the right number of digits (5 digits)
-    time = prefix_with_zeros(time, 5)
-
-    return time  # Return the compact time string
-
-
-# transform the netex 2024-12-15T00:00:00 to hrdf 15.12.2024
-def netex_date_to_hrdf_date(date_str):
-    # Parse the date string into a datetime object
-    date_object = datetime.fromisoformat(date_str)
-
-    # Format the datetime object to the desired format
-    formatted_date = date_object.strftime("%d.%m.%Y")
-
-    return formatted_date
-
-
 # takes an int or str and prefixes its absolute value with "0" until length is reached
 def prefix_with_zeros(value_to_prefix: Union[int, str], length: int) -> str:
     # Ensure value_to_prefix is positive and convert to string
@@ -330,28 +370,6 @@ def binary_to_hex(binary: str) -> str:
     return hex_value
 
 
-# writes the content to the given HRDF file in the given folder, if it's valid
-def write_to_hrdf(to_folder: str, hrdf_file: str, content: str, append: bool):
-    # Check if the hrdf_file is valid
-    if hrdf_file in hrdf_files:
-        write_to_file(to_folder, hrdf_file, content, append)  # Write content to the specified HRDF file
-    else:
-        raise ValueError(f"!ERROR! {hrdf_file} is not a known HRDF file.")
-
-
-# writes the content to the given file in the given folder
-def write_to_file(folder: str, file_name: str, content: str, append: bool):
-    # Open the specified file in append mode with given encoding
-    file_path = folder + "/" + file_name
-
-    if append:
-        with open(file_path, 'a', encoding=output_format, newline='') as file:
-            file.write(content + '\r\n')  # Write the content followed by a carriage return and line feed
-    else:
-        with open(file_path, 'w', encoding=output_format, newline='') as file:
-            file.write(content + '\r\n')  # Write the content followed by a carriage return and line feed
-
-
 # checks if point-tuple is in polygon (list of tuples)
 def is_point_in_polygon(point: Tuple[float, float], polygon: List[Tuple[float, float]]) -> bool:
     x, y = point
@@ -379,16 +397,17 @@ def is_point_in_polygon(point: Tuple[float, float], polygon: List[Tuple[float, f
 def init_hrdf(to_folder: str):
     # Create a mapping dictionary for HRDF file headers
     hrdf_files_headers = {
-        "fplan": "*F 03 1",
-        "zugart": "*F 06 1",
         "attribut": "*F 09 1",
-        "infotext": "*F 11 1",
-        "region": "*F 45 1",
         "bahnhof": "*F 01 1",
+        "betrieb": "*F 28 1",
         "bfkoord": "*F 02 1",
         "bhfart": "*F 30 1",
         "bitfeld": "*F 05 1",
-        "eckdaten": "*F 04 1"
+        "eckdaten": "*F 04 1",
+        "fplan": "*F 03 1",
+        "infotext": "*F 11 1",
+        "region": "*F 45 1",
+        "zugart": "*F 06 1"
     }
 
     # Create HRDF files and write headers
@@ -400,6 +419,9 @@ def init_hrdf(to_folder: str):
 
     print("attribut recycled (originally from hrdf export 23.05.2025)")
     init_attribut(to_folder)  # Initialize attribut HRDF
+
+    print("betrieb (originally from hrdf export 17.06.2025)")
+    init_betrieb()  # Initialize betrieb HRDF
 
     print("HRDF files initiated")  # Log completion message
 
@@ -430,7 +452,7 @@ def init_attribut(to_folder: str):
     from typing import Optional
 
     # handling for the case that the code was written to an exe using pyinstaller
-    source_file = ""
+    # Check if the source file exists before copying
     destination_file = os.path.join(to_folder, "attribut")
 
     if getattr(sys, 'frozen', False):
@@ -458,14 +480,54 @@ def init_attribut(to_folder: str):
             if not os.path.exists(source_file):
                 raise FileNotFoundError(f"!ERROR! ATTRIBUT file does not exist: {source_file}")
 
-    # Check if the source file exists before copying
     copy_file(source_file, destination_file)
 
     global attribut_content  # Declare the variable as global
 
     # load the content into variable
-    with open(os.path.join(to_folder, "attribut"), 'r', encoding=output_format) as file:
+    with open(destination_file, 'r', encoding=output_format) as file:
         attribut_content = file.readlines()  # Read all lines into a list
+
+
+# get the betrieb_de file which we need to look up the transport operator data to include in the later betrieb export.
+# store the content into the global variable
+def init_betrieb():
+    import sys
+    from typing import Optional
+
+    # handling for the case that the code was written to an exe using pyinstaller
+    source_file = ""
+
+    if getattr(sys, 'frozen', False):
+        # If the application is frozen (running as an executable)
+        base_path: Optional[str] = getattr(sys, '_MEIPASS', None)  # Type hint to suppress warning
+
+        source_file = os.path.join(base_path, "resources", "betrieb_de")
+
+        if not os.path.exists(source_file):
+            # if the resources were not within the exe, we try the relative path
+            source_file = "resources/betrieb_de"
+
+            if not os.path.exists(source_file):
+                raise FileNotFoundError(f"!ERROR! BETRIEB_DE file does not exist: {source_file}")
+    else:
+        # If the application is running in a normal Python environment
+        base_path = os.path.dirname(__file__)
+
+        source_file = os.path.join(base_path, "resources", "betrieb_de")
+
+        if not os.path.exists(source_file):
+            # if the resources were not where we expected, we try the relative path
+            source_file = "resources/betrieb_de"
+
+            if not os.path.exists(source_file):
+                raise FileNotFoundError(f"!ERROR! BETRIEB_DE file does not exist: {source_file}")
+
+    global betrieb_content  # Declare the variable as global
+
+    # load the content into variable
+    with open(source_file, 'r', encoding=output_format) as file:
+        betrieb_content = file.readlines()  # Read all lines into a list
 
 
 ######### NeTEx-handling functions #############
@@ -496,6 +558,9 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
     # Find all StopPlaces
     stop_places = root.findall('.//StopPlace', namespaces=namespace)
 
+    # Find all operators
+    operators = root.findall('.//Operator', namespaces=namespace)
+
     # This loop aims at finding unique triples of FlexibleLine + ServiceJourneyPattern + AvailabilityCondition
     for flexible_line in flexible_lines:
         flexible_line_id = flexible_line.attrib.get('id')  # Get the ID of the flexible line
@@ -503,6 +568,8 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
 
         if len(offers) == 0 or (flexible_line_name in offers):
             print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
+            flexible_line_operator_betrieb_id = extract_betrieb_for_flexible_line_operator(to_folder, flexible_line,
+                                                                                           operators)
 
             # the booking arrangements (CURRENTLY!) contain the attribut values
             # -> FIXME: after changes to netex-odv. Then BookingArr. are "real" infotext and attributs are in "Notes"!
@@ -528,9 +595,8 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
                                              .attrib.get('ref'))
                 service_availability_condition_ref = service_journey.find('.//AvailabilityConditionRef',
                                                                           namespaces=namespace).attrib.get('ref')
-                service_journey_pattern_ref = (
-                    service_journey.find('.//ServiceJourneyPatternRef', namespaces=namespace)
-                    .attrib.get('ref'))
+                service_journey_pattern_ref = (service_journey.find('.//ServiceJourneyPatternRef', namespaces=namespace)
+                                               .attrib.get('ref'))
 
                 if service_flexible_line_ref == flexible_line_id:
                     # Check if the fplan triple is new
@@ -602,14 +668,13 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
                                     time_difference_in_minutes(availability_condition_from, availability_condition_to),
                                     4)
                                 write_to_hrdf(to_folder, "fplan", close_fplan_line(
-                                    "*T " + prefixed_iterator + " " + "AST___" + " " + str(
+                                    "*T " + prefixed_iterator + " " + flexible_line_operator_betrieb_id + " " + str(
                                         time_difference) + " " + "0060"), True)
 
                                 ## FPLAN - bitfield/cal
                                 bitfeld_reference = \
-                                    bitfields["bitfield_id"][
-                                        bitfields["bitfield_bit"] == availability_condition_bits].iloc[
-                                        0]
+                                    bitfields["bitfield_id"][bitfields["bitfield_bit"] ==
+                                                             availability_condition_bits].iloc[0]
 
                                 write_to_hrdf(to_folder, "fplan",
                                               close_fplan_line("*A VE                 " + str(bitfeld_reference)), True)
@@ -652,6 +717,57 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
             print(f"Not loading: {flexible_line_name}")
 
 
+# get the flexible line's operator id, then get the private code of the operator then get the betrieb entry for the
+# corresponding operator id, write it to the betrieb file and return the id
+def extract_betrieb_for_flexible_line_operator(to_folder: str, flexible_line: Element, operators: list[Element]) -> str:
+    flexible_line_operator_ref = flexible_line.find('.//OperatorRef', namespaces=namespace).attrib.get('ref')
+
+    # get the correct operator and its id
+    for operator in operators:
+        if flexible_line_operator_ref == operator.attrib.get('id'):
+            operator_id = operator.find('.//PrivateCode', namespaces=namespace).text
+            operator_id = ensure_width(operator_id, 6, "0", False)
+
+            # lookup the id in the betrieb data and extract the three corresponding lines
+            # lines in betrieb ar triples
+            i = 0
+            while i < len(betrieb_content):
+                betrieb_name = betrieb_content[i]
+                betrieb_sboid = betrieb_content[i + 1]
+                betrieb_id_line = betrieb_content[i + 2]
+                betrieb_id = betrieb_id_line.split(":")[1].strip()
+
+                if operator_id == betrieb_id:
+                    # if the operator is not yet in betrieb, write it there.
+                    if not operator_id in operators_added:
+                        write_to_hrdf(to_folder, "betrieb", betrieb_name.rstrip('\n'), True)
+                        write_to_hrdf(to_folder, "betrieb", betrieb_sboid.rstrip('\n'), True)
+                        write_to_hrdf(to_folder, "betrieb", betrieb_id_line.rstrip('\n'), True)
+                        operators_added.append(operator_id)
+
+                    return betrieb_id
+
+                i = (i + 3)
+
+            # if we did not find the operator in the betrieb file, it is not part of PT
+            # in that case we create the entry ourselves
+            # if the operator is not yet in betrieb, write it there.
+            if not operator_id in operators_added:
+                operator_short_name = operator.find('.//ShortName', namespaces=namespace).text
+                operator_long_name = operator.find('.//Name', namespaces=namespace).text
+                operator_description = operator.find('.//Description', namespaces=namespace).text
+                write_to_hrdf(to_folder, "betrieb",
+                              operator_id + " K " + "\"" + operator_short_name + "\"" " L " + "\"" + operator_long_name + "\"" " V " + "\"" + operator_description + "\"",
+                              True)
+                write_to_hrdf(to_folder, "betrieb", operator_id[1:] + " : " + operator_id, True)
+                operators_added.append(operator_id)
+
+            return operator_id
+
+    return ""
+
+
+# creates the eckdaten
 def create_eckdaten(root: ElementTree, to_folder: str):
     validity_period = root.find('.//CompositeFrame//ValidBetween', namespaces=namespace)
 
@@ -668,7 +784,8 @@ def create_eckdaten(root: ElementTree, to_folder: str):
     write_to_hrdf(to_folder, "eckdaten", "\"Angebotsplan " + year + "\"", True)
 
 
-def create_and_return_bitfields(root: ElementTree, to_folder: str):
+# creates the bitfield file and returns the dataframe containing it with its id, hex-, and bit-code
+def create_and_return_bitfields(root: ElementTree, to_folder: str) -> pd.DataFrame:
     global bitfeld_starting_number  # Make the starting number accessible globally
 
     bitfields = pd.DataFrame(columns=["bitfield_id", "bitfield_hex", "bitfield_bit"])  # Initialize DataFrame
@@ -746,6 +863,7 @@ def extract_attribute_code_from_id(id: str) -> str:
     return ""
 
 
+# create the infotexts from the given booking arrangements and offer (flex_line_name).
 def create_and_return_infotexts(booking_arrangements: list[Element], flexible_line_name: str, to_folder: str) -> list[
     str]:
     global infotext_id  # Make the infotext ID accessible globally
@@ -885,7 +1003,6 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                                   ensure_width(coordinate_parts[0], 10, "0", True) + " " +
                                                   ensure_width(coordinate_parts[1], 10, "0", True),
                                                   True)  # Write coordinate to region file
-                                    # fixme continue HERE! <- need to ensure that we have the correct width for coord.
 
                                 write_to_hrdf(to_folder, "region", "", True)  # Newline
 
@@ -920,6 +1037,7 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                 print(f"## {name.text} had no polygons")  # Log missing polygons message
 
 
+# writes the *as or *ac lines depending on the given parameters
 def write_as_ac_stops(stop_places: list[Element], polygon: list[(float, float)], as_or_ac: str, to_folder: str,
                       amend_others: bool):
     first_stop_place = True  # Flag to check if it's the first stop place
@@ -961,6 +1079,7 @@ def write_as_ac_stops(stop_places: list[Element], polygon: list[(float, float)],
                         bahnhof_bfkoord_stop_ids.append(stop_id)
 
 
+# ensures appropriate flplan line width and closure with %
 def close_fplan_line(line_to_close: str) -> str:
     # If the line is shorter than 60 characters, pad it with spaces
     if len(line_to_close) < 60:
@@ -968,16 +1087,6 @@ def close_fplan_line(line_to_close: str) -> str:
 
     # Insert '%' at position 60
     return line_to_close[:59] + '%' + line_to_close[59:]
-
-
-def ensure_width(value: str, length: int, amend: str, at_end: bool) -> str:
-    while len(value) < length:
-        if at_end:
-            value = (value + amend)
-        else:
-            value = (amend + value)
-
-    return value
 
 
 ######### MAIN functions #############
