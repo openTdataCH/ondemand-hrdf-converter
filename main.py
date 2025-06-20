@@ -686,20 +686,16 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
 
                                 # FPLAN/INFOTEXT - infotexts
                                 for info_text_id in infotext_ids:
-                                    write_to_hrdf(to_folder, "fplan", close_fplan_line("*I ZZ                        " +
-                                                                                       str(info_text_id)), True)
+                                    write_to_hrdf(to_folder, "fplan", close_fplan_line(
+                                        "*I " + info_text_id[0] + "                        " + str(info_text_id[1])),
+                                                  True)
 
                                 # FPLAN - start/stop pseudo stop: only react to the starts and add also ends
-                                write_to_hrdf(to_folder, "fplan", close_fplan_line(pseudo_stops["pseudo_stop_id"][
-                                                                                       pseudo_stops[
-                                                                                           "pseudo_stop_type"] ==
-                                                                                       hrdf_stop_types[i]].iloc[
-                                                                                       0] + " " +
-                                                                                   hrdf_stop_types[
-                                                                                       i] + "                          " +
-                                                                                   time_to_compact_time(
-                                                                                       availability_condition_from)),
-                                              True)
+                                write_to_hrdf(to_folder, "fplan", close_fplan_line(
+                                    pseudo_stops["pseudo_stop_id"][pseudo_stops["pseudo_stop_type"] ==
+                                                                   hrdf_stop_types[i]].iloc[0] + " " + hrdf_stop_types[
+                                        i] + "                          " + time_to_compact_time(
+                                        availability_condition_from)), True)
 
                                 write_to_hrdf(to_folder, "fplan", close_fplan_line(pseudo_stops["pseudo_stop_id"][
                                                                                        pseudo_stops[
@@ -864,12 +860,18 @@ def extract_attribute_code_from_id(id: str) -> str:
 
 
 # create the infotexts from the given booking arrangements and offer (flex_line_name).
+# return a list of tuples of strings, first the infotext type and second the number
 def create_and_return_infotexts(booking_arrangements: list[Element], flexible_line_name: str, to_folder: str) -> list[
-    str]:
+    (str, str)]:
     global infotext_id  # Make the infotext ID accessible globally
     infotext_ids = []  # Initialize list to store infotext IDs
 
     write_to_hrdf(to_folder, "infotext", "% " + flexible_line_name, True)  # Write header for infotext
+
+    # fixme: until further notice we write the flex line name as first infotext
+    write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + flexible_line_name, True)  # Write header for infotext
+    infotext_ids.append(("ZY", infotext_id))
+    infotext_id += 1  # Increment infotext ID
 
     for booking_arrangement in booking_arrangements:
         # fixme: after the attribut codes have been moved this check may no longer be required
@@ -879,8 +881,6 @@ def create_and_return_infotexts(booking_arrangements: list[Element], flexible_li
         code = extract_attribute_code_from_id(booking_arrangement_id)
 
         if not is_nan_or_empty(code):
-            infotext_id += 1  # Increment infotext ID
-
             # check if the attribute code exists in the known list of attributes.
             code_exists = False
 
@@ -899,8 +899,8 @@ def create_and_return_infotexts(booking_arrangements: list[Element], flexible_li
                 booking_note = booking_arrangement.find('.//BookingNote', namespaces=namespace)
 
                 write_to_hrdf(to_folder, "infotext", str(infotext_id) + " " + booking_note.text, True)  # Write infotext
-
-                infotext_ids.append(infotext_id)  # Append ID to the list
+                infotext_ids.append(("ZZ", infotext_id))  # Append ID to the list
+                infotext_id += 1  # Increment infotext ID
 
     write_to_hrdf(to_folder, "infotext", "", True)  # Newline
 
