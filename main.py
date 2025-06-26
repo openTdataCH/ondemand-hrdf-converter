@@ -569,6 +569,7 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
     for flexible_line in flexible_lines:
         flexible_line_id = flexible_line.attrib.get('id')  # Get the ID of the flexible line
         flexible_line_name = flexible_line.find('.//Name', namespaces=namespace).text  # Get the name
+        flexible_line_type = flexible_line.find('.//FlexibleLineType', namespaces=namespace).text
 
         if len(offers) == 0 or (flexible_line_name in offers):
             print(f"--- Loading flexible line: {flexible_line_name}")  # Log loading message
@@ -642,7 +643,8 @@ def convert_from_netex(offers: list[str], netex_file_path: str, to_folder: str):
                                                                      -1],
                                                                  to_folder)
                         print("    ## Creating REGION")  # Log creation message
-                        create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_places, root,
+                        create_region_and_bfkoord(flexible_line_type, service_journey_pattern_ref, pseudo_stops,
+                                                  stop_places, root,
                                                   to_folder)
 
                     for availability_condition in availability_conditions:
@@ -929,11 +931,21 @@ def create_and_return_bahnhof(flexible_line_name, to_folder):
     return pseudo_stops  # Return the DataFrame of pseudo stops
 
 
-def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_places, root, to_folder):
+def create_region_and_bfkoord(flexible_line_type: str, service_journey_pattern_ref: str, pseudo_stops, stop_places,
+                              root, to_folder: str):
     global region_id  # Make the region ID accessible globally
 
     # Find the ServiceJourneyPattern for the given ref to use for joining with FlexibleStopAssignment
     service_journey_patterns = root.findall('.//ServiceJourneyPattern', namespaces=namespace)
+
+    start_destination_type = "*BAS"
+
+    if flexible_line_type == "fixedStopAreaWide":
+        start_destination_type = "*BS"
+    elif flexible_line_type == "flexibleAreasOnly":
+        start_destination_type = "*BA"
+    elif flexible_line_type == "mixedFlexible":
+        start_destination_type = "*BAS"
 
     for service_journey_pattern in service_journey_patterns:
         if service_journey_pattern.attrib.get('id') == service_journey_pattern_ref:
@@ -1014,7 +1026,7 @@ def create_region_and_bfkoord(service_journey_pattern_ref, pseudo_stops, stop_pl
                                     write_to_hrdf(to_folder, "region", "*" + row["pseudo_stop_type"], True)
                                     write_to_hrdf(to_folder, "region", "*IS", True)
                                     if row["pseudo_stop_type"] != "SDS" and row["pseudo_stop_type"] != "SSD":
-                                        write_to_hrdf(to_folder, "region", "*BAS", True)
+                                        write_to_hrdf(to_folder, "region", start_destination_type, True)
                                     write_to_hrdf(to_folder, "region",
                                                   row["pseudo_stop_id"] + " " + "% " + row["flexible_line_name"], True)
 
