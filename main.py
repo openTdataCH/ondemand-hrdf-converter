@@ -357,8 +357,12 @@ def prefix_with_zeros(value_to_prefix: Union[int, str], length: int) -> str:
 
 # converts an integer string to its hex representation
 def binary_to_hex(binary: str) -> str:
-    # Convert binary to integer - add the prefixing 11 as per requirements for HRDF
-    integer_value = int("11" + binary, 2)
+    # Convert binary to integer - add the prefixing 11 as per requirements for HRDF. ensure a width divisible by 4
+    amended_binary = "11" + binary
+    amended_binary_length = len(amended_binary)
+    missing_characters = len(amended_binary) % 4
+
+    integer_value = int(ensure_width(amended_binary, amended_binary_length + (4 - missing_characters), "0", True), 2)
 
     # Convert integer to hexadecimal string, removing the '0x' prefix
     hex_value = hex(integer_value)[2:]  # Get hex representation without '0x'
